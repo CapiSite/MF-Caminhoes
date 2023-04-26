@@ -1,0 +1,86 @@
+.logo{
+    border-radius: 5px;;
+    margin-right: 50px;
+}
+
+.footer{
+    height: 300px;
+    background-color: var(--black);
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.footer img:hover{
+    cursor: pointer;
+    }
+
+    .informations, .schedules{
+        color: var(--white);
+    }
+    
+    .informations{
+        width: 300px;
+        height: 200px;
+    }
+    
+    .informations h1{
+        font-family:'Droid Sans', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    
+    .contact{
+        font-family:'Droid Sans', sans-serif;
+        font-weight: 600;
+        margin-bottom: 5px;
+    
+    }
+    
+    .address{
+    
+        margin-bottom: 20px;
+    }
+    .informations a{
+        font-family:'Droid Sans', sans-serif;
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+    .informations a:hover{
+        text-decoration:underline;
+    }
+    .numbers{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .schedules h1 {
+        font-family:'Droid Sans', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .schedules div{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .schedules div svg{
+        color: var(--white);
+        margin-left: 10px;
+        font-size: 20px;
+    }
+    .schedules{
+        font-family:'Droid Sans', sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 200px;
+    }

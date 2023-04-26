@@ -1,0 +1,50 @@
+.logo{
+    border-radius: 5px;;
+    margin-right: 50px;
+}
+
+.header{
+    background-color: var(--black);
+    height: 100px;;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    justify-content: space-between;
+}
+
+.options{
+    color: var(--white);
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-right: 20px;
+    background-color: var(--black);
+    border:0px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register{
+    color: var(--black);
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-right: 20px;
+    background-color: var(--yellow);
+    border:0px;
+    border-radius: 3px;
+    height: 40px;
+}
+
+.header div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header button:hover, .header img:hover{
+    cursor: pointer;
+    }

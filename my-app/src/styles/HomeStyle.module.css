@@ -1,0 +1,70 @@
+
+
+
+.button{
+    border: 0;
+    border-radius: 5px;
+    width: 45%;
+    height: 290px;
+    background-color: var(--darkYellow);
+    position: relative;
+
+}
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1235px;
+}
+.buttons{
+    display: flex;
+    margin-top: 100px;
+    width: 1235px;
+    max-width: 80vw;
+    justify-content: space-between;
+}
+.banner{
+    width: 1235px;
+    max-width: 80vw;
+}
+.button p{
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: 700;
+    font-size:25px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    margin-left: -50px;
+
+}
+
+
+.main button:hover{
+    cursor: pointer;
+    background-color: rgb(252, 194, 0);
+}
+
+
+
+@media (min-width:800px  ) and (max-width: 1000px)
+{
+  .banner{
+    height: 250px;
+  }
+  .logo2{
+    width: 250px;
+    height: 50px;
+  }
+}
+@media (max-width: 800px)
+{
+  .banner{
+    display: none;
+  }
+}

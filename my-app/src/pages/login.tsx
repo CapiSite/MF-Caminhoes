@@ -1,13 +1,13 @@
+import Footer from "@/Components/Footer"
+import Header from "@/Components/Header"
 import style from "@/styles/LoginStyle.module.css"
 
 
-export default function Opa() {
+export default function Login() {
   return (
    <>
-          <p className={style.p}>
-            Opa
-          </p>
-          <div className={style.p}></div>
+          <Header/>
+          <Footer />
           </>
        
   )

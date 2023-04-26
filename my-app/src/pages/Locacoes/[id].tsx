@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 
 
-export default function Opa() {
+export default function ProductLocation() {
     const route = useRouter()
     const {id} = route.query
     const [hugo, setHugo] = useState <string> ("Oi")

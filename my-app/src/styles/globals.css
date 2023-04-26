@@ -25,7 +25,14 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  --black:yellow;
+  --black:black;
+  --white:white;
+  --yellow:#F4F400;
+  --darkYellow:#F8DA3B;
+  
+}
+a{
+	text-decoration: none;
 }
 ol, ul {
 	list-style: none;
@@ -42,5 +49,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 
+}
+
+*{
+	box-sizing: border-box;
 }
 
