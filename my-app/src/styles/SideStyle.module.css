@@ -19,6 +19,7 @@
 }
 
 .aside {
+  position: relative;
   background-color: var(--black-1);
   width: 80%;
   max-width: 350px;
@@ -28,13 +29,14 @@
   padding: 10px 10px;
 }
 
-.aside header{
+.aside footer{
   display: flex;
   align-items: center;
   color: var(--darkYellow);
   width: 100%;
   justify-content: center;
-  position: relative;
+  position: absolute;
+  bottom: 0; left: 0;
 }
 
 .aside div{
@@ -43,16 +45,20 @@
   flex-direction: column;
 }
 
-.aside header section {
-  font-size: 40px;
-
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
+.aside div:nth-child(2) {
+  margin-top: 50px;
 }
 
-.aside header section:hover {
+.aside section {
+  color: var(--darkYellow);
+  font-size: 40px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.aside section:hover {
   color: var(--veryDarkYellow);
 }
 

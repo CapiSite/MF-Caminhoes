@@ -40,14 +40,10 @@ export default function Sidebar() {
 
         {disabled ? null : (
           <motion.aside initial={initial} animate={animate} exit={initial} transition={transition} className={style.aside}>
-            <header>
-              <Image src={Logo} alt="sidebar-logo" width={200} />
 
-              <section onClick={() => setDisabled(true)}>
-                <IoMdArrowRoundBack />
-              </section>
-
-            </header>
+            <section onClick={() => setDisabled(true)}>
+              <IoMdArrowRoundBack />
+            </section>
 
             <div>
               <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
@@ -59,6 +55,10 @@ export default function Sidebar() {
               <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
               <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>
             </div>
+
+            <footer>
+              <Image src={Logo} alt="sidebar-logo" width={200} />
+            </footer>
           </motion.aside>
 
         )}
