@@ -21,7 +21,7 @@ export default function Sidebar() {
   }
 
   const transition = {
-    duration: 0.3
+    duration: 0.5
   }
 
 
