@@ -13,6 +13,8 @@
     justify-content: space-between;
 }
 
+
+
 .options{
     color: var(--white);
     font-family: 'Droid Sans', sans-serif;
@@ -39,6 +41,10 @@
     height: 40px;
 }
 
+.register:hover{
+    background-color: var(--veryDarkYellow);
+    
+}
 .header div{
     display: flex;
     align-items: center;

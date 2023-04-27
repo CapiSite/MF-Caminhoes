@@ -84,3 +84,23 @@
         justify-content: space-between;
         height: 200px;
     }
+    @media (max-width:800px) {
+        .footer{
+            flex-direction: column;
+            height: 800px;
+        }
+        .logo{
+            margin-right: 0px;
+        }
+        .informations h1{
+            margin-bottom: 60px;
+        }
+        .schedules{
+            align-items: center;
+        }
+        .informations{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
