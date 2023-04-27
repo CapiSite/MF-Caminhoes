@@ -5,11 +5,26 @@ import Logo from "../../public/LogoLocacao.png"
 import { VscThreeBars } from "react-icons/vsc";
 import { useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
+import { initialize } from "next/dist/server/lib/render-server";
 
 export default function Sidebar() {
   const [disabled, setDisabled] = useState(true)
   const router = useRouter()
+
+  const initial = {
+    x: -400
+  }
+
+  const animate = {
+    x: 0
+  }
+
+  const transition = {
+    duration: 0.3
+  }
+
+
   return (
     <>
       <header className={style.header}>
@@ -21,33 +36,36 @@ export default function Sidebar() {
         </div>
       </header>
 
-      {disabled ? null : (
-        <aside className={style.aside}>
-          <header>
-            <Image src={Logo} alt="sidebar-logo" width={200}/>
+      <AnimatePresence>
 
-            <section onClick={() => setDisabled(true)}>
-              <IoMdArrowRoundBack/>
-            </section>
-            
-          </header>
+        {disabled ? null : (
+          <motion.aside initial={initial} animate={animate} exit={initial} transition={transition} className={style.aside}>
+            <header>
+              <Image src={Logo} alt="sidebar-logo" width={200} />
 
-          <div>
-            <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
-            <button onClick={() => router.push("/comprar")} className={style.options}>Comprar</button>
-            <button onClick={() => router.push("/comprar")} className={style.options}>Loque sua carreta</button>
-          </div>
+              <section onClick={() => setDisabled(true)}>
+                <IoMdArrowRoundBack />
+              </section>
 
-          <div>
-            <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
-            <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>
-          </div>
-        </aside>
-        
-      )}
+            </header>
+
+            <div>
+              <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
+              <button onClick={() => router.push("/comprar")} className={style.options}>Comprar</button>
+              <button onClick={() => router.push("/comprar")} className={style.options}>Loque sua carreta</button>
+            </div>
+
+            <div>
+              <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
+              <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>
+            </div>
+          </motion.aside>
+
+        )}
+
+      </AnimatePresence>
 
       {/*  */}
     </>
-
   )
 }
