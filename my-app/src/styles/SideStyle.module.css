@@ -1,52 +1,92 @@
-.header{
-    background-color: var(--black);
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+.header {
+  background-color: var(--black);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
 }
 
-.header svg{
-    color: var(--white);
-    font-size: 45px;
-    position: absolute;
-    left: 10px;
-    bottom: -50%;
-    margin-bottom: 130px;
+.header svg {
+  color: var(--white);
+  font-size: 45px;
+  position: absolute;
+  left: 10px;
+  bottom: -50%;
+  margin-bottom: 130px;
 
 }
 
-.aside{
-    background-color: var(--darkYellow);
-    width: 80vw;
-    height: 100vh;
-    position:fixed;
-    z-index: 1;
+.aside {
+  background-color: var(--black-1);
+  width: 80%;
+  max-width: 350px;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+  padding: 10px 10px;
 }
 
-.options{
-    color: var(--black);
-    font-family: 'Droid Sans', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    background-color: var(--darkYellow);
-    border:0px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.aside header{
+  display: flex;
+  align-items: center;
+  color: var(--darkYellow);
+  width: 100%;
+  justify-content: center;
+  position: relative;
 }
 
-.register{
-    color: var(--darkYellow);
-    font-family: 'Droid Sans', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    margin-right: 20px;
-    background-color: var(--black);
-    border:0px;
-    border-radius: 3px;
-    height: 40px;
+.aside div{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
+.aside header section {
+  font-size: 40px;
+
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.aside header section:hover {
+  color: var(--veryDarkYellow);
+}
+
+
+
+.options {
+  color: var(--black);
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: var(--darkYellow);
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
+  padding: 5px 0px;
+  cursor: pointer;
+}
+
+.options:hover {
+  background-color: var(--veryDarkYellow);
+}
+
+.register {
+  cursor: pointer;
+  color: var(--darkYellow);
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: var(--black-1);
+  margin-top: 5px;
+  border: none;
+  border-radius: 4px;
+}
+
+.register:hover{
+  color: var(--veryDarkYellow);
+}

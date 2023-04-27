@@ -19,7 +19,7 @@ export default function Home() {
         <Header/>
       </div>
       <div className={style.sidebar}>
-      <Sidebar/>
+        <Sidebar/>
       </div>
       
       <main className={style.main}>

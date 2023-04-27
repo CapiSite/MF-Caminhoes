@@ -26,6 +26,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   --black:black;
+  --black-1: #111111;
   --white:white;
   --yellow:#F4F400;
   --darkYellow:#F8DA3B;
