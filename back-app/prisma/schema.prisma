@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,100 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model address {
+  id         Int     @id @default(autoincrement())
+  cep        String  @db.Char(11)
+  address    String
+  complement String
+  number     Int
+  city_id    Int
+  cities     cities  @relation(fields: [city_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users[]
+}
+
+model admin {
+  id       Int     @id @default(autoincrement())
+  username String
+  password String
+  token    String
+  active   Boolean @default(false)
+}
+
+model brands {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique(map: "uniqe")
+  carts carts[]
+}
+
+model cart_model {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique(map: "uniquen")
+  carts carts[]
+}
+
+model cart_type {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique(map: "uniquene")
+  carts carts[]
+}
+
+model carts {
+  id         Int        @id @default(autoincrement())
+  main_image String
+  size       Int
+  color      String
+  valid      Boolean    @default(false)
+  brand_id   Int
+  type_id    Int
+  model_id   Int
+  wheel_id   Int
+  user_id    Int
+  brands     brands     @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cart_model cart_model @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cart_type  cart_type  @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  wheel      wheel      @relation(fields: [wheel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cities {
+  id       Int       @id @default(autoincrement())
+  name     String
+  state_id Int
+  address  address[]
+  states   states    @relation(fields: [state_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model sessions {
+  id      Int     @id @default(autoincrement())
+  token   String
+  active  Boolean @default(false)
+  user_id Int
+  users   users   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model states {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique(map: "uniqueness")
+  cities cities[]
+}
+
+model users {
+  id         Int        @id @default(autoincrement())
+  cpf        String     @unique @db.Char(11)
+  name       String
+  email      String     @unique
+  password   String
+  phone      String     @db.Char(11)
+  address_id Int
+  carts      carts[]
+  sessions   sessions[]
+  address    address    @relation(fields: [address_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model wheel {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique(map: "uniquenes")
+  carts carts[]
 }
