@@ -1,15 +1,24 @@
 {
   "name": "back-app",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts"
+    "build": "ttsc -p tsconfig.build.json",
+    "start": "node dist/server.js",
+    "migration:run": "prisma migrate deploy",
+    "migration:generate": "npm run dev:load-envs prisma migrate dev",
+    "dev": "NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts",
+    "dev:load-envs": "dotenv -e .env.development",
+    "dev:migration:run": "npm run dev:load-envs prisma migrate deploy",
+    "dev:migration:generate": "npm run dev:load-envs prisma migrate dev",
+    "dev:seed": "npm run dev:load-envs prisma db seed"
   },
   "author": "",
   "license": "ISC",
+  "prisma": {
+    "seed": "npm run dev:load-envs -- ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^4.13.0",
     "@types/bcrypt": "^5.0.0",
@@ -17,7 +26,6 @@
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/multer": "^1.4.7",
-    "@types/node": "^18.16.1",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -31,6 +39,7 @@
     "prisma": "^4.13.0"
   },
   "devDependencies": {
+    "@types/node": "^18.16.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4",

@@ -29,7 +29,7 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
 }
 
 function unauthorizedError(res: Response) {
-  return res.status(httpStatus.UNAUTHORIZED).send(UnauthorizedError("Invalid credentials"));
+  return res.status(httpStatus.UNAUTHORIZED).send(UnauthorizedError("Por favor, registre-se!"));
 }
 
 
