@@ -1,68 +1,104 @@
-import { authenticateAdmin } from '@/middlewares';
 import { AuthenticatedRequest, AuthenticatedRequestAdmin } from '@/protocols';
+import { cartsServices } from '@/services';
 import { Request, Response } from 'express';
+import httpStatus from 'http-status';
 
 export async function getAllCarts(req: Request, res: Response) {
-  try{
+  try {
+    const carts = await cartsServices.getAllCarts()
+    return res.status(httpStatus.OK).send(carts)
 
-  }catch(error) {
-    
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
   }
 
 }
 
-export async function getSpecificCArt(req: Request, res: Response) {
+export async function getSpecificCart(req: Request, res: Response) {
+  const { cart_id } = req.params
 
-  try{
+  try {
+    const cart = await cartsServices.getSpecificCart(Number(cart_id))
+    return res.status(httpStatus.OK).send(cart)
 
-  }catch(error) {
-    
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error)
+    }
   }
 }
 
 export async function getMyCarts(req: AuthenticatedRequest, res: Response) {
-
-  try{
-
-  }catch(error) {
-
+  try {
+    const carts = await cartsServices.getMyCarts(req.user_id)
+    return res.status(httpStatus.OK).send(carts)
+    
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
   }
-  
+
 }
 
 export async function createCart(req: AuthenticatedRequest, res: Response) {
 
-  try{
+  try {
 
-  }catch(error) {
+  } catch (error) {
 
   }
-  
+
 }
 
 export async function editCart(req: AuthenticatedRequest, res: Response) {
 
-  try{
+  try {
 
-  }catch(error) {
+  } catch (error) {
 
+  }
+}
+
+export async function deleteMyCart(req: AuthenticatedRequest, res: Response) {
+  const { cart_id } = req.params
+
+  try {
+    await cartsServices.deleteMyCart(req.user_id, Number(cart_id))
+    return res.sendStatus(httpStatus.OK)
+
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error)
+    }
+    if (error.name === "UnauthorizedError") {
+      return res.status(httpStatus.UNAUTHORIZED).send(error)
+    }
   }
 }
 
 export async function validateCart(req: AuthenticatedRequestAdmin, res: Response) {
+  const { cart_id } = req.params
 
-  try{
+  try {
+    await cartsServices.validateCart(Number(cart_id))
+    return res.sendStatus(httpStatus.CREATED)
 
-  }catch(error) {
-
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error)
+    }
   }
 }
 
-export async function daleteCart(req: AuthenticatedRequestAdmin, res: Response) {
-  
-  try{
+export async function deleteCart(req: AuthenticatedRequestAdmin, res: Response) {
+  const { cart_id } = req.params
 
-  }catch(error) {
+  try {
+    await cartsServices.deleteAnyCart(Number(cart_id))
+    return res.sendStatus(httpStatus.OK)
 
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error)
+    }
   }
 }

@@ -20,7 +20,7 @@ export async function authenticateAdmin(req: AuthenticatedRequestAdmin, res: Res
     
     if (!admin || !admin.active) return unauthorizedError(res);
 
-    req.isAdmin = true;
+    req.admin_id = admin.id;
 
     return next();
   } catch (err) {

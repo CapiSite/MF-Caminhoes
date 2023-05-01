@@ -7,11 +7,10 @@ const storage1 = multer.diskStorage({
   },
   filename: (req: any, file, callback) => {
     const name = Date.now() + "-" + file.originalname
-    req.mainPhoto = name
+    req.body.main_photo = name
     callback(null, name)
   },
 })
-
 
 const storage2 = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -19,7 +18,7 @@ const storage2 = multer.diskStorage({
   },
   filename: (req: any, file, callback) => {
     const name = Date.now() + "-" + file.originalname
-    req.photos += {src: name}
+    req.body.photos += name
     callback(null, name)
   },
 })

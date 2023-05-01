@@ -45,21 +45,22 @@ model cart_type {
 }
 
 model carts {
-  id         Int        @id @default(autoincrement())
-  main_image String
-  size       Int
-  color      String
-  valid      Boolean    @default(false)
-  brand_id   Int
-  type_id    Int
-  model_id   Int
-  wheel_id   Int
-  user_id    Int
-  brands     brands     @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  cart_model cart_model @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  cart_type  cart_type  @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users      users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  wheel      wheel      @relation(fields: [wheel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id          Int           @id @default(autoincrement())
+  main_image  String
+  size        Int
+  color       String
+  valid       Boolean       @default(false)
+  brand_id    Int
+  type_id     Int
+  model_id    Int
+  wheel_id    Int
+  user_id     Int
+  cart_images cart_images[]
+  brands      brands        @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cart_model  cart_model    @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cart_type   cart_type     @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       users         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  wheel       wheel         @relation(fields: [wheel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model cities {
@@ -101,4 +102,11 @@ model wheel {
   id    Int     @id @default(autoincrement())
   name  String  @unique(map: "uniquenes")
   carts carts[]
+}
+
+model cart_images {
+  id      Int    @id @default(autoincrement())
+  src     String
+  cart_id Int
+  carts   carts  @relation(fields: [cart_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
