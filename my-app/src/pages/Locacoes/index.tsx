@@ -5,6 +5,9 @@ export default function Location() {
   return (
    <>
           <Header/>
+          <div>
+            
+          </div>
           <Footer />
           </>
        
