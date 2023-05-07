@@ -54,7 +54,7 @@
 
 .main button:hover {
   cursor: pointer;
-  background-color: var(--veryDarkYellow);
+  background-color: var(--lightYellow);
 }
 
 .sidebar {

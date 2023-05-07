@@ -6,6 +6,7 @@ import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
 import style from "@/styles/LocationsStyle.module.css";
+import Image from "next/image";
 import { useState } from "react"
 
 
@@ -21,6 +22,7 @@ const Ordenar = "Ordenar"
 export default function Location() {
   const [filter, setFilter] = useState({type:"", status:"", brand:""})
   const [ct, setCt] = useState(8)
+  const [mobileFilter, setMobileFilter] = useState(false)
 
   return (
    <>
@@ -31,8 +33,29 @@ export default function Location() {
             <Sidebar/>
           </div>
           <div className={style.container}>
+
+          <div className={style.mobileFilter}>
+            <button onClick={()=> setMobileFilter(!mobileFilter)}><Image src="/filter.png" alt="Filtrar" width={20} height={20}onClick={()=> setMobileFilter(!mobileFilter)}/>Filtrar</button>
+            {mobileFilter && 
+            <div className={style.filterMobile}>
+            <h1>Preço</h1>
+            <div className={style.rangeMobile}>
+              <input type="number" min="10000" placeholder="R$ 10000,00"/>
+              <input type="number" placeholder="R$ 1000000,00"/>
+              <button>Filtrar</button>
+            </div>
+            <h1>Tipo</h1>
+            {tipo.map((o, i)=><Type setFilter={setFilter} filter={filter} item={o} key={i}/>)}
+            <h1>Estado</h1>
+            {estado.map((o, i)=><Status setFilter={setFilter} filter={filter} item={o} key={i}/>)}
+            <h1>Marca</h1>
+            {marca.map((o, i)=><Brand setFilter={setFilter} filter={filter} item={o} key={i}/>)}
+          </div>
+          }
+          </div>
+
           <div className={style.filter}>
-            <h1>Filtro</h1>
+            <h1>Filtros</h1>
             <h1>Preço</h1>
             <div className={style.range}>
               <input type="number" min="10000" placeholder="R$ 10000,00"/>
@@ -46,6 +69,8 @@ export default function Location() {
             <h1>Marca</h1>
             {marca.map((o, i)=><Brand setFilter={setFilter} filter={filter} item={o} key={i}/>)}
           </div>
+
+
           <div className={style.body}>
           <div className={style.locations}>
             <div className={style.div}>

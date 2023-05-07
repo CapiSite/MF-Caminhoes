@@ -11,7 +11,7 @@ export default function Footer() {
     const router = useRouter()
     return (
         <footer className={style.footer}>
-      <Image className={style.logo} src={Logo} width={300} height={200} alt='Logo'/>
+      <Image className={style.logo} src={Logo} width={267} height={88} alt='Logo'/>
       <div className={style.informations}>
         <h1>
           MF Locações

@@ -31,6 +31,7 @@ body {
   --yellow:#F4F400;
   --darkYellow:#F8DA3B;
   --veryDarkYellow: rgb(252, 194, 0);
+  --lightYellow: rgb(255, 213, 0);
   --gray:rgb(230, 230, 230);
   
 }

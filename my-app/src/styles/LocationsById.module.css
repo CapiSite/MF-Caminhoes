@@ -1,0 +1,108 @@
+.sidebar{
+    display: none;
+}
+.container{
+  display: flex;
+  padding-top: 20px;
+}
+.container>img{
+  margin-top: 20px;
+  width: 40vw;
+  height: 40vw;
+}
+.images{
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  margin-left: 5vw;
+  height: 40vw;
+  width: 15vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.images img{
+  margin-right:20px;
+  margin-bottom:20px;
+  height: 14vw;
+  width: 14vw;
+
+}
+.images img:hover{
+  cursor: pointer;
+}
+
+.images::-webkit-scrollbar {
+  width: 10px;               /* width of the entire scrollbar */
+}
+
+.images::-webkit-scrollbar-track {
+  background: var(--black);        /* color of the tracking area */
+}
+
+.images::-webkit-scrollbar-thumb {
+  background-color: var(--yellow);    /* color of the scroll thumb */
+  border: 3px solid var(--black);  /* creates padding around scroll thumb */
+}
+
+.info{
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+margin-top: 60px;
+margin-left: 30px;
+width: 400px;
+}
+.info h1{
+  font-size: 30px;
+  font-weight: bold;
+}
+.info>p{
+  margin-top: 50px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.specifications{
+  text-align: justify;
+}
+.specifications p{
+  margin-top: 10px;
+}
+.info button{
+  background-color: rgb(10, 231, 10);
+  border: 0px;
+  border-radius: 20px;
+  width: 200px;
+  height: 40px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info a{
+  margin-top: 50px;
+  width: 200px;
+  height: 40px;
+}
+.info svg{
+  margin-left: 10px;
+}
+.info button:hover{
+  background-color: rgb(9, 181, 9);
+  cursor: pointer;
+}
+.info>p:nth-child(4){
+  color:green;
+  font-size: 25px;
+}
+
+@media (max-width: 800px) {
+    .header {
+      display: none;
+    }
+  
+    .sidebar {
+      display: flex;
+    }
+    
+}

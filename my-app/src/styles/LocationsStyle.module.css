@@ -150,6 +150,10 @@ cursor: pointer;
 .sidebar{
     display: none;
 }
+
+.mobileFilter{
+    display: none;
+}
 @media (max-width: 800px) {
     .header {
       display: none;
@@ -158,10 +162,43 @@ cursor: pointer;
     .sidebar {
       display: flex;
     }
+    .filter{
+        display: none;
+      }
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .mobileFilter{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+    }
+    .mobileFilter button{
+        background-color: var(--gray);
+        border: 0px;
+        margin-top: 30px;
+        width: 150px;
+        height: 40px;
+        font-weight: bold;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .filterMobile{
+        background-color: blue;
+        z-index: 1;
+        width: 300px;
+        height: 100%;
+    }
+
 }
 
 @media (min-width:1500px) {
     .filter{
         margin-left: 300px;
     }
+    
 }

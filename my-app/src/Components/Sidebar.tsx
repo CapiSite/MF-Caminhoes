@@ -32,7 +32,7 @@ export default function Sidebar() {
           <div onClick={() => setDisabled(false)}>
             <VscThreeBars />
           </div>
-          <Image onClick={() => router.push("/")} className={style.logo} src={Logo} width={200} height={150} alt='Logo' />
+          <Image onClick={() => router.push("/")} className={style.logo} src={Logo} width={267} height={88} alt='Logo' />
         </div>
       </header>
 

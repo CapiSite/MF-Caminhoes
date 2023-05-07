@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Logo from "@/../public/LogoLocacao.png"
+import Logo from "@/../public/LogoLocacao2SemFundo.png"
 import Banner from "@/../public/banner2.jpg"
 import BannerMobile from "@/../public/banner-mobile.png"
 import style from "../styles/HomeStyle.module.css"
@@ -28,7 +28,7 @@ export default function Home() {
         <Image className={style.banner_mobile} src={BannerMobile} alt="Banner-Mobile"/>
         <div className={style.buttons}>
           <button onClick={()=> router.push("/locacoes")}className={style.button}>
-            <Image src={Logo} width={250} height={150} alt='Logo'/>
+            <Image src={Logo} width={334} height={108} alt='Logo'/>
             <p>Locação</p>
             </button>
           <button onClick={()=> router.push("/comprar")}className={style.button}>
