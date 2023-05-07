@@ -67,6 +67,6 @@ export default function Login() {
     }
 
     ///RODRIGO, LINKA COM O SERVIDOR AQUI, PARA ENVIAR OS DADOS!!
-    ///Váriavel com os itens para fazer cadastro é a "login"
+    ///Váriavel com os itens para fazer login é a "login"
   }
 }
