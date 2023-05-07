@@ -3,7 +3,7 @@ import path from 'path'
 
 const storage1 = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, path.resolve(__dirname, "..", "..", "public", "main"))
+    callback(null, path.resolve(__dirname, "..", "..", "..", "my-app", "public", "main"))
   },
   filename: (req: any, file, callback) => {
     const name = Date.now() + "-" + file.originalname
@@ -14,7 +14,7 @@ const storage1 = multer.diskStorage({
 
 const storage2 = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, path.resolve(__dirname, "..", "..", "public", "secondary"))
+    callback(null, path.resolve(__dirname, "..", "..", "..", "my-app", "public", "secondary"))
   },
   filename: (req: any, file, callback) => {
     const name = Date.now() + "-" + file.originalname

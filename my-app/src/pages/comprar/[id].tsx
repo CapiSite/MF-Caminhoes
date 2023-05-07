@@ -1,10 +1,10 @@
 export default function ProcuctSelling() {
-    return (
-     <>
-            <p>
-              Produto
-            </p>
-      </>
-         
-    )
-  }
+  return (
+    <>
+      <p>
+        Produto
+      </p>
+    </>
+
+  )
+}

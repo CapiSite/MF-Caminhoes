@@ -7,8 +7,7 @@ const adminRouter = Router()
 
 adminRouter
   .post("/signup", validateBody(adminPost), createAdmin)
-  .post("/login", loginAdmin)
+  .post("/login", validateBody(adminPost), loginAdmin)
   .post("/logout", authenticateAdmin, logoutAdmin)
-
 
 export { adminRouter }

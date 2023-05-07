@@ -4,6 +4,7 @@ import cors from 'cors';
 import { adminRouter } from './routes/admin.routes';
 import { usersRouter } from './routes/users.routes';
 import { cartsRouter } from './routes/carts.routes';
+import { typesRouter } from './routes/types.routes';
 
 loadEnv();
 
@@ -16,6 +17,7 @@ app
   .use("/admin", adminRouter)
   .use("/users", usersRouter)
   .use("/carts", cartsRouter)
+  .use("/types", typesRouter )
 
 export async function init(): Promise<Express> {
   connectDb()

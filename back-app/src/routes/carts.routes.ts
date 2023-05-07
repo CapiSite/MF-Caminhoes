@@ -11,9 +11,9 @@ cartsRouter
   .get("/", getAllCarts)
   .get("/:cart_id", getSpecificCart)
   .get("/mine", authenticateToken, getMyCarts )
-  .post("/", authenticateToken, uploadMain.single("main"), uploadSecondary.array("secondary"), createCart )
+  .post("/", uploadMain.single("main"), createCart )
   .put("/:cart_id", authenticateToken, editCart )
-  .delete("/:cart_id", authenticateToken, deleteMyCart)
+  .delete("/mine/:cart_id", authenticateToken, deleteMyCart)
 
   //Admin Routes
 
