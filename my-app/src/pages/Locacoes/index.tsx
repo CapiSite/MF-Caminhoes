@@ -40,7 +40,9 @@ export default function Location() {
             <div className={style.filterMobile}>
             <h1>Preço</h1>
             <div className={style.rangeMobile}>
+              <p>Min:</p>
               <input type="number" min="10000" placeholder="R$ 10000,00"/>
+              <p>Max:</p>
               <input type="number" placeholder="R$ 1000000,00"/>
               <button>Filtrar</button>
             </div>

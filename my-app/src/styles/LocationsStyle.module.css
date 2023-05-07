@@ -174,8 +174,9 @@ cursor: pointer;
         width: 100%;
         align-items: center;
         flex-direction: column;
+        
     }
-    .mobileFilter button{
+    .mobileFilter>button{
         background-color: var(--gray);
         border: 0px;
         margin-top: 30px;
@@ -188,10 +189,58 @@ cursor: pointer;
         justify-content: center;
     }
     .filterMobile{
-        background-color: blue;
+        background-color: var(--gray);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         z-index: 1;
         width: 300px;
         height: 100%;
+        border-radius: 10px;
+        height: 300px;
+        overflow-y: scroll;
+    }
+
+    .filterMobile h1{
+        font-size: 18px;
+        font-weight: bold;
+        margin: 20px 0px;
+    }
+    .rangeMobile{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .rangeMobile input{
+        border: 1px solid black;
+        height: 30px;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    .rangeMobile p{
+        margin-bottom: 6px;
+    }
+    .rangeMobile button{
+        background-color: var(--darkYellow);
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 150px;
+        height: 40px;
+        font-size: 15px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    .locationsContainer{
+
+        align-items: center;
+    }
+    .filterMobile p{
+        margin-bottom: 5px;
+    }
+    .filterMobile h6{
+        margin-bottom: 5px;
+        font-weight: bold;
     }
 
 }
