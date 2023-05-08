@@ -33,7 +33,9 @@ body {
   --veryDarkYellow: rgb(252, 194, 0);
   --lightYellow: rgb(255, 213, 0);
   --gray:rgb(230, 230, 230);
-  
+  --gray-light: #dcdcdc;
+  --strong-green: #018600;
+  --light-green: #14aa14;
 }
 a{
 	text-decoration: none;

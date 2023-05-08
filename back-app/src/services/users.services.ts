@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 async function createUser(user: UserCreation) {
+
   const emailExist = await usersRepository.getUsersByEmail(user.email)
   if (emailExist) throw ConflictError("E-mail já usado")
 

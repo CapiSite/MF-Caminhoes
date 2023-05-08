@@ -1,27 +1,48 @@
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
-import { postCart } from "@/services/cart.services";
-import Image from "next/image"
-import path from "path";
-import { FormEvent, useState} from 'react'
+import CartPost from "@/Components/user_page.tsx/Cart_post";
+import MyCarts from "@/Components/user_page.tsx/My_Carts";
+import NavOptions from "@/Components/user_page.tsx/Nav_options";
+import UserUpdate from "@/Components/user_page.tsx/User_update";
+import { FormEvent, useState, useContext, useEffect } from 'react'
+import style from '@/styles/user_page/page.module.css'
+import UserContext from "@/APIContext/UserContext";
+import AlertMessage from "@/Components/user_page.tsx/Alert_message";
 
 export default function userArea() {
-  const [main, setFile] = useState<null | any>()
+  const [selection, setSelection] = useState<number>(0)
+  const [error, setError] = useState<number>(0)
+
+  const { userData } = useContext(UserContext) as { userData: any }
 
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
   }
 
+  useEffect(() => {
+    if (!userData) {
+      setError(1)
+    }
+  }, [])
+
   return (
     <>
       <Header />
+      <div className={style.father}>
+
+        <NavOptions subsets={["Loque minha Carreta", "Minhas Carretas", "Meu perfil",]} select={setSelection} />
+
+        {error === 1 ?
+          <AlertMessage /> :
+          selection === 0 ?
+            <CartPost /> : selection === 1 ?
+              <MyCarts /> : selection === 2 ?
+                <UserUpdate /> : null
+        }
+      </div>
+
       <Footer />
-      <form method="POST" action="http://localhost:5000/carts" encType="multipart/form-data">
-        <input type="file" name="main"/>
-        
-        <button type="submit">aqui</button>
-      </form>
     </>
   )
 }

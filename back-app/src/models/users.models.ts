@@ -8,10 +8,10 @@ export const userPost = Joi.object<UserCreation> ({
   password: Joi.string().min(6).required(),
   phone: Joi.string().length(11).required(),
   address: {
-    cep: Joi.string().length(11).required(),
+    cep: Joi.string().length(8).required(),
     address: Joi.string().required(),
-    complement: Joi.string().required(),
-    number: Joi.number().required(),
+    complement: Joi.string(),
+    number: Joi.number(),
     city: Joi.string().required(),
     state_id: Joi.number().required()
   }

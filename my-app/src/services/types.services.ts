@@ -6,17 +6,17 @@ export async function getWheels() {
 }
 
 export async function getTypes() {
-  const response = await instance.get("/types/brands")
-  return response.data
-}
-
-export async function getModels() {
   const response = await instance.get("/types/types")
   return response.data
 }
 
-export async function getBrands() {
+export async function getModels() {
   const response = await instance.get("/types/models")
+  return response.data
+}
+
+export async function getBrands() {
+  const response = await instance.get("/types/brands")
   return response.data
 }
 

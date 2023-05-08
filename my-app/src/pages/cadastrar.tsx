@@ -2,14 +2,14 @@ import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import style from "../styles/Signup.module.css";
 import Sidebar from "@/Components/Sidebar";
-import { FormEvent, useState, useEffect, useContext, useCallback, ChangeEvent} from "react"
+import { FormEvent, useState, useEffect, useContext, useCallback, ChangeEvent } from "react"
 import { ThreeDots } from "react-loader-spinner";
 import UserContext from "@/APIContext/UserContext";
 import { useRouter } from "next/router";
 import { signupUser } from "@/services/user-services";
 import { getStates } from "@/services/types.services";
 import { cepValidation } from "@/services/cep";
-import {DebounceInput} from 'react-debounce-input';
+import { DebounceInput } from 'react-debounce-input';
 
 export default function Cadastro() {
   const router = useRouter()
@@ -26,9 +26,7 @@ export default function Cadastro() {
     try {
       const states = await getStates()
       setStates(states)
-    } catch (err: any) {
-
-    }
+    } catch (err: any) {  }
   }, [])
 
   useEffect(() => {
@@ -41,43 +39,44 @@ export default function Cadastro() {
   async function handleCep(e: ChangeEvent | any) {
     const value = e.target.value
 
-    function findUf(uf: string | null) : number {
-      if(uf === null || undefined) return 1
+    function findUf(uf: string | null): number {
+      if (uf === null || undefined) return 1
 
       const judge = states?.map((e) => e.name)
-      if(!judge?.indexOf( uf?.toUpperCase())) return -2
+      if (!judge?.indexOf(uf?.toUpperCase())) return -2
 
-      return judge?.indexOf( uf?.toUpperCase())
+      return judge?.indexOf(uf?.toUpperCase())
     }
 
-    if(value.length >= 8) {
+    if (value.length >= 8) {
       try {
         const cep = await cepValidation(value)
 
-        if(cep.uf !== undefined) {
-          setInformations({...informations, 
+        if (cep.uf !== undefined) {
+          setInformations({
+            ...informations,
             cep: value,
-            address: cep.bairro + " " + cep.logradouro, 
-            complement: cep.complemento, 
+            address: cep.bairro + " " + cep.logradouro,
+            complement: cep.complemento,
             city: cep.localidade,
-            uf: findUf(cep.uf) 
+            uf: findUf(cep.uf)
           })
-          setErrorMessage({...errorMessage, cep:"campo Obrigatório"})
-          setFieldError({...fieldError, cep: false})
-        }else{
-          setInformations({...informations,  cep: value})
-          setErrorMessage({...errorMessage, cep:"Cep Inválido"})
-          setFieldError({...fieldError, cep: true})
+          setErrorMessage({ ...errorMessage, cep: "campo Obrigatório" })
+          setFieldError({ ...fieldError, cep: false })
+        } else {
+          setInformations({ ...informations, cep: value })
+          setErrorMessage({ ...errorMessage, cep: "Cep Inválido" })
+          setFieldError({ ...fieldError, cep: true })
         }
 
-      }catch (err) {
+      } catch (err) {
         console.log(err)
       }
     }
-    if (value.length < 8){
-      setInformations({...informations,  cep: value})
-      setErrorMessage({...errorMessage, cep:"campo Obrigatório"})
-      setFieldError({...fieldError, cep: false})
+    if (value.length < 8) {
+      setInformations({ ...informations, cep: value })
+      setErrorMessage({ ...errorMessage, cep: "campo Obrigatório" })
+      setFieldError({ ...fieldError, cep: false })
     }
   }
 
@@ -113,7 +112,7 @@ export default function Cadastro() {
           <div>
 
             {fieldError.cep && <p className={style.p}>{errorMessage.cep}</p>}
-            <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1}  onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
+            <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
 
             {fieldError.address && <p className={style.p}>{errorMessage.address}</p>}
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
@@ -121,11 +120,11 @@ export default function Cadastro() {
             <input disabled={disable} className={style.input} value={informations.number} onChange={(e) => setInformations({ ...informations, number: e.target.value })} type="number" placeholder="Número" />
             {fieldError.complement && <p className={style.p}>{errorMessage.complement}</p>}
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
-            
-            <select className={style.input} value={states? states[informations.uf].name: 0}>
+
+            <select className={style.input} value={states ? states[informations.uf].name : 0}>
               {states ?
                 states.map((s, index) => {
-                  return <option key={index} className={style.input} 
+                  return <option key={index} className={style.input}
                     onClick={(e) => setInformations({ ...informations, uf: s.id })} placeholder="Estado">
                     {s.name}
                   </option>
@@ -174,10 +173,11 @@ export default function Cadastro() {
     }
 
     const register = {
-      name: informations.name + informations.last_name,
+      name: informations.name + " " + informations.last_name,
       email: informations.email,
       password: informations.password,
       phone: informations.phone,
+      cpf: informations.cpf,
       address: {
         cep: informations.cep,
         address: informations.address,
@@ -190,8 +190,9 @@ export default function Cadastro() {
 
     try {
       await signupUser(register)
+      router.push("/login")
     } catch (err) {
-      console.log(err)
+      setDisable(false)
     }
   }
 }

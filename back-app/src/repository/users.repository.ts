@@ -2,54 +2,73 @@ import { prismaDb } from "@/config"
 import { Userinfo } from "@/protocols"
 
 async function getUserByCpf(cpf: string) {
-  return prismaDb.users.findFirst({
-    where:{
-      cpf
-    }
-  })
+  try {
+    return prismaDb.users.findFirst({
+      where: {
+        cpf
+      }
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function getFullUserById(id: number) {
-  return prismaDb.users.findFirst({
-    where:{
-      id
-    },
-    include:{
-      address:{
-        include:{
-          cities:{
-            include:{
-              states: true
+  try {
+    return prismaDb.users.findFirst({
+      where: {
+        id
+      },
+      include: {
+        address: {
+          include: {
+            cities: {
+              include: {
+                states: true
+              }
             }
           }
         }
       }
-    }
-  })
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function getUsersByEmail(email: string) {
-  return prismaDb.users.findFirst({
-    where:{
-      email
-    },
-  })
+  try {
+    return prismaDb.users.findFirst({
+      where: {
+        email
+      },
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function createUser(user: Userinfo) {
-  return prismaDb.users.create({
-    data: user
-  })
+  try {
+    return prismaDb.users.create({
+      data: user
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function updateUser(user: Userinfo, user_id: number) {
-  return prismaDb.users.update({
-    where:{
-      id: user_id
-    },
-    data: user
-
-  })
+  try {
+    return prismaDb.users.update({
+      where: {
+        id: user_id
+      },
+      data: user
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 export const usersRepository = {

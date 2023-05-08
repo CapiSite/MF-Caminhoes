@@ -17,7 +17,7 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false }))
 
-  const { userData, setUserData } = useContext(UserContext) as { userData: string, setUserData: Function }
+  const { userData, setUserData } = useContext(UserContext) as any
 
   useEffect(() => {
     if (userData) router.push("/")
@@ -71,9 +71,12 @@ export default function Login() {
 
     try {
       const tokenAndUser = await loginUser(informations)
+      console.log(tokenAndUser)
       setUserData(tokenAndUser)
+      console.log("aq")
+      router.push("/")
     } catch (err) {
-      console.log(err)
+      setDisable(true)
     }
   }
 }

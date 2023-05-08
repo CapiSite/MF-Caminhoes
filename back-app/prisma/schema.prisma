@@ -12,7 +12,7 @@ model address {
   cep        String  @db.Char(11)
   address    String
   complement String
-  number     Int
+  number     String
   city_id    Int
   cities     cities  @relation(fields: [city_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users      users[]
@@ -55,6 +55,8 @@ model carts {
   model_id    Int
   wheel_id    Int
   user_id     Int
+  title       String
+  description String
   cart_images cart_images[]
   brands      brands        @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   cart_model  cart_model    @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

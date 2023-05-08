@@ -15,7 +15,7 @@ export async function getMyCarts(token: string) {
   return response.data
 }
 
-export async function postCart(body: any, token: string) {
+export async function postCart(body: FormData, token: string) {
   const response = await instance.post("/carts/", body , {headers: {Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data'}})
   return response.data
 }

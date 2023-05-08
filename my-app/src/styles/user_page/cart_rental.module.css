@@ -1,0 +1,82 @@
+
+.father {
+  width: 100%;
+}
+
+.father form {
+  width: 100%s;
+  display:  flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.father section {
+  display: flex;
+  width: 100%;
+}
+
+.father div {
+  margin-right: 20px;
+}
+
+.father input, .father select{
+  width:100%;
+  padding: 10px 15px;
+  font-size:20px;
+  outline:0px;
+  border: none;
+  border: 1px solid var(--black);
+  border-radius:3px;
+  margin-bottom: 10px;
+}
+
+.father form textarea {
+  max-width: 100%;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.father h2{
+  margin-bottom: 6px;
+  margin-top: 4px;
+}
+
+.father button {
+  width: 50px;
+  cursor: pointer;
+}
+
+.first {
+  width: 60%;
+
+}
+
+.second {
+  width: 35%;
+}
+
+@media (max-width: 1000px) {
+  .father section {
+    flex-direction: column;
+  }
+
+  .first {
+    width: 100%;
+  }
+
+  .second {
+    width: 100%;
+  }
+
+  .father textarea {
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .father{
+    margin-top: 40px;
+  }
+}

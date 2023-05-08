@@ -1,0 +1,44 @@
+
+.father {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  align-self: flex-start;
+  justify-self: flex-start;
+  margin-right: 20px;
+}
+
+.father div {
+  border: 1px solid var(--black-1);
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: var(--gray-light);
+  font-weight: 500;
+}
+
+.father div:hover {
+  background-color: var(--white);
+}
+
+.father header {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--black-1);
+  padding: 10px 15px;
+  background-color: var(--gray-light);
+}
+
+.father header h4 {
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+@media (max-width: 700px) {
+  .father {
+    width: 100vw;
+    margin-right: 0px;
+    position: absolute;
+    top: 0; left: 0;
+    flex-direction: row;
+  }
+}

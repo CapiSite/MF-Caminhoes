@@ -33,7 +33,7 @@ export type UserCreation = {
     cep: string,
     address: string,
     complement: string,
-    number: number,
+    number: string,
     city: string,
     state_id: number
   }
@@ -43,7 +43,7 @@ export type UserAddress = {
   cep: string,
   address: string,
   complement: string,
-  number: number,
+  number: string,
   city: string,
   state_id: number
 }
@@ -65,6 +65,8 @@ export type AdminCreation = {
 }
 
 export type CartCreation = {
+  title: string,
+  description: string,
   main_image: string,
   size: number,
   color: string,
