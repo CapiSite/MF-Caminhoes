@@ -19,11 +19,12 @@ async function getMyCarts(user_id: number) {
   return await cartsRepository.getMyCarts(user_id)
 }
 
-async function createCart(body: CartCreation) {
-  const user = await usersRepository.getFullUserById(body.user_id)
+async function createCart(body: CartCreation, user_id: number) {
+  
+  const user = await usersRepository.getFullUserById(user_id)
   if(!user) throw UnauthorizedError("Usuário não cadastrado")
 
-  return await cartsRepository.createCart(body)
+  return await cartsRepository.createCart(body, user_id)
 }
 
 async function validateCart(cart_id: number) {

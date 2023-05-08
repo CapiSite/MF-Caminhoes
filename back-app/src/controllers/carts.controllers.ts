@@ -42,7 +42,7 @@ export async function createCart(req: AuthenticatedRequest, res: Response) {
   const body = req.body
 
   try {
-    await cartsServices.createCart(body)
+    await cartsServices.createCart(body, req.user_id)
     return res.sendStatus(httpStatus.OK)
 
   } catch (error) {

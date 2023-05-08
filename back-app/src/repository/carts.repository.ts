@@ -55,21 +55,23 @@ async function getMyCarts(user_id: number) {
   }
 }
 
-async function createCart(cart: CartCreation) {
+async function createCart(cart: CartCreation, user_id: number) {
   try {
-    const images = cart.secondary_images.map(e =>{
-      return{
+    const cartCreation = {...cart}
+    delete cartCreation.secondary_images
+
+    const cartReceived = await prismaDb.carts.create({
+      data: {...cartCreation, user_id}
+    })
+
+    const images = cart.secondary_images.map(e => {
+      return {
         cart_id: cartReceived.id,
         src: e
       }
     })
 
-    delete cart.secondary_images
-    const cartReceived = await prismaDb.carts.create({
-      data: cart
-    })
-
-    prismaDb.cart_images.createMany({
+    return prismaDb.cart_images.createMany({
       data: images
     })
 

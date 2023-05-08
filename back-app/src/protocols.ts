@@ -75,6 +75,5 @@ export type CartCreation = {
   type_id: number,
   model_id: number,
   wheel_id: number,
-  user_id: number
   price: number
 }

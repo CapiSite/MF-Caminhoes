@@ -60,6 +60,7 @@ export default function CartPost() {
   
     try{
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
+      console.log(mainImage)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
       await postCart( {
         description: description,
@@ -71,8 +72,8 @@ export default function CartPost() {
         wheel_id: Number(wheelsSelected),
         model_id: Number(modelsSelected),
         price: Number(price),
-        main_image: mainImage,
-        secondary_images: secondaryImages
+        main_image: mainImage.main,
+        secondary_images: secondaryImages.secondary
       },userData.token)
 
     }catch(err){
