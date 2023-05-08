@@ -18,7 +18,16 @@ const storage2 = multer.diskStorage({
   },
   filename: (req: any, file, callback) => {
     const name = Date.now() + "-" + file.originalname
-    req.body.photos += name
+
+    let temp = req.body.secondary
+    if(req.body.secondary === undefined){
+      temp = []
+    }
+
+    temp.push(name)
+
+    req.body.secondary = temp
+
     callback(null, name)
   },
 })

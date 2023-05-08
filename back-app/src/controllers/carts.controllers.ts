@@ -36,17 +36,20 @@ export async function getMyCarts(req: AuthenticatedRequest, res: Response) {
   } catch (error) {
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
   }
-
 }
 
 export async function createCart(req: AuthenticatedRequest, res: Response) {
+  const body = req.body
 
   try {
+    await cartsServices.createCart(body, req.user_id)
+    return res.sendStatus(httpStatus.OK)
 
   } catch (error) {
-
+    if (error.name === "UnauthorizedError") {
+      return res.status(httpStatus.UNAUTHORIZED).send(error)
+    }
   }
-
 }
 
 export async function editCart(req: AuthenticatedRequest, res: Response) {
@@ -54,7 +57,9 @@ export async function editCart(req: AuthenticatedRequest, res: Response) {
   try {
 
   } catch (error) {
-
+    if (error.name === "UnauthorizedError") {
+      return res.status(httpStatus.UNAUTHORIZED).send(error)
+    }
   }
 }
 

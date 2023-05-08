@@ -2,7 +2,7 @@ import { getBrands, getModels, getTypes, getWheels } from "@/services/types.serv
 import { FormEvent, useCallback, useContext, useEffect, useState } from "react"
 import style from '@/styles/user_page/cart_rental.module.css'
 import { roboto } from "@/styles/fonts"
-import { postCart } from "@/services/cart.services"
+import { postCart, postCartPhotosMain, postCartPhotosSecondary } from "@/services/cart.services"
 import UserContext from "@/APIContext/UserContext"
 
 export default function CartPost() {
@@ -14,13 +14,14 @@ export default function CartPost() {
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
   const [color, setColor] = useState<string>("")
-  const [size, setSize] = useState<number>(0)
+  const [size, setSize] = useState<number>()
+  const [price, setPrice] = useState<number>()
   const [brandsSelected, setBrandsSelected] = useState<string | number>("")
   const [typesSelected, setTypesSelected] = useState<string | number>("")
   const [modelsSelected, setModelsSelected] = useState<string | number>("")
   const [wheelsSelected, setWheelsSelected] = useState<string | number>("")
   const [main, setMain] = useState<any>()
-  const [secondary, setSecondary] = useState<any>()
+  const [secondary, setSecondary] = useState<[]>([])
 
   const { userData } = useContext(UserContext) as any
 
@@ -49,16 +50,32 @@ export default function CartPost() {
   async function handlePost(e: FormEvent) {
     e.preventDefault()
 
-    const data = new FormData()
-    data.append("title", title)
-    data.append("color", color)
-    data.append("size", String(size))
-    data.append("description", description)
-    data.append("main", main)
-    data.append("secondary", secondary)
+    const dataMain = new FormData()
+    const dataSecond = new FormData()
 
+    dataMain.append("main", main)
+    secondary.forEach((e) =>{
+      dataSecond.append("secondary", e)
+    })
+  
     try{
-      await postCart(data, userData.token)
+      const mainImage = await postCartPhotosMain(dataMain, userData.token)
+      console.log(mainImage)
+      const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
+      await postCart( {
+        description: description,
+        size: Number(size),
+        color: color,
+        title: title,
+        brand_id: Number(brandsSelected),
+        type_id: Number(typesSelected),
+        wheel_id: Number(wheelsSelected),
+        model_id: Number(modelsSelected),
+        price: Number(price),
+        main_image: mainImage.main,
+        secondary_images: secondaryImages.secondary
+      },userData.token)
+
     }catch(err){
       console.log(err)
     }
@@ -76,7 +93,10 @@ export default function CartPost() {
             <h2>Cor</h2>
             <input placeholder="Cor" type="text" onChange={(e) => setColor(e.target.value)} value={color} />
             <h2>Tamanho</h2>
-            <input placeholder="Temanho" type="number" onChange={(e) => setSize(Number(e.target.value))} value={size} />
+            <input placeholder="Tamanho" type="number" onChange={(e) => setSize(Number(e.target.value))}  />
+
+            <h2>Valor Dstimado</h2>
+            <input placeholder="Valor" type="number" onChange={(e) => setPrice(Number(e.target.value))}  />
 
             <CartInput type={brands} alter={setBrandsSelected} value={brandsSelected} label="Marca"/>
             <CartInput type={types} alter={setTypesSelected} value={typesSelected} label="Tipo"/>
@@ -87,8 +107,13 @@ export default function CartPost() {
             <textarea placeholder="Descrição" onChange={(e) => setDescription(e.target.value)} value={description} />
           </div>
           <div className={style.second}>
-            <input type="file" name="main" onChange={(e) => setMain(e.target.files)}/>
-            <input type="file" name="secondary" onChange={(e) => setSecondary(e.target.files)} multiple={true}/>
+            <input type="file" name="main" onChange={(e) => {if(e.target.files) { setMain(e.target.files[0])}}}/>
+            <input type="file" name="secondary" onChange={(e) => {if(e.target.files) { 
+              const temp  = secondary as any
+              temp.push(e.target.files[e.target.files.length-1])
+              console.log(temp)
+              setSecondary(temp)
+            }}}/>
           </div>
         </section>
 

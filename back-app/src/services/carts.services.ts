@@ -1,6 +1,8 @@
 import { UnauthorizedError } from "@/errors"
 import { NotFoundError } from "@/errors/not-found-error"
+import { CartCreation } from "@/protocols"
 import { cartsRepository } from "@/repository/carts.repository"
+import { usersRepository } from "@/repository/users.repository"
 
 async function getAllCarts() {
   return await cartsRepository.getAllCarts()
@@ -15,6 +17,14 @@ async function getSpecificCart(id: number) {
 
 async function getMyCarts(user_id: number) {
   return await cartsRepository.getMyCarts(user_id)
+}
+
+async function createCart(body: CartCreation, user_id: number) {
+  
+  const user = await usersRepository.getFullUserById(user_id)
+  if(!user) throw UnauthorizedError("Usuário não cadastrado")
+
+  return await cartsRepository.createCart(body, user_id)
 }
 
 async function validateCart(cart_id: number) {
@@ -45,5 +55,6 @@ export const cartsServices = {
   getMyCarts,
   validateCart,
   deleteMyCart,
-  deleteAnyCart
+  deleteAnyCart,
+  createCart
 }

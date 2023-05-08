@@ -2,12 +2,14 @@ import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import style from "../styles/LoginStyle.module.css";
 import Sidebar from "@/Components/Sidebar";
-import { FormEvent, useState, useEffect, useContext } from "react"
+import { FormEvent, useState, useEffect, useContext, useCallback } from "react"
 import { ThreeDots } from "react-loader-spinner";
 import { useRouter } from "next/router";
 import ActiveLink from "@/hooks/a";
 import UserContext from "@/APIContext/UserContext";
-import { loginUser } from "@/services/user-services";
+import { loginUser, verifyToken } from "@/services/user-services";
+import { verify } from "crypto";
+import handleCallUser from "@/hooks/handleUserToken";
 
 export default function Login() {
   const router = useRouter()
@@ -20,7 +22,9 @@ export default function Login() {
   const { userData, setUserData } = useContext(UserContext) as any
 
   useEffect(() => {
-    if (userData) router.push("/")
+    if (userData) {
+      handleCallUser(userData, setUserData)
+    }
   }, [])
 
   return (

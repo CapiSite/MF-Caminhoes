@@ -68,12 +68,12 @@ export type CartCreation = {
   title: string,
   description: string,
   main_image: string,
+  secondary_images: string[],
   size: number,
   color: string,
   brand_id: number,
   type_id: number,
   model_id: number,
   wheel_id: number,
-  user_id: number
-
+  price: number
 }

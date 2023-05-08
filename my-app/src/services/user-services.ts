@@ -14,3 +14,8 @@ export async function updateUser(body:any, token: string) {
   const response = await instance.put("/users/", body, {headers: {Authorization: `Bearer ${token}`}})
   return response.data
 }
+
+export async function verifyToken(token: string) {
+  const response = await instance.get("/users/verify", {headers: {Authorization: `Bearer ${token}`}})
+  return response.data
+}

@@ -6,7 +6,6 @@ async function getTypes() {
 
 async function getBrands() {
   return await typesRepository.getCartBrands()
-
 }
 
 async function getModels() {

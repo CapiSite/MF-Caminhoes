@@ -37,7 +37,7 @@ async function main() {
     })
   }
 
-  const cart_models = await prisma.cart_type.findFirst()
+  const cart_models = await prisma.cart_model.findFirst()
 
   if (!cart_models) {
     await prisma.cart_model.createMany({
