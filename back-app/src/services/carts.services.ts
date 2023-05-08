@@ -1,11 +1,18 @@
 import { UnauthorizedError } from "@/errors"
 import { NotFoundError } from "@/errors/not-found-error"
-import { CartCreation } from "@/protocols"
+import { CartCreation, CartCreationDefinitive } from "@/protocols"
 import { cartsRepository } from "@/repository/carts.repository"
+import { typesRepository } from "@/repository/types.repository"
 import { usersRepository } from "@/repository/users.repository"
+import { func } from "joi"
+import { type } from "os"
 
 async function getAllCarts() {
   return await cartsRepository.getAllCarts()
+}
+
+async function getUnvalidCarts() {
+  return await cartsRepository.getUnvalidCarts()
 }
 
 async function getSpecificCart(id: number) {
@@ -20,11 +27,28 @@ async function getMyCarts(user_id: number) {
 }
 
 async function createCart(body: CartCreation, user_id: number) {
-  
+
   const user = await usersRepository.getFullUserById(user_id)
   if(!user) throw UnauthorizedError("Usuário não cadastrado")
 
-  return await cartsRepository.createCart(body, user_id)
+  if( typeof(body.brand_id) === "string"){ 
+    const brand = await typesRepository.addBrands(body.brand_id)
+    body.brand_id = brand.id
+  }
+  if( typeof(body.wheel_id) === "string"){ 
+    const wheel = await typesRepository.addBrands(body.wheel_id)
+    body.wheel_id = wheel.id
+  }
+  if( typeof(body.model_id) === "string"){ 
+    const model = await typesRepository.addBrands(body.model_id)
+    body.model_id = model.id
+  }
+  if( typeof(body.type_id) === "string"){ 
+    const type = await typesRepository.addBrands(body.type_id)
+    body.type_id = type.id
+  }
+
+  return await cartsRepository.createCart(body as CartCreationDefinitive, user_id)
 }
 
 async function validateCart(cart_id: number) {
@@ -56,5 +80,6 @@ export const cartsServices = {
   validateCart,
   deleteMyCart,
   deleteAnyCart,
-  createCart
+  createCart,
+  getUnvalidCarts
 }

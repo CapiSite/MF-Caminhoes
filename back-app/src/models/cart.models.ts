@@ -12,5 +12,8 @@ export const cartPost = Joi.object<CartCreation> ({
   type_id: Joi.number().required(),
   model_id: Joi.number().required(),
   wheel_id: Joi.number().required(),
-  price: Joi.number().required()
+  price: Joi.number().required(),
+  year: Joi.number().required(),
+  sections: Joi.number().required(),
+  status: Joi.string().required()
 })

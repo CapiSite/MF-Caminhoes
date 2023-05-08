@@ -46,5 +46,4 @@ export async function editUser(req: AuthenticatedRequest, res: Response) {
       return res.status(httpStatus.UNAUTHORIZED).send(error)
     }
   }
-
 }

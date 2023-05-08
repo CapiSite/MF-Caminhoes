@@ -20,8 +20,11 @@ export default function CartPost() {
   const [typesSelected, setTypesSelected] = useState<string | number>("")
   const [modelsSelected, setModelsSelected] = useState<string | number>("")
   const [wheelsSelected, setWheelsSelected] = useState<string | number>("")
+  const [section, setSection] = useState<number>()
   const [main, setMain] = useState<any>()
   const [secondary, setSecondary] = useState<[]>([])
+  const [year, setYear] = useState<number>()
+  const [status, setStatus] = useState<string>("")
 
   const { userData } = useContext(UserContext) as any
 
@@ -60,7 +63,6 @@ export default function CartPost() {
   
     try{
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
-      console.log(mainImage)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
       await postCart( {
         description: description,
@@ -73,7 +75,11 @@ export default function CartPost() {
         model_id: Number(modelsSelected),
         price: Number(price),
         main_image: mainImage.main,
-        secondary_images: secondaryImages.secondary
+        secondary_images: secondaryImages.secondary,
+        sections: Number(section),
+        year : Number(year),
+        status: status
+
       },userData.token)
 
     }catch(err){
@@ -90,13 +96,24 @@ export default function CartPost() {
           <div className={style.first}>
             <h2>Título</h2>
             <input placeholder="Título" type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
+
             <h2>Cor</h2>
             <input placeholder="Cor" type="text" onChange={(e) => setColor(e.target.value)} value={color} />
+
             <h2>Tamanho</h2>
             <input placeholder="Tamanho" type="number" onChange={(e) => setSize(Number(e.target.value))}  />
 
-            <h2>Valor Dstimado</h2>
+            <h2>Valor Estimado</h2>
             <input placeholder="Valor" type="number" onChange={(e) => setPrice(Number(e.target.value))}  />
+
+            <h2>Ano</h2>
+            <input placeholder="Ano" type="number" onChange={(e) => setYear(Number(e.target.value))} value={year} />
+
+            <h2>Eixos</h2>
+            <input placeholder="Título" type="number" onChange={(e) => setSection(Number(e.target.value))} value={section} />
+
+            <h2>Status</h2>
+            <input placeholder="Status" type="text" onChange={(e) => setStatus(e.target.value)} value={status} />
 
             <CartInput type={brands} alter={setBrandsSelected} value={brandsSelected} label="Marca"/>
             <CartInput type={types} alter={setTypesSelected} value={typesSelected} label="Tipo"/>

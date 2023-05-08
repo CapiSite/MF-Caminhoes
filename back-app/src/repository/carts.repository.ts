@@ -1,5 +1,5 @@
 import { prismaDb } from "@/config"
-import { CartCreation } from "@/protocols"
+import { CartCreationDefinitive } from "@/protocols"
 
 async function getAllCarts() {
   try {
@@ -10,6 +10,28 @@ async function getAllCarts() {
         cart_type: true,
         brands: true,
         cart_images: true
+      },
+      where:{
+        valid: true
+      }
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function getUnvalidCarts() {
+  try {
+    return prismaDb.carts.findMany({
+      include: {
+        wheel: true,
+        cart_model: true,
+        cart_type: true,
+        brands: true,
+        cart_images: true
+      },
+      where:{
+        valid: false
       }
     })
   } catch (err) {
@@ -28,7 +50,7 @@ async function getSpecificCart(id: number) {
         cart_model: true,
         cart_type: true,
         brands: true,
-        cart_images: true
+        cart_images: true,
       }
     })
   } catch (err) {
@@ -55,7 +77,7 @@ async function getMyCarts(user_id: number) {
   }
 }
 
-async function createCart(cart: CartCreation, user_id: number) {
+async function createCart(cart: CartCreationDefinitive, user_id: number) {
   try {
     const cartCreation = {...cart}
     delete cartCreation.secondary_images
@@ -80,7 +102,7 @@ async function createCart(cart: CartCreation, user_id: number) {
   }
 }
 
-async function updateCart(cart: Omit<CartCreation, 'main_image'>, id: number) {
+async function updateCart(cart: CartCreationDefinitive, id: number) {
   try {
     return prismaDb.carts.update({
       where: {
@@ -127,5 +149,6 @@ export const cartsRepository = {
   createCart,
   updateCart,
   validateCart,
-  deleteCart
+  deleteCart,
+  getUnvalidCarts
 }

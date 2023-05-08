@@ -71,9 +71,29 @@ export type CartCreation = {
   secondary_images: string[],
   size: number,
   color: string,
+  brand_id: number | string,
+  type_id: number | string,
+  model_id: number | string,
+  wheel_id: number | string,
+  price: number,
+  year: number,
+  status: string,
+  sections: number
+}
+
+export type CartCreationDefinitive = {
+  title: string,
+  description: string,
+  main_image: string,
+  secondary_images: string[],
+  size: number,
+  color: string,
   brand_id: number,
   type_id: number,
   model_id: number,
   wheel_id: number,
-  price: number
+  price: number,
+  year: number,
+  status: string,
+  sections: number
 }

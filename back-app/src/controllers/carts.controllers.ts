@@ -11,11 +11,22 @@ export async function getAllCarts(req: Request, res: Response) {
   } catch (error) {
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
   }
+}
 
+export async function getUnvalidCarts(req: Request, res: Response) {
+  try {
+    const carts = await cartsServices.getUnvalidCarts()
+    return res.status(httpStatus.OK).send(carts)
+
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+  }
 }
 
 export async function getSpecificCart(req: Request, res: Response) {
   const { cart_id } = req.params
+
+  if(isNaN(Number(cart_id))) {return res.status(httpStatus.BAD_REQUEST).send("Carreta inválida")}
 
   try {
     const cart = await cartsServices.getSpecificCart(Number(cart_id))
@@ -66,6 +77,8 @@ export async function editCart(req: AuthenticatedRequest, res: Response) {
 export async function deleteMyCart(req: AuthenticatedRequest, res: Response) {
   const { cart_id } = req.params
 
+  if(isNaN(Number(cart_id))) {return res.status(httpStatus.BAD_REQUEST).send("Carreta inválida")}
+
   try {
     await cartsServices.deleteMyCart(req.user_id, Number(cart_id))
     return res.sendStatus(httpStatus.OK)
@@ -83,6 +96,8 @@ export async function deleteMyCart(req: AuthenticatedRequest, res: Response) {
 export async function validateCart(req: AuthenticatedRequestAdmin, res: Response) {
   const { cart_id } = req.params
 
+  if(isNaN(Number(cart_id))) {return res.status(httpStatus.BAD_REQUEST).send("Carreta inválida")}
+
   try {
     await cartsServices.validateCart(Number(cart_id))
     return res.sendStatus(httpStatus.CREATED)
@@ -96,6 +111,8 @@ export async function validateCart(req: AuthenticatedRequestAdmin, res: Response
 
 export async function deleteCart(req: AuthenticatedRequestAdmin, res: Response) {
   const { cart_id } = req.params
+
+  if(isNaN(Number(cart_id))) {return res.status(httpStatus.BAD_REQUEST).send("Carreta inválida")}
 
   try {
     await cartsServices.deleteAnyCart(Number(cart_id))

@@ -2,13 +2,29 @@ import Image from "next/image"
 import style from "../styles/HeaderStyle.module.css"
 import { useRouter } from "next/router"
 import Logo from "../../public/LogoLocacao.png"
-import { useContext } from "react"
+import { useCallback, useContext, useEffect } from "react"
 import UserContext from "@/APIContext/UserContext"
+import { verifyToken } from "@/services/user-services"
 
 export default function Header() {
   const router = useRouter()
+  const { userData, setUserData } = useContext(UserContext) as any 
 
-  const { userData } = useContext(UserContext) as any
+  const handleCallUser = useCallback(async () => {  
+    try {
+      await verifyToken(userData.token)
+    } catch (err: any) {
+      if(err.response.status === 401){
+        setUserData(null)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (userData) {
+      handleCallUser()
+    }
+  }, [])
 
   return (
     <header className={style.header}>
