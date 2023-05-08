@@ -1,7 +1,7 @@
 import instance from './api';
 
 export async function getWheels() {
-  const response = await instance.post("/types/wheels")
+  const response = await instance.get("/types/wheels")
   return response.data
 }
 
