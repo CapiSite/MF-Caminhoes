@@ -19,6 +19,7 @@ async function getCartWheels() {
 async function getStates() {
   return prismaDb.states.findMany()
 }
+
 export const typesRepository = {
   getCartBrands,
   getCartModels,
