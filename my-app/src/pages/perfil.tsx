@@ -8,6 +8,7 @@ import { FormEvent, useState, useContext, useEffect } from 'react'
 import style from '@/styles/user_page/page.module.css'
 import UserContext from "@/APIContext/UserContext";
 import AlertMessage from "@/Components/user_page.tsx/Alert_message";
+import Sidebar from "@/Components/Sidebar";
 
 export default function userArea() {
   const [selection, setSelection] = useState<number>(0)
@@ -28,7 +29,12 @@ export default function userArea() {
 
   return (
     <>
-      <Header />
+      <div className={style.header}>
+        <Header/>
+      </div>
+      <div className={style.sidebar}>
+        <Sidebar/>
+      </div>
       <div className={style.father}>
 
         <NavOptions subsets={["Loque minha Carreta", "Minhas Carretas", "Meu perfil",]} select={setSelection} />
