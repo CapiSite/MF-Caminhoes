@@ -32,8 +32,8 @@ export default function ProductLocation() {
       <Image src={mainImage} alt="Caminhão" width={500} height={500}/>
       <div className={style.info}>
         <h1>Caminhão oasjflksadj lsjaflkasjf sladjflask</h1>
-        <p>Detalhes do Veículo:</p>
         <div className={style.specifications}>
+        <p>Detalhes do Veículo:</p>
           <p>Tipo: Caminhão</p>
           <p>Marca: Bitrem</p>
           <p>Modelo: Caminhão</p>
