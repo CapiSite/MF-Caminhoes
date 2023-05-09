@@ -18,7 +18,7 @@ export default function UserUpdate() {
   const [fieldError, setFieldError] = useState(() => ({name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
   const [states, setStates] = useState<{ id: number, name: string }[]>()
 
-  const { userData } = useContext(UserContext) as { userData: any }
+  const { userData, setUserData } = useContext(UserContext) as any
 
   const handleCall = useCallback(async () => {
     try {
@@ -28,8 +28,7 @@ export default function UserUpdate() {
   }, [])
 
   useEffect(() => {
-    if (!userData) { router.push("/") }
-    else {
+    if (userData) {
       handleCall()
       setInformations({...informations, 
         name : userData.user.name, cpf:userData.user.cpf, phone: userData.user.phone,
@@ -117,23 +116,24 @@ export default function UserUpdate() {
 
     const register = {
       name: informations.name,
-      email: informations.email,
-      password: informations.password,
       phone: informations.phone,
       cpf: informations.cpf,
       address: {
-        cep: informations.cep,
+        cep: String(informations.cep),
         address: informations.address,
         complement: informations.complement,
-        number: informations.number,
+        number: String(informations.number),
         city: informations.city,
         state_id: informations.uf
       }
     }
 
     try {
-      await updateUser(register, userData.token)
+      const user =await updateUser(register, userData.token)
+      setDisable(false)
+      setUserData({...userData, user:user})
     } catch (err) {
+      console.log(err)
       setDisable(false)
     }
   }

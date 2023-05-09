@@ -47,3 +47,18 @@ export async function editUser(req: AuthenticatedRequest, res: Response) {
     }
   }
 }
+
+export async function logoutUser(req: AuthenticatedRequest, res: Response) {
+
+  try {
+    const updatedInfo = await userServices.logoutUser(req.user_id)
+    return res.status(httpStatus.CREATED).send(updatedInfo)
+  } catch (error) {
+    if (error.name === "ConflictError") {
+      return res.status(httpStatus.CONFLICT).send(error)
+    }
+    if (error.name === "UnauthorizedError") {
+      return res.status(httpStatus.UNAUTHORIZED).send(error)
+    }
+  }
+}

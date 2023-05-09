@@ -16,16 +16,11 @@ export default function userArea() {
 
   const { userData } = useContext(UserContext) as { userData: any }
 
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-  }
-
   useEffect(() => {
     if (!userData) {
       setError(1)
     }
-  }, [])
+  }, [userData])
 
   return (
     <>

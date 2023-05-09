@@ -19,3 +19,9 @@ export async function verifyToken(token: string) {
   const response = await instance.get("/users/verify", {headers: {Authorization: `Bearer ${token}`}})
   return response.data
 }
+
+export async function logoutUser(token: string) {
+  const response = await instance.get("/users/logout", {headers: {Authorization: `Bearer ${token}`}})
+  return response.data
+
+}
