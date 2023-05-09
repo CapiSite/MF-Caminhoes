@@ -28,14 +28,15 @@ body {
   --black:black;
   --black-1: #111111;
   --white:white;
-  --yellow:#F4F400;
-  --darkYellow:#F8DA3B;
+  --yellow:#F8DA3B;
+  --darkYellow:#fdb601;
   --veryDarkYellow: rgb(252, 194, 0);
   --lightYellow: rgb(255, 213, 0);
   --gray:rgb(230, 230, 230);
   --gray-light: #dcdcdc;
   --strong-green: #018600;
   --light-green: #14aa14;
+  position: relative;
 }
 a{
 	text-decoration: none;

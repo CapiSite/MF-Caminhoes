@@ -1,43 +1,45 @@
-import Image from 'next/image'
-import Logo from "@/../public/LogoLocacao2SemFundo.png"
-import Banner from "@/../public/banner2.jpg"
-import BannerMobile from "@/../public/banner-mobile.png"
-import style from "../styles/HomeStyle.module.css"
-import logo from "@/../public/Logo.png"
-import { useRouter } from 'next/router'
-import Header from '@/Components/Header'
-import Footer from '@/Components/Footer'
-import Sidebar from '@/Components/Sidebar'
+import Image from "next/image";
+import Banner from "@/../public/banner2.jpg";
+import BannerMobile from "@/../public/banner-mobile.png";
+import style from "../styles/HomeStyle.module.css";
+import { useRouter } from "next/router";
+import Header from "@/Components/Header";
+import Footer from "@/Components/Footer";
+import Sidebar from "@/Components/Sidebar";
+import Cards from "@/Components/Cards";
+import Carousel from "@/Components/Carousel";
+
+const carrosel = ["Caminhão 1", "Caminhão 2", "Caminhão 3", "Caminhão 4", "Caminhão 5", "Caminhão 6", "Caminhão 7", "Caminhão 8", "Caminhão 9", "Caminhão 10"]
 
 export default function Home() {
-
-  const router = useRouter()
+  const router = useRouter();
+  
   return (
     <div>
       <div className={style.header}>
-        <Header/>
+        <Header />
       </div>
       <div className={style.sidebar}>
-        <Sidebar/>
+        <Sidebar />
       </div>
-      
+
       <main className={style.main}>
         <div className={style.center}>
-        <Image className={style.banner} src={Banner} alt="Banner"/>
-        <Image className={style.banner_mobile} src={BannerMobile} alt="Banner-Mobile"/>
-        <div className={style.buttons}>
-          <button onClick={()=> router.push("/locacoes")}className={style.button}>
-            <Image src={Logo} width={334} height={108} alt='Logo'/>
-            <p>Locação</p>
-            </button>
-          <button onClick={()=> router.push("/comprar")}className={style.button}>
-          <Image className={style.logo2} src={logo} width={350} height={60} alt='Logo'/>
-          <p className={style.p}>Compra</p>
-          </button>
-        </div>
+          <Image className={style.banner} src={Banner} alt="Banner" />
+          <Image
+            className={style.banner_mobile}
+            src={BannerMobile}
+            alt="Banner-Mobile"
+          />
+          <div className={style.carousel}>
+            {carrosel.map((item, index) => (
+              <Carousel item={item} key={index}/>
+            ))}
+          </div>
+          
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </div>
-  )
+  );
 }

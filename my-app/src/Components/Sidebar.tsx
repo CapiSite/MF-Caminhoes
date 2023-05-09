@@ -1,7 +1,7 @@
 import Image from "next/image"
 import style from "../styles/SideStyle.module.css"
 import { useRouter } from "next/router"
-import Logo from "../../public/LogoLocacao.png"
+import Logo from "../../public/LogoLocacaoSemFundo.png"
 import { VscThreeBars } from "react-icons/vsc";
 import { useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -56,8 +56,8 @@ export default function Sidebar() {
               <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>
             </div>
 
-            <footer>
-              <Image src={Logo} alt="sidebar-logo" width={200} />
+            <footer className={style.img}>
+              <Image  src={Logo} alt="sidebar-logo" width={200} />
             </footer>
           </motion.aside>
 

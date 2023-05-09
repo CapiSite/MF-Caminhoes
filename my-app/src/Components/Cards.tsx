@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import style from "../styles/LocationsStyle.module.css"
 import Image from "next/image"
 
-export default function Cards({ item, index, ct, setCt, id }: any) {
+export default function Cards({ item,index, ct, setCt, id }: any) {
   const router = useRouter()
   if (index < ct) {
     return (

@@ -27,6 +27,31 @@
     align-items: center;
 }
 
+.button{
+    position: fixed;
+    bottom:10px;
+    left: 8px;
+}
+.button button{
+    background-color: var(--light-green);
+    border: 0px;
+    width: 130px;
+    height: 40px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button p{
+    margin-left: 4px;
+}
+.button button:hover{
+    cursor: pointer;
+    background-color: var(--strong-green);
+}
+
 .register{
     color: var(--black);
     font-family: 'Droid Sans', sans-serif;
