@@ -36,14 +36,23 @@
   margin-bottom: 10px;
 }
 
+.father form button {
+  background-color: var(--strong-green);
+  border: none;
+  color: var(--white);
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  max-width: 100px;
+}
+
+.father form button:hover {
+  background-color: var(--light-green);
+}
+
 .father h2{
   margin-bottom: 6px;
   margin-top: 4px;
-}
-
-.father button {
-  width: 50px;
-  cursor: pointer;
 }
 
 .first {
