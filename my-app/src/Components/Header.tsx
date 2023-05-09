@@ -48,7 +48,7 @@ export default function Header() {
         <button onClick={() => router.push("/perfil")} className={style.options}>Loque sua carreta</button>
       </div>
       <div>
-        {userData ? <Image src="/default_photo.png" width={35} height={30} alt="foto de usuário" onClick={() => logoutUserPost()}/> :
+        {userData ? <Image src="/default_photo.png" width={35} height={30} alt="foto de usuário" onClick={() => router.push(`admin/1`)}/> :
           <>
             <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
             <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>

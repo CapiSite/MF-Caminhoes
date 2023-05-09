@@ -29,7 +29,6 @@ export default function ProductLocation() {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
         setInfo(infoReceived)
       } catch (err: any) {
-        setError(true)
       }
     }
   }, [])
@@ -94,7 +93,8 @@ export default function ProductLocation() {
                 <p>Observações: {info.description}</p>
               </div>
               <p>R$: {parseFloat((info.price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
-              <Link href="https://web.whatsapp.com/send?phone=55349%209100-1000&text=Ol%C3%A1,%20estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20MF%20Caminh%C3%B5es" target="_blank"><button>Fazer uma proposta<BsWhatsapp /></button></Link>
+              <button> Aprovar</button>
+              <button>Reprovar</button>
             </>
             : null}
         </div>
