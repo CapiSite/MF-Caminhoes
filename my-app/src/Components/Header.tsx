@@ -2,9 +2,9 @@ import Image from "next/image"
 import style from "../styles/HeaderStyle.module.css"
 import { useRouter } from "next/router"
 import Logo from "../../public/LogoLocacao.png"
-import { useCallback, useContext, useEffect } from "react"
+import { FormEvent, useCallback, useContext, useEffect } from "react"
 import UserContext from "@/APIContext/UserContext"
-import { verifyToken } from "@/services/user-services"
+import { logoutUser, verifyToken } from "@/services/user-services"
 import { BsWhatsapp } from "react-icons/bs"
 import Link from "next/link"
 
@@ -28,6 +28,16 @@ export default function Header() {
     }
   }, [])
 
+
+  async function logoutUserPost() {
+    try{
+      await logoutUser(userData.token)
+      setUserData(null)
+    }catch(err) {
+      setUserData(null)
+    }
+  }
+
   return (
     <>
     <header className={style.header}>
@@ -38,7 +48,7 @@ export default function Header() {
         <button onClick={() => router.push("/perfil")} className={style.options}>Loque sua carreta</button>
       </div>
       <div>
-        {userData ? <Image src="/default_photo.png" width={35} height={30} alt="foto de usuário" onClick={() => router.push("perfil")}/> :
+        {userData ? <Image src="/default_photo.png" width={35} height={30} alt="foto de usuário" onClick={() => logoutUserPost()}/> :
           <>
             <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
             <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>

@@ -50,34 +50,35 @@ async function loginUser(email: string, password: string) {
 }
 
 async function editUser(user: UserCreation, id: number) {
-  const emailExist = await usersRepository.getUsersByEmail(user.email)
-  if (emailExist) throw ConflictError("E-mail já em uso")
-
-  const cpfExist = await usersRepository.getUserByCpf(user.cpf)
-  if (cpfExist) throw ConflictError("Cpf já em uso")
-
   const userExist = await usersRepository.getFullUserById(id)
   if (!userExist) throw UnauthorizedError("Usuaŕio não cadastrado")
 
-  const newAddress = await addressRepository.updateAddress(user.address, userExist.address_id, userExist.id)
+  const cpfValid = await usersRepository.getUserButCpfCanbeTheSame(user.cpf, id)
+  if (!cpfValid) throw ConflictError("Cpf já em uso")
 
-  const encryptedPassword = bcrypt.hashSync(user.password, 12)
+  const newAddress = await addressRepository.updateAddress(user.address, userExist.address_id, userExist.id)
 
   return usersRepository.updateUser({
     cpf: user.cpf,
     name: user.name,
-    email: user.email,
-    password: encryptedPassword,
     phone: user.phone,
     address_id: newAddress.id
   },
     userExist.id)
 }
 
+async function logoutUser(user_id: number) {
+  const userExist = await usersRepository.getFullUserById(user_id)
+  if (!userExist) throw UnauthorizedError("Usuaŕio não cadastrado")
+
+  return usersRepository.logoutUser(user_id)
+}
+
 export const userServices = {
   createUser,
   loginUser,
   editUser,
+  logoutUser
 
 }
 

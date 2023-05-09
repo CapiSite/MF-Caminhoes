@@ -179,10 +179,10 @@ export default function Cadastro() {
       phone: informations.phone,
       cpf: informations.cpf,
       address: {
-        cep: informations.cep,
+        cep: String(informations.cep),
         address: informations.address,
         complement: informations.complement,
-        number: informations.number,
+        number: String(informations.number),
         city: informations.city,
         state_id: informations.uf
       }
