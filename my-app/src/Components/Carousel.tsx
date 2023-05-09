@@ -6,7 +6,7 @@ export default function Carousel({item}:any) {
   const router = useRouter()
     return (
 
-      <div onClick={() => router.push(`/Locacoes/${2}`)} className={style.locationsCard}>
+      <div onClick={() => router.push(`/locacoes/${2}`)} className={style.locationsCard}>
         <Image src={"/caminhao.jpeg"} alt="Caminhão" width={198} height={198} />
         <h2>{item}</h2>
         <p>random | 3 eixos</p>
