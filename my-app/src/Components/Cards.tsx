@@ -7,7 +7,7 @@ export default function Cards({ item, index, ct, setCt, id }: any) {
   if (index < ct) {
     return (
 
-      <div onClick={() => router.push(`/Locacoes/${2}`)} className={style.locationsCard}>
+      <div onClick={() => router.push(`/locacoes/${1}`)} className={style.locationsCard}>
         <Image src={"/caminhao.jpeg"} alt="Caminhão" width={198} height={198} />
         <h2>Caminhão lajfdlak lkjasflksa ljalkdfja</h2>
         <p>random | 3 eixos</p>

@@ -30,7 +30,7 @@ export default function Header() {
     <header className={style.header}>
       <div >
         <Image onClick={() => router.push("/")} className={style.logo} src={Logo} width={190} height={61} alt='Logo' />
-        <button onClick={() => router.push("/Locacoes")} className={style.options}>Locar</button>
+        <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
         <button onClick={() => router.push("/comprar")} className={style.options}>Comprar</button>
         <button onClick={() => router.push("/perfil")} className={style.options}>Loque sua carreta</button>
       </div>
