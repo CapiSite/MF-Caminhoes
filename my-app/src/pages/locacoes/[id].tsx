@@ -12,7 +12,7 @@ import { BsWhatsapp } from "react-icons/bs"
 import { getSpecificCart } from "@/services/cart.services"
 import { roboto } from "@/styles/fonts"
 
-export default function ProductLocation({ params }: any) {
+export default function ProductLocation() {
   const router = useRouter()
 
   const [mainImage, setMainImage] = useState()
@@ -27,7 +27,6 @@ export default function ProductLocation({ params }: any) {
     if (typeof (router.query.id) === "string") {
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
-        console.log(infoReceived)
         setInfo(infoReceived)
       } catch (err: any) {
         setError(true)
@@ -92,10 +91,9 @@ export default function ProductLocation({ params }: any) {
                 <p>Ano: 2021</p>
                 <p>Eixos: 3 eixos</p>
                 <p>Status: Novo</p>
-                <p>Observações: </p>
-                <p>Descrição: {info.description} </p>
+                <p>Observações: {info.description}</p>
               </div>
-              <p>R$: 10.000,00</p>
+              <p>R$: {parseFloat((info.price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
               <Link href="https://web.whatsapp.com/send?phone=55349%209100-1000&text=Ol%C3%A1,%20estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20MF%20Caminh%C3%B5es" target="_blank"><button>Fazer uma proposta<BsWhatsapp /></button></Link>
             </>
             : null}

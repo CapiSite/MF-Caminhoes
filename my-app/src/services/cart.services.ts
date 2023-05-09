@@ -1,7 +1,12 @@
 import instance from './api';
 
 export async function getAllCarts() {
-  const response = await instance.post("/carts/",)
+  const response = await instance.get("/carts/")
+  return response.data
+}
+
+export async function getUnvalidCarts() {
+  const response = await instance.get("/carts/unvalid")
   return response.data
 }
 

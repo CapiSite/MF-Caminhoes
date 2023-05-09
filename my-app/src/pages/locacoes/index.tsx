@@ -5,10 +5,12 @@ import Type from "@/Components/Filter/Type";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
+import { getAllCarts, getUnvalidCarts } from "@/services/cart.services";
+import { getBrands, getModels, getTypes, getWheels } from "@/services/types.services";
 import style from "@/styles/LocationsStyle.module.css";
+import { AxiosError } from "axios";
 import Image from "next/image";
-import { useState } from "react"
-
+import { useCallback, useEffect, useState } from "react"
 
 const caminhao = ["Caminhao 1", "Caminhao 2", "Caminhao 3", "Caminhao 4", "Caminhao 5", "Caminhao 6", "Caminhao 1", "Caminhao 2", "Caminhao 3", "Caminhao 4", "Caminhao 5", "Caminhao 6", "Caminhao 1", "Caminhao 2", "Caminhao 3", "Caminhao 4", "Caminhao 3", "Caminhao 4", "Caminhao 3", "Caminhao 4"]
 
@@ -23,6 +25,43 @@ export default function Location() {
   const [filter, setFilter] = useState({ type: "", status: "", brand: "" })
   const [ct, setCt] = useState(8)
   const [mobileFilter, setMobileFilter] = useState(false)
+
+  const [carts, setCaminhoes] = useState<string[]>([])
+  const [types, setTypes] = useState<string[]>([])
+  const [models, setModels] = useState<string[]>([])
+  const [brands, setBrands] = useState<string[]>([])
+  const [wheels, setWheels] = useState<string[]>([])
+
+
+  const handleCall = useCallback(async () => {
+    try {
+      const cartsReceived = await getAllCarts()
+      setCaminhoes(cartsReceived)
+
+      const brandsReceived = await getBrands()
+      setBrands(brandsReceived)
+
+      const typesReceived = await getTypes()
+      setTypes(typesReceived)
+
+      const modelsReceived = await getModels()
+      console.log(modelsReceived)
+      setModels(modelsReceived)
+
+      const wheelsReceived = await getWheels()
+      setWheels(wheelsReceived)
+
+    } catch (err) {
+      const error = err as AxiosError
+
+    }
+
+  }, [])
+
+
+  useEffect(() => {
+    handleCall()
+  }, [])
 
   return (
     <>
@@ -47,11 +86,13 @@ export default function Location() {
                 <button>Filtrar</button>
               </div>
               <h1>Tipo</h1>
-              {tipo.map((o, i) => <Type setFilter={setFilter} filter={filter} item={o} key={i} />)}
-              <h1>Estado</h1>
-              {estado.map((o, i) => <Status setFilter={setFilter} filter={filter} item={o} key={i} />)}
+              {types ? types.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+              <h1>Modelo</h1>
+              {models ? models.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
               <h1>Marca</h1>
-              {marca.map((o, i) => <Brand setFilter={setFilter} filter={filter} item={o} key={i} />)}
+              {brands ? brands.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+              <h1>Roda</h1>
+              {wheels ? wheels.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
             </div>
           }
         </div>
@@ -65,11 +106,13 @@ export default function Location() {
             <button>Filtrar</button>
           </div>
           <h1>Tipo</h1>
-          {tipo.map((o, i) => <Type setFilter={setFilter} filter={filter} item={o} key={i} />)}
-          <h1>Estado</h1>
-          {estado.map((o, i) => <Status setFilter={setFilter} filter={filter} item={o} key={i} />)}
+          {types ? types.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+          <h1>Modelo</h1>
+          {models ? models.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
           <h1>Marca</h1>
-          {marca.map((o, i) => <Brand setFilter={setFilter} filter={filter} item={o} key={i} />)}
+          {brands ? brands.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+          <h1>Roda</h1>
+          {wheels ? wheels.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
         </div>
 
 
@@ -86,9 +129,9 @@ export default function Location() {
               </select>
             </div>
             <div className={style.locationsContainer}>
-              {caminhao.map((o, i) => <Cards item={o} key={i} index={i} ct={ct} setCt={setCt} />)}
+              {carts.map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
             </div>
-            {ct <= caminhao.length ? <div className={style.more}>
+            {ct <= carts.length ? <div className={style.more}>
               <button onClick={() => setCt(ct + 8)}>Ver mais</button>
             </div> : <></>}
 

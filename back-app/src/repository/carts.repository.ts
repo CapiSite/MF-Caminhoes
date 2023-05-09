@@ -2,6 +2,7 @@ import { prismaDb } from "@/config"
 import { CartCreationDefinitive } from "@/protocols"
 
 async function getAllCarts() {
+  //alterar depois para adicionar where valid:true
   try {
     return prismaDb.carts.findMany({
       include: {
@@ -10,9 +11,6 @@ async function getAllCarts() {
         cart_type: true,
         brands: true,
         cart_images: true
-      },
-      where:{
-        valid: true
       }
     })
   } catch (err) {
