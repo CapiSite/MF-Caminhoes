@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import ActiveLink from "@/hooks/a";
 import UserContext from "@/APIContext/UserContext";
 import { loginUser } from "@/services/user-services";
+import { AiOutlineClose } from "react-icons/ai";
 
 export default function Login() {
   const router = useRouter()
@@ -18,6 +19,7 @@ export default function Login() {
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false }))
 
   const { userData, setUserData } = useContext(UserContext) as any
+  const [admin, setAdmin] = useState<boolean>(true)
 
 
   return (
@@ -38,7 +40,14 @@ export default function Login() {
           <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Entrar"}</button>
           {ActiveLink({ children: "Não possui uma conta? Cadastre-se!", href: "/cadastrar" })}
         </form>
+        {admin&&<div className={style.admin}>
+                        <h1>Insira o PIN para entrar</h1>
+                        <input placeholder="Insira o PIN"/>
+                        <button onClick={()=>router.push("/locacoes")}>Acessar</button>
+                        <AiOutlineClose onClick={()=>setAdmin(!admin)}/>
+                </div>}
       </div>
+      
       <Footer />
     </>
   )
@@ -68,9 +77,7 @@ export default function Login() {
 
     try {
       const tokenAndUser = await loginUser(informations)
-      console.log(tokenAndUser)
       setUserData(tokenAndUser)
-      console.log("aq")
       router.push("/")
     } catch (err) {
       setDisable(true)

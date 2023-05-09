@@ -11,13 +11,13 @@ import { updateUser } from "@/services/user-services";
 
 export default function UserUpdate() {
   const router = useRouter()
-
+  const [deleter, setDeleter] = useState(false)
   const [disable, setDisable] = useState(false)
   const [informations, setInformations] = useState<any>({ name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: 0 })
   const [errorMessage, setErrorMessage] = useState({ name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
   const [states, setStates] = useState<{ id: number, name: string }[]>()
-
+  
   const { userData, setUserData } = useContext(UserContext) as any
 
   const handleCall = useCallback(async () => {
@@ -142,6 +142,16 @@ export default function UserUpdate() {
   return (
     <>
       <div className={`${style.background} ${roboto.className}`}>
+        {deleter &&
+           <div className={style.modal}>
+            <h1>Deseja mesmo deletar sua conta?</h1>
+            <p>Você perderá todos os seus dados e não poderá recuperá-los!</p>
+            <div className={style.buttons}>
+              <button onClick={() => setDeleter(false)}>Não</button>
+              <button>Sim</button>
+            </div>
+            
+          </div>}
         <form className={style.form} onSubmit={(e) => updateUserPost(e)}>
 
           <div>
@@ -152,6 +162,8 @@ export default function UserUpdate() {
             <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
             {fieldError.phone && <p className={style.p}>{errorMessage.phone}</p>}
             <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
+            <button className={style.disconnect}>Desconectar</button>
+            <button className={style.delete} type="button" onClick={() => setDeleter(true)}>Deletar Conta</button>
           </div>
 
           <div className={style.color}>

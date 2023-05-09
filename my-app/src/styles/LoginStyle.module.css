@@ -5,6 +5,7 @@
     flex-direction:column;
     justify-content:center;
     align-items:center;
+    position: relative;
 }
 
 .p{
@@ -74,6 +75,59 @@
 
 
 
+.admin{
+    border:1px solid black;
+    background-color:var(--light-green);
+    max-width:400px;
+    width:80vw;
+    height: 300px;
+    display:flex;
+    border:1px solid, black;
+    border-radius:5px;
+    margin-top:40px;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index: 1;
+    position:fixed;
+    padding:20px;
+}
+
+.admin input, .admin button{
+      width: 200px;
+      height: 50px;
+  }
+.admin input{
+    margin-bottom: 20px;
+    border-radius: 5px; 
+    border: 0px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.admin button{
+    background-color: var(--veryDarkYellow);
+    border-radius: 5px;
+    border: 0px;
+    font-weight: bold;
+}
+.admin button:hover{
+    background-color: var(--darkYellow);
+    cursor: pointer;
+}
+.admin h1{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom: 20px;
+}
+.admin svg{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size:20px;
+}
+.admin svg:hover{
+    cursor: pointer;
+}
 @media (max-width: 800px) {
     .header {
       display: none;

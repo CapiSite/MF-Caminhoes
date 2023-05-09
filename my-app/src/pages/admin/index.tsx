@@ -4,7 +4,6 @@ import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
 import style from "@/styles/AdmStyle.module.css";
-import Image from "next/image";
 
 const carrosel = ["Caminhão 1", "Caminhão 2", "Caminhão 3", "Caminhão 4", "Caminhão 5", "Caminhão 6", "Caminhão 7", "Caminhão 8", "Caminhão 9", "Caminhão 10"]
 

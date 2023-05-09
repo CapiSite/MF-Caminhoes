@@ -110,7 +110,7 @@ export default function CartPost() {
             <input placeholder="Ano" type="number" onChange={(e) => setYear(Number(e.target.value))} value={year} />
 
             <h2>Eixos</h2>
-            <input placeholder="Título" type="number" onChange={(e) => setSection(Number(e.target.value))} value={section} />
+            <input placeholder="Eixos" type="number" onChange={(e) => setSection(Number(e.target.value))} value={section} />
 
             <h2>Status</h2>
             <input placeholder="Status" type="text" onChange={(e) => setStatus(e.target.value)} value={status} />
