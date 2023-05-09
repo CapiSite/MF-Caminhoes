@@ -5,6 +5,8 @@ import Logo from "../../public/LogoLocacao.png"
 import { useCallback, useContext, useEffect } from "react"
 import UserContext from "@/APIContext/UserContext"
 import { verifyToken } from "@/services/user-services"
+import { BsWhatsapp } from "react-icons/bs"
+import Link from "next/link"
 
 export default function Header() {
   const router = useRouter()
@@ -27,6 +29,7 @@ export default function Header() {
   }, [])
 
   return (
+    <>
     <header className={style.header}>
       <div >
         <Image onClick={() => router.push("/")} className={style.logo} src={Logo} width={190} height={61} alt='Logo' />
@@ -43,5 +46,9 @@ export default function Header() {
           }
       </div>
     </header>
+      <div className={style.button}>
+      <Link href="https://web.whatsapp.com/send?phone=55349%209100-1000&text=Ol%C3%A1,%20estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20MF%20Caminh%C3%B5es" target="_blank"><button><BsWhatsapp /><p>Fale conosco</p></button></Link>
+      </div>
+    </>
   )
 }
