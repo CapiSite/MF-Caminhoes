@@ -11,7 +11,7 @@ export default function Cards({ index, ct, image, id, title, sections, price, se
         <h2>{title}</h2>
         <p>{sections} eixos</p>
         <p>R$ {parseFloat((price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
-        <button>Comprar</button>
+        <button>Locar</button>
       </div>
     )
   }
