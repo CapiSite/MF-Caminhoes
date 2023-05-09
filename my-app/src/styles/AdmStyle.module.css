@@ -1,0 +1,14 @@
+
+.sidebar{
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .header {
+      display: none;
+    }
+  
+    .sidebar {
+      display: flex;
+    }
+}
