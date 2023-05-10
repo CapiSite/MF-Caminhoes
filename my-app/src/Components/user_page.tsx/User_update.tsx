@@ -7,7 +7,7 @@ import { DebounceInput } from "react-debounce-input";
 import { ThreeDots } from "react-loader-spinner";
 import { getStates } from "@/services/types.services";
 import { roboto } from "@/styles/fonts";
-import { deleteUser, logoutUser, updateUser } from "@/services/user-services";
+import { deleteUser, loginUser, logoutUser, updateUser } from "@/services/user-services";
 
 export default function UserUpdate() {
   const router = useRouter()
@@ -39,9 +39,8 @@ export default function UserUpdate() {
         city: userData.user.address.cities.name,
         uf: userData.user.address.cities.state_id
       })
-
-      console.log(userData)
     }
+
   }, [])
 
   async function handleCep(e: ChangeEvent | any) {
@@ -140,8 +139,9 @@ export default function UserUpdate() {
     try{
       await logoutUser(userData.token)
       setUserData(null)
+      router.push("/")
     }catch(err) {
-      setUserData(null)
+      console.log(err)
     }
   }
 

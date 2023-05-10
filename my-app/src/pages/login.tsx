@@ -12,14 +12,14 @@ import { AiOutlineClose } from "react-icons/ai";
 
 export default function Login() {
   const router = useRouter()
-  
+
   const [disable, setDisable] = useState(false)
   const [informations, setInformations] = useState<{ email: string, password: string }>({ email: "", password: "" })
   const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false }))
 
   const { userData, setUserData } = useContext(UserContext) as any
-  const [admin, setAdmin] = useState<boolean>(true)
+  const [admin, setAdmin] = useState<boolean>(false)
 
 
   return (
@@ -40,14 +40,14 @@ export default function Login() {
           <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Entrar"}</button>
           {ActiveLink({ children: "Não possui uma conta? Cadastre-se!", href: "/cadastrar" })}
         </form>
-        {admin&&<div className={style.admin}>
-                        <h1>Insira o PIN para entrar</h1>
-                        <input placeholder="Insira o PIN"/>
-                        <button onClick={()=>router.push("/locacoes")}>Acessar</button>
-                        <AiOutlineClose onClick={()=>setAdmin(!admin)}/>
-                </div>}
+        {admin && <div className={style.admin}>
+          <h1>Insira o PIN para entrar</h1>
+          <input placeholder="Insira o PIN" />
+          <button onClick={() => router.push("/locacoes")}>Acessar</button>
+          <AiOutlineClose onClick={() => setAdmin(!admin)} />
+        </div>}
       </div>
-      
+
       <Footer />
     </>
   )
@@ -61,7 +61,7 @@ export default function Login() {
 
     if (!informations.email) {
       newFieldError = { ...newFieldError, email: true };
-    } else if (!informations.password){
+    } else if (!informations.password) {
       newFieldError = { ...newFieldError, password: false };
     }
 

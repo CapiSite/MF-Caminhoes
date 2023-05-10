@@ -52,6 +52,7 @@ export async function getMyCarts(req: AuthenticatedRequest, res: Response) {
 export async function createCart(req: AuthenticatedRequest, res: Response) {
   const body = req.body
 
+  console.log(body)
   try {
     await cartsServices.createCart(body, req.user_id)
     return res.sendStatus(httpStatus.OK)

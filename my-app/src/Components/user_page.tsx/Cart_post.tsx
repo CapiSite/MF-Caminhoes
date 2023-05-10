@@ -61,10 +61,19 @@ export default function CartPost() {
     secondary.forEach((e) =>{
       dataSecond.append("secondary", e)
     })
+
+    console.log(brandsSelected)
   
     try{
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
+
+      console.log( {
+        brand_id: brandsSelected,
+        type_id: typesSelected,
+        wheel_id: wheelsSelected,
+        model_id: modelsSelected,
+      })
 
       await postCart( {
         description: description,
