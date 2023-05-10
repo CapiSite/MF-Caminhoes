@@ -32,6 +32,7 @@ export default function CartPost() {
   const handleCall = useCallback(async () => {
     try {
       const brands = await getBrands()
+      console.log(brands)
       setBrands(brands)
 
       const types = await getTypes()
@@ -65,7 +66,7 @@ export default function CartPost() {
     try{
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
-
+      
       await postCart( {
         description: description,
         size: Number(size),

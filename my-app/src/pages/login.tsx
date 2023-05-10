@@ -19,7 +19,7 @@ export default function Login() {
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false }))
 
   const { userData, setUserData } = useContext(UserContext) as any
-  const [admin, setAdmin] = useState<boolean>(true)
+  const [admin, setAdmin] = useState<boolean>(false)
 
 
   return (

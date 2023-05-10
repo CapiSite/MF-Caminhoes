@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function CartInput({ type, alter, value, label} : {type: any[], alter: any, value: string | number, label: string}) {
   const [active, setActive] = useState<boolean>(false)
-
+  console.log(value)
   return (
     <>
       <h2>{label}</h2>
