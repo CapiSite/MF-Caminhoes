@@ -15,10 +15,10 @@ import { roboto } from "@/styles/fonts"
 export default function ProductLocation() {
   const router = useRouter()
 
-  const [mainImage, setMainImage] = useState()
+  
   const [error, setError] = useState<boolean>(false)
   const [info, setInfo] = useState<any>()
-
+  const [mainImage, setMainImage] = useState("")
   const handleCall = useCallback(async () => {
     if (router.query.id === undefined) {
       setError(true)
@@ -28,6 +28,7 @@ export default function ProductLocation() {
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
         setInfo(infoReceived)
+        setMainImage(`/main/${infoReceived?.main_image}`)
       } catch (err: any) {
         setError(true)
       }
@@ -72,11 +73,12 @@ export default function ProductLocation() {
 
       <div className={style.container}>
         <div className={style.images}>
+        <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={500} height={500} />
           {info ?
             info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
             : null}
         </div>
-        <Image src={`/main/${info?.main_image}`} alt="Caminhão" width={500} height={500} />
+        <Image src={mainImage} alt="Caminhão" width={500} height={500} />
         <div className={style.info}>
           {info ?
             <>

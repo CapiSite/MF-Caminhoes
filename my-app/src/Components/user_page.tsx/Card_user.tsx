@@ -16,9 +16,9 @@ export default function MyCartsSection({ info }: { info: any[] }) {
           <CardUser info={item} key={index} />
         ))}
       </div>
-      <div className={style.mobileCard}>
+      <div className={style.MymobileCard}>
         {info.map((item, index) => (
-          <CardUser info={item} key={index} />
+          <CardMobile info={item} key={index} />
         ))}
       </div>
     </>
@@ -41,7 +41,7 @@ function CardUser({ info }: any) {
   }
 
   return (
-    <div onClick={() => router.push(`/admin/1`)} className={style.card}>
+    <div onClick={() => router.push(`/admin/1`)} className={style.Mycard}>
       <Image src={"/caminhao.jpeg"} alt="Caminhão" width={198} height={198} />
       <div>
         <h1>{info.title}</h1>
