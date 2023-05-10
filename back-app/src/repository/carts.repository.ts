@@ -85,7 +85,9 @@ async function createCart(cart: CartCreationDefinitive, user_id: number) {
       data: {...cartCreation, user_id}
     })
 
-    const images = cart.secondary_images.map(e => {
+    console.log("banco")
+
+    const images = cart.secondary_images.map((e) => {
       return {
         cart_id: cartReceived.id,
         src: e

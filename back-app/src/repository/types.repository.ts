@@ -40,7 +40,7 @@ async function getStates() {
 }
 
 async function addTypes(name: string) {
-  const exist = prismaDb.cart_type.findFirst({
+  const exist = await prismaDb.cart_type.findFirst({
     where:{
       name
     }
@@ -54,7 +54,7 @@ async function addTypes(name: string) {
 }
 
 async function addModels(name: string) {
-  const exist = prismaDb.cart_model.findFirst({
+  const exist = await prismaDb.cart_model.findFirst({
     where:{
       name
     }
@@ -68,7 +68,7 @@ async function addModels(name: string) {
 }
 
 async function addBrands(name: string) {
-  const exist = prismaDb.brands.findFirst({
+  const exist = await prismaDb.brands.findFirst({
     where:{
       name
     }
@@ -82,7 +82,7 @@ async function addBrands(name: string) {
 }
 
 async function addWheels(name: string) {
-  const exist = prismaDb.wheel.findFirst({
+  const exist = await prismaDb.wheel.findFirst({
     where:{
       name
     }

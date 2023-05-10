@@ -32,14 +32,14 @@ export default function userArea() {
       </div>
       <div className={style.father}>
 
-        <NavOptions subsets={["Loque minha Carreta", "Minhas Carretas", "Meu perfil",]} select={setSelection} />
+        <NavOptions subsets={["Loque minha Carreta", "Minhas Carretas", "Meu perfil"]} select={setSelection} key={0}/>
 
         {error === 1 ?
-          <AlertMessage /> :
+          <AlertMessage key={1} /> :
           selection === 0 ?
-            <CartPost /> : selection === 1 ?
-              <MyCarts /> : selection === 2 ?
-                <UserUpdate /> : null
+            <CartPost  key={2}/> : selection === 1 ?
+              <MyCarts  key={3}/> : selection === 2 ?
+                <UserUpdate  key={4}/> : null
         }
       </div>
 
