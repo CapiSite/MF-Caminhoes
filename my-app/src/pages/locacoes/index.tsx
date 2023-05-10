@@ -37,7 +37,7 @@ export default function Location() {
     try {
       const cartsReceived = await getAllCarts()
       setCaminhoes(cartsReceived)
-
+      
       const brandsReceived = await getBrands()
       setBrands(brandsReceived)
 
@@ -50,7 +50,7 @@ export default function Location() {
 
       const wheelsReceived = await getWheels()
       setWheels(wheelsReceived)
-
+      console.log(wheelsReceived)
     } catch (err) {
       const error = err as AxiosError
 

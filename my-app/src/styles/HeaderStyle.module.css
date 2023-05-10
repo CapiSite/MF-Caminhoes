@@ -44,6 +44,10 @@
     justify-content: center;
 }
 
+.userPhoto{
+    display:none;
+}
+
 .button p{
     margin-left: 4px;
 }
