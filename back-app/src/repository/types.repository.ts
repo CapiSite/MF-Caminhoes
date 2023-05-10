@@ -1,4 +1,5 @@
 import { prismaDb } from "@/config"
+import { exist } from "joi"
 
 async function getCartTypes() {
   return prismaDb.cart_type.findMany({
@@ -39,24 +40,56 @@ async function getStates() {
 }
 
 async function addTypes(name: string) {
+  const exist = prismaDb.cart_type.findFirst({
+    where:{
+      name
+    }
+  })
+
+  if(exist) return exist
+
   return prismaDb.cart_type.create({
     data: {name}
   })
 }
 
 async function addModels(name: string) {
+  const exist = prismaDb.cart_model.findFirst({
+    where:{
+      name
+    }
+  })
+  
+  if(exist) return exist
+
   return prismaDb.cart_model.create({
     data: {name}
   })
 }
 
 async function addBrands(name: string) {
+  const exist = prismaDb.brands.findFirst({
+    where:{
+      name
+    }
+  })
+  
+  if(exist) return exist
+
   return prismaDb.brands.create({
     data: {name}
   })
 }
 
 async function addWheels(name: string) {
+  const exist = prismaDb.wheel.findFirst({
+    where:{
+      name
+    }
+  })
+  
+  if(exist) return exist
+
   return prismaDb.wheel.create({
     data: {name}
   })

@@ -1,31 +1,32 @@
 import { getBrands, getModels, getTypes, getWheels } from "@/services/types.services"
 import { FormEvent, useCallback, useContext, useEffect, useState } from "react"
-import style from '@/styles/user_page/cart_rental.module.css'
+import styleForm from '@/styles/user_page/cart_rental.module.css'
 import { roboto } from "@/styles/fonts"
-import { postCart, postCartPhotosMain, postCartPhotosSecondary } from "@/services/cart.services"
+import { postCart, postCartPhotosMain, postCartPhotosSecondary, updateCart } from "@/services/cart.services"
 import UserContext from "@/APIContext/UserContext"
 import CartInput from "./Cart_input"
 
-export default function CartPost() {
+export default function CartUpdate({info, changeInfo, disableThis} : any) { 
+
   const [brands, setBrands] = useState<{ id: number, name: string }[] >([])
   const [types, setTypes] = useState<{ id: number, name: string }[]>([])
   const [models, setModels] = useState<{ id: number, name: string }[]>([])
   const [wheels, setWheels] = useState<{ id: number, name: string }[]>([])
 
-  const [title, setTitle] = useState<string>("")
-  const [description, setDescription] = useState<string>("")
-  const [color, setColor] = useState<string>("")
-  const [size, setSize] = useState<number>()
-  const [price, setPrice] = useState<number>()
+  const [title, setTitle] = useState<string>(info.title)
+  const [description, setDescription] = useState<string>(info.description)
+  const [color, setColor] = useState<string>(info.color)
+  const [size, setSize] = useState<number>(info.size)
+  const [price, setPrice] = useState<number>(info.price)
   const [brandsSelected, setBrandsSelected] = useState<string | number>("")
   const [typesSelected, setTypesSelected] = useState<string | number>("")
   const [modelsSelected, setModelsSelected] = useState<string | number>("")
   const [wheelsSelected, setWheelsSelected] = useState<string | number>("")
-  const [section, setSection] = useState<number>()
+  const [section, setSection] = useState<number>(info.sections)
   const [main, setMain] = useState<any>()
   const [secondary, setSecondary] = useState<[]>([])
-  const [year, setYear] = useState<number>()
-  const [status, setStatus] = useState<string>("")
+  const [year, setYear] = useState<number>(info.year)
+  const [status, setStatus] = useState<string>(info.status)
 
   const { userData } = useContext(UserContext) as any
 
@@ -43,6 +44,8 @@ export default function CartPost() {
       const wheels = await getWheels()
       setWheels(wheels)
 
+      setBrandsSelected(info.brand_id)
+
     } catch (err: any) { }
   }, [])
 
@@ -57,6 +60,7 @@ export default function CartPost() {
     const dataMain = new FormData()
     const dataSecond = new FormData()
 
+    
     dataMain.append("main", main)
     secondary.forEach((e) =>{
       dataSecond.append("secondary", e)
@@ -65,8 +69,9 @@ export default function CartPost() {
     try{
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
+      console.log(secondaryImages)
 
-      await postCart( {
+      const cart = await updateCart( {
         description: description,
         size: Number(size),
         color: color,
@@ -82,8 +87,10 @@ export default function CartPost() {
         year : Number(year),
         status: status
 
-      },userData.token)
+      }, info.id, userData.token)
 
+      changeInfo.setRender(!changeInfo.render)
+      disableThis(null)
       setTitle("")
       setDescription("")
       setColor("")
@@ -100,12 +107,12 @@ export default function CartPost() {
   }
 
   return (
-    <div className={`${style.father} ${roboto.className}`}>
+    <div className={`${styleForm.father} ${roboto.className}`}>
       <h1>Loque sua carreta</h1>
 
       <form onSubmit={(e) => handlePost(e)}>
         <section>
-          <div className={style.first}>
+          <div className={styleForm.first}>
             <h2>Título</h2>
             <input placeholder="Título" type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
 
@@ -113,7 +120,7 @@ export default function CartPost() {
             <input placeholder="Cor" type="text" onChange={(e) => setColor(e.target.value)} value={color} />
 
             <h2>Tamanho</h2>
-            <input placeholder="Tamanho" type="number" onChange={(e) => setSize(Number(e.target.value))} value={size} />
+            <input placeholder="Tamanho" type="number" onChange={(e) => setSize(Number(e.target.value))}  value={size}/>
 
             <h2>Valor Estimado</h2>
             <input placeholder="Valor" type="number" onChange={(e) => setPrice(Number(e.target.value))}  value={price}/>
@@ -135,7 +142,7 @@ export default function CartPost() {
 
             <textarea placeholder="Descrição" onChange={(e) => setDescription(e.target.value)} value={description} />
           </div>
-          <div className={style.second}>
+          <div className={styleForm.second}>
             <input type="file" name="main" onChange={(e) => {if(e.target.files) { setMain(e.target.files[0])}}}/>
             <input type="file" name="secondary" onChange={(e) => {if(e.target.files) { 
               const temp  = secondary as any

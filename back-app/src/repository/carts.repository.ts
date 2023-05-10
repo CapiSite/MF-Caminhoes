@@ -1,5 +1,6 @@
 import { prismaDb } from "@/config"
 import { CartCreationDefinitive } from "@/protocols"
+import { PrismaClientInitializationError } from "@prisma/client/runtime"
 
 async function getAllCarts() {
   //alterar depois para adicionar where valid:true
@@ -100,13 +101,30 @@ async function createCart(cart: CartCreationDefinitive, user_id: number) {
   }
 }
 
-async function updateCart(cart: CartCreationDefinitive, id: number) {
+async function updateCart(cart: CartCreationDefinitive, id: number, user_id: number) {
   try {
+
+    if(cart.secondary_images){
+      await prismaDb.cart_images.deleteMany({
+        where:{
+          cart_id: id
+        }
+      })
+
+      const info = cart.secondary_images.map((e) =>{ return {src: e, cart_id: id}})
+
+      await prismaDb.cart_images.createMany({
+        data: info
+      })
+    }
+    
+    delete cart.secondary_images
+
     return prismaDb.carts.update({
       where: {
         id
       },
-      data: cart
+      data:{...cart, user_id}
     })
   } catch (err) {
     console.log(err)
@@ -187,5 +205,5 @@ export const cartsRepository = {
   updateCart,
   validateCart,
   deleteCart,
-  getUnvalidCarts
+  getUnvalidCarts,
 }

@@ -54,6 +54,39 @@ async function createCart(body: CartCreation, user_id: number) {
   return await cartsRepository.createCart(body as CartCreationDefinitive, user_id)
 }
 
+async function updateCart(body: CartCreation, user_id: number, cart_id : number) {
+
+  const user = await usersRepository.getFullUserById(user_id)
+  if(!user) throw UnauthorizedError("Usuário não cadastrado")
+
+  const cart = await cartsRepository.getSpecificCart(cart_id)
+  if(!cart) throw NotFoundError("Carreta nã encontrada")
+
+  if( typeof(body.brand_id) === "string"){ 
+    const brand = await typesRepository.addBrands(body.brand_id as string)
+    body.brand_id = brand.id
+  }
+
+  if( typeof(body.wheel_id) === "string"){ 
+    const wheel = await typesRepository.addWheels(body.wheel_id as string)
+    body.wheel_id = wheel.id
+  }
+
+  if( typeof(body.model_id) === "string"){ 
+    const model = await typesRepository.addModels(body.model_id as string)
+    body.model_id = model.id
+  }
+
+  if( typeof(body.type_id) === "string"){ 
+    const type = await typesRepository.addTypes(body.type_id as string)
+    body.type_id = type.id
+  }
+
+  const cartRE = await cartsRepository.updateCart(body as CartCreationDefinitive, cart_id, user_id)
+
+  return cartRE
+}
+
 async function validateCart(cart_id: number) {
   const cart =  await cartsRepository.getSpecificCart(cart_id)
   if(!cart) throw NotFoundError("Carreta não encontrada")
@@ -76,6 +109,7 @@ async function deleteAnyCart(cart_id: number) {
 
   return cartsRepository.deleteCart(cart_id)
 }
+
 export const cartsServices = {
   getAllCarts,
   getSpecificCart,
@@ -84,5 +118,6 @@ export const cartsServices = {
   deleteMyCart,
   deleteAnyCart,
   createCart,
-  getUnvalidCarts
+  getUnvalidCarts,
+  updateCart
 }

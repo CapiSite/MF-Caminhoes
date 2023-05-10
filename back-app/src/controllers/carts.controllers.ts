@@ -64,9 +64,12 @@ export async function createCart(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function editCart(req: AuthenticatedRequest, res: Response) {
+  const body = req.body
+  const { cart_id } = req.params
 
   try {
-
+    const cart =await cartsServices.updateCart(body, req.user_id, Number(cart_id))
+    return res.sendStatus(httpStatus.OK).send(cart)
   } catch (error) {
     if (error.name === "UnauthorizedError") {
       return res.status(httpStatus.UNAUTHORIZED).send(error)

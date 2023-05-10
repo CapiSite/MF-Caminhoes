@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { createCart, deleteCart, deleteMyCart, editCart, getAllCarts, getMyCarts, getSpecificCart, getUnvalidCarts, validateCart } from "@/controllers";
 import { authenticateAdmin, authenticateToken, uploadMain, uploadSecondary, validateBody } from "@/middlewares";
-import { cartPost } from "@/models/cart.models";
+import { cartPost, cartUpdate } from "@/models/cart.models";
 import { Router } from "express";
 import httpStatus from "http-status";
 
@@ -11,8 +11,8 @@ cartsRouter
   //User Routes
 
   .get("/", getAllCarts)
-  .get("/:cart_id", getSpecificCart)
-  .get("/mine", authenticateToken, getMyCarts)
+  .get("/all-carts/:cart_id", getSpecificCart)
+  .get("/my-carts", authenticateToken, getMyCarts)
 
   .post("/photos/main", authenticateToken, uploadMain.single("main"), (req: Request, res: Response) => {
     return res.status(httpStatus.OK).send({ main: req.body.main_photo })
@@ -22,7 +22,7 @@ cartsRouter
   })
   .post("/", authenticateToken, validateBody(cartPost), createCart)
 
-  .put("/:cart_id", authenticateToken, editCart)
+  .put("/:cart_id", authenticateToken, validateBody(cartUpdate),  editCart)
   .delete("/mine/:cart_id", authenticateToken, deleteMyCart)
 
   //Admin Routes

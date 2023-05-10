@@ -11,12 +11,12 @@ export async function getUnvalidCarts() {
 }
 
 export async function getSpecificCart(id: number) {
-  const response = await instance.get(`/carts/${id}`)
+  const response = await instance.get(`/carts/all-carts/${id}`)
   return response.data
 }
 
 export async function getMyCarts(token: string) {
-  const response = await instance.get("/carts/mine", { headers: { Authorization: `Bearer ${token}` } })
+  const response = await instance.get("/carts/my-carts", { headers: { Authorization: `Bearer ${token}` } })
   return response.data
 }
 
