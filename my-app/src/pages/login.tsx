@@ -81,7 +81,7 @@ export default function Login() {
       setUserData(tokenAndUser)
       router.push("/")
     } catch (err) {
-      setDisable(true)
+      setDisable(false)
     }
   }
 }

@@ -64,15 +64,17 @@ export default function CartPost() {
     try{
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
+      console.log(modelsSelected)
+
       await postCart( {
         description: description,
         size: Number(size),
         color: color,
         title: title,
-        brand_id: Number(brandsSelected),
-        type_id: Number(typesSelected),
-        wheel_id: Number(wheelsSelected),
-        model_id: Number(modelsSelected),
+        brand_id: brandsSelected,
+        type_id: typesSelected,
+        wheel_id: wheelsSelected,
+        model_id: modelsSelected,
         price: Number(price),
         main_image: mainImage.main,
         secondary_images: secondaryImages.secondary,

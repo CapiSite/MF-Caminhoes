@@ -27,20 +27,23 @@ model admin {
 }
 
 model brands {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique(map: "uniqe")
+  id    Int      @id @default(autoincrement())
+  name  String   @unique(map: "uniqe")
+  valid Boolean? @default(false)
   carts carts[]
 }
 
 model cart_model {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique(map: "uniquen")
+  id    Int      @id @default(autoincrement())
+  name  String   @unique(map: "uniquen")
+  valid Boolean? @default(false)
   carts carts[]
 }
 
 model cart_type {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique(map: "uniquene")
+  id    Int      @id @default(autoincrement())
+  name  String   @unique(map: "uniquene")
+  valid Boolean? @default(false)
   carts carts[]
 }
 
@@ -59,8 +62,8 @@ model carts {
   title       String
   price       Int
   sections    Int
-  year        Int
   status      String
+  year        Int
   cart_images cart_images[]
   brands      brands        @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   cart_model  cart_model    @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -105,8 +108,9 @@ model users {
 }
 
 model wheel {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique(map: "uniquenes")
+  id    Int      @id @default(autoincrement())
+  name  String   @unique(map: "uniquenes")
+  valid Boolean? @default(false)
   carts carts[]
 }
 

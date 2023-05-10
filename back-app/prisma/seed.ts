@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { valid } from "joi";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -7,8 +8,14 @@ async function main() {
   if (!wheel) {
     await prisma.wheel.createMany({
       data: [
-        { name: "Disco" },
-        { name: "Raiada"}
+        {
+          name: "Disco",
+          valid: true
+        },
+        {
+          name: "Raiada",
+          valid: true
+        }
       ]
     })
   }
@@ -19,19 +26,24 @@ async function main() {
     await prisma.cart_type.createMany({
       data: [
         {
-          name: "LS"
+          name: "LS",
+          valid: true
         },
         {
-          name: "Bitrezão"
+          name: "Bitrezão",
+          valid: true
         },
         {
-          name: "Vanderleia"
+          name: "Vanderleia",
+          valid: true
         },
         {
-          name: "Bitrem"
+          name: "Bitrem",
+          valid: true
         },
         {
-          name: "Rodotrem"
+          name: "Rodotrem",
+          valid: true
         },
       ]
     })
@@ -43,16 +55,20 @@ async function main() {
     await prisma.cart_model.createMany({
       data: [
         {
-          name: "Basculante"
+          name: "Basculante",
+          valid: true
         },
         {
-          name: "Graneleiro"
+          name: "Graneleiro",
+          valid: true
         },
         {
-          name: "Baú"
+          name: "Baú",
+          valid: true
         },
         {
-          name: "Sider"
+          name: "Sider",
+          valid: true
         },
       ]
     })
@@ -64,16 +80,20 @@ async function main() {
     await prisma.brands.createMany({
       data: [
         {
-          name: "Facchini"
+          name: "Facchini",
+          valid: true
         },
         {
-          name: "Ramon"
+          name: "Ramon",
+          valid: true
         },
         {
-          name: "Noma"
+          name: "Noma",
+          valid: true
         },
         {
-          name: "Sider"
+          name: "Sider",
+          valid: true
         },
       ]
     })
@@ -81,7 +101,7 @@ async function main() {
 
   const states = await prisma.states.findFirst()
 
-  if(!states) {
+  if (!states) {
     await prisma.states.createMany({
       data: [
         {

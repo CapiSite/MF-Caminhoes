@@ -4,7 +4,7 @@ import { CartCreation, CartCreationDefinitive } from "@/protocols"
 import { cartsRepository } from "@/repository/carts.repository"
 import { typesRepository } from "@/repository/types.repository"
 import { usersRepository } from "@/repository/users.repository"
-import { func } from "joi"
+import { func, string } from "joi"
 import { type } from "os"
 
 async function getAllCarts() {
@@ -32,19 +32,22 @@ async function createCart(body: CartCreation, user_id: number) {
   if(!user) throw UnauthorizedError("Usuário não cadastrado")
 
   if( typeof(body.brand_id) === "string"){ 
-    const brand = await typesRepository.addBrands(body.brand_id)
+    const brand = await typesRepository.addBrands(body.brand_id as string)
     body.brand_id = brand.id
   }
+
   if( typeof(body.wheel_id) === "string"){ 
-    const wheel = await typesRepository.addBrands(body.wheel_id)
+    const wheel = await typesRepository.addWheels(body.wheel_id as string)
     body.wheel_id = wheel.id
   }
+
   if( typeof(body.model_id) === "string"){ 
-    const model = await typesRepository.addBrands(body.model_id)
+    const model = await typesRepository.addModels(body.model_id as string)
     body.model_id = model.id
   }
+
   if( typeof(body.type_id) === "string"){ 
-    const type = await typesRepository.addBrands(body.type_id)
+    const type = await typesRepository.addTypes(body.type_id as string)
     body.type_id = type.id
   }
 

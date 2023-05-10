@@ -1,19 +1,37 @@
 import { prismaDb } from "@/config"
 
 async function getCartTypes() {
-  return prismaDb.cart_type.findMany()
+  return prismaDb.cart_type.findMany({
+    where:{
+      valid: true
+    }
+  })
 }
 
 async function getCartModels() {
-  return prismaDb.cart_model.findMany()
+  return prismaDb.cart_model.findMany({
+    where:{
+      valid: true
+    }
+  })
 }
 
 async function getCartBrands() {
-  return prismaDb.brands.findMany()
+  return prismaDb.brands.findMany({
+    where:{
+      valid: true
+    }
+  })
 }
 
 async function getCartWheels() {
-  return prismaDb.wheel.findMany()
+  return prismaDb.wheel.findMany(
+    {
+      where:{
+        valid: true
+      }
+    }
+  )
 }
 
 async function getStates() {

@@ -115,7 +115,7 @@ async function updateCart(cart: CartCreationDefinitive, id: number) {
 
 async function validateCart(cart_id: number) {
   try {
-    return prismaDb.carts.update({
+    const cart = await prismaDb.carts.update({
       where: {
         id: cart_id
       },
@@ -123,6 +123,45 @@ async function validateCart(cart_id: number) {
         valid: true
       }
     })
+
+    await prismaDb.cart_model.update({
+      where:{
+        id: cart.model_id
+      },
+      data:{
+        valid: true
+      }
+    })
+
+    await prismaDb.cart_type.update({
+      where:{
+        id: cart.type_id
+      },
+      data:{
+        valid: true
+      }
+    })
+
+    await prismaDb.brands.update({
+      where:{
+        id: cart.brand_id
+      },
+      data:{
+        valid: true
+      }
+    })
+
+    await prismaDb.wheel.update({
+      where:{
+        id: cart.wheel_id
+      },
+      data:{
+        valid: true
+      }
+    })
+
+    return cart
+
   } catch (err) {
     console.log(err)
   }
