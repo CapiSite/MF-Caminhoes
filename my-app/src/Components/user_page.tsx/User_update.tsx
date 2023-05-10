@@ -7,7 +7,7 @@ import { DebounceInput } from "react-debounce-input";
 import { ThreeDots } from "react-loader-spinner";
 import { getStates } from "@/services/types.services";
 import { roboto } from "@/styles/fonts";
-import { updateUser } from "@/services/user-services";
+import { deleteUser, logoutUser, updateUser } from "@/services/user-services";
 
 export default function UserUpdate() {
   const router = useRouter()
@@ -88,8 +88,6 @@ export default function UserUpdate() {
     }
   }
 
-
-
   async function updateUserPost(e: FormEvent) {
     e.preventDefault()
     setDisable(true)
@@ -138,6 +136,23 @@ export default function UserUpdate() {
     }
   }
   
+  async function logoutUserPost() {
+    try{
+      await logoutUser(userData.token)
+      setUserData(null)
+    }catch(err) {
+      setUserData(null)
+    }
+  }
+
+  async function deleteUserPost() {
+    try{
+      await deleteUser(userData.token)
+      setUserData(null)
+    }catch(err) {
+      console.log("mosntro")
+    }
+  }
 
   return (
     <>
@@ -148,7 +163,7 @@ export default function UserUpdate() {
             <p>Você perderá todos os seus dados e não poderá recuperá-los!</p>
             <div className={style.buttons}>
               <button onClick={() => setDeleter(false)}>Não</button>
-              <button>Sim</button>
+              <button onClick={() => deleteUserPost()}>Sim</button>
             </div>
             
           </div>}
@@ -162,7 +177,7 @@ export default function UserUpdate() {
             <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
             {fieldError.phone && <p className={style.p}>{errorMessage.phone}</p>}
             <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
-            <button className={style.disconnect}>Desconectar</button>
+            <button className={style.disconnect} onClick={() => logoutUserPost()}>Desconectar</button>
             <button className={style.delete} type="button" onClick={() => setDeleter(true)}>Deletar Conta</button>
           </div>
 

@@ -1,4 +1,4 @@
-import { createUser, editUser, loginUser, logoutUser } from "@/controllers/users.controllers";
+import { createUser, deleteUser, editUser, loginUser, logoutUser } from "@/controllers/users.controllers";
 import { authenticateToken, validateBody } from "@/middlewares";
 import { userLogin, userPost, userUpdate } from "@/models/users.models";
 import { Router } from "express";
@@ -13,5 +13,6 @@ usersRouter
   .post("/login", validateBody(userLogin),  loginUser)
   .post("/logout", authenticateToken, logoutUser)
   .put("/", authenticateToken, validateBody(userUpdate) , editUser)
+  .delete("/", authenticateToken, deleteUser)
 
 export { usersRouter }

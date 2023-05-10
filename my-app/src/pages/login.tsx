@@ -77,6 +77,7 @@ export default function Login() {
 
     try {
       const tokenAndUser = await loginUser(informations)
+      console.log(tokenAndUser)
       setUserData(tokenAndUser)
       router.push("/")
     } catch (err) {

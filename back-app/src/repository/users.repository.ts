@@ -110,6 +110,25 @@ async function logoutUser(user_id: number) {
   }
 }
 
+async function deleteUser(user_id: number) {
+  try {
+    const user = await prismaDb.users.delete({
+      where: {
+        id: user_id
+      },
+    })
+
+    return prismaDb.address.delete({
+      where: {
+        id: user.address_id
+      }
+    })
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const usersRepository = {
   getUserByCpf,
   getFullUserById,
@@ -117,5 +136,6 @@ export const usersRepository = {
   createUser,
   updateUser,
   getUserButCpfCanbeTheSame,
-  logoutUser
+  logoutUser,
+  deleteUser
 }

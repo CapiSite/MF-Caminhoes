@@ -82,6 +82,16 @@ export default function CartPost() {
 
       },userData.token)
 
+      setTitle("")
+      setDescription("")
+      setColor("")
+      setSize(0)
+      setPrice(0)
+      setSection(0)
+      setMain({})
+      setSecondary([])
+      setYear(0)
+      setStatus("")
     }catch(err){
       console.log(err)
     }

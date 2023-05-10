@@ -29,9 +29,6 @@ async function updateAddress(address: UserAddress, address_id: number, user_id: 
 
     if (!cityExist) return await implementAddressWithNewcity(address, address_id, user_id)
 
-    console.log(address_id)
-    console.log(cityExist)
-
     return await prismaDb.address.update({
       where: {
         id: address_id

@@ -46,6 +46,8 @@ async function loginUser(email: string, password: string) {
     return { token: session.token, user: fullUser }
   }
 
+  await sessionsRepository.activateSession(user_session.id)
+
   return { token: user_session.token, user: fullUser }
 }
 
@@ -74,11 +76,21 @@ async function logoutUser(user_id: number) {
   return usersRepository.logoutUser(user_id)
 }
 
+async function deleteUser(user_id: number) {
+  console.log("aq")
+
+  const userExist = await usersRepository.getFullUserById(user_id)
+  if (!userExist) throw UnauthorizedError("Usuaŕio não cadastrado")
+
+  console.log("aqe")
+  return usersRepository.deleteUser(user_id)
+}
+
 export const userServices = {
   createUser,
   loginUser,
   editUser,
-  logoutUser
-
+  logoutUser,
+  deleteUser
 }
 

@@ -25,3 +25,8 @@ export async function logoutUser(token: string) {
   return response.data
 
 }
+
+export async function deleteUser(token: string) {
+  const response = await instance.delete("/users/", {headers: {Authorization: `Bearer ${token}`}})
+  return response.data
+}
