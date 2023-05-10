@@ -36,7 +36,8 @@ body {
   --gray-light: #dcdcdc;
   --strong-green: #018600;
   --light-green: #14aa14;
-  --red: rgb(175, 7, 7);
+  --light-red: red;
+  --strong-red: rgb(175, 7, 7);
   position: relative;
 }
 a{

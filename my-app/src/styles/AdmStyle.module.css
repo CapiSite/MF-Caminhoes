@@ -44,7 +44,8 @@
   font-weight: bold;
   font-size: 20px;
 }
-.card >button{
+
+.button_adm {
   position: absolute;
   right: 30px;
   top: 90px;
@@ -55,9 +56,35 @@
   border-radius: 5px;
   height: 40px;
 }
-.card >button:hover{
+
+.button-adm:hover{
   background-color: var(--strong-green);
   cursor: pointer;
+}
+
+.card button{
+  width: 100px;
+  border: 0px;
+  font-weight: bold;
+  border-radius: 5px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.update {
+  background-color: var(--darkYellow);
+}
+
+.update:hover {
+  background-color: var(--yellow);
+}
+
+.delete {
+  background-color: var(--strong-red) ;
+}
+
+.delete:hover {
+  background-color: var(--light-red);
 }
 
 .sidebar{
@@ -81,7 +108,6 @@
   .mobileCard{
     display: flex;
     flex-direction: column;
-    
   }
   .mobileCard>div{
     border: 1px solid var(--black);

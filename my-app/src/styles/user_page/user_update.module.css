@@ -15,7 +15,7 @@
 
 .p {
   font-size: 15px;
-  color: red;
+  color: var(--light-red);
   font-weight: 600;
   margin-bottom: 5px;
 }
@@ -91,12 +91,12 @@
   background-color: var(--veryDarkYellow);
 }
 .modal button:nth-child(2){
-  background-color: var(--red);
+  background-color: var(--strong-red);
 }
 
 .modal button:nth-child(2):hover{
   cursor: pointer;
-  background-color: red;
+  background-color: var(--light-red);
 }
 .modal button:first-child:hover{
   cursor: pointer;
@@ -116,7 +116,7 @@
   margin-bottom: 20px;
 }
 .delete{
-  background-color: var(--red);
+  background-color: var(--strong-red);
   color: white;
   font-weight: 700;
   margin-bottom: 20px;
@@ -128,7 +128,7 @@
 
 .delete:hover{
   cursor: pointer;
-  background-color: red;
+  background-color: var(--light-red);
 }
 .disconnect:hover{
   cursor: pointer;
