@@ -6,6 +6,7 @@ import CartUpdate from "./Cart_update";
 
 export default function MyCarts() {
   const [cartsInfo, setCarts] = useState<[]>([])
+  const [refusedCarts, setRefused] = useState([]) //Criar um novo tipo de card pra aqueles que foram rejeitados
   const [cardSelected, setSelected] = useState<{} | null>()
   const [render, setRender] = useState<boolean>(false)
 
@@ -14,7 +15,8 @@ export default function MyCarts() {
   const handleCall = useCallback(async () => {
     try {
       const carts = await getMyCarts(userData.token)
-      setCarts(carts)
+      setCarts(carts.active)
+      setRefused(carts.canceled)
     } catch (err: any) { 
       console.log(err)
     }

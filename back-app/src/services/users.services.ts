@@ -77,12 +77,10 @@ async function logoutUser(user_id: number) {
 }
 
 async function deleteUser(user_id: number) {
-  console.log("aq")
 
   const userExist = await usersRepository.getFullUserById(user_id)
   if (!userExist) throw UnauthorizedError("Usuaŕio não cadastrado")
 
-  console.log("aqe")
   return usersRepository.deleteUser(user_id)
 }
 

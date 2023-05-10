@@ -2,6 +2,7 @@ import { UnauthorizedError } from "@/errors"
 import { NotFoundError } from "@/errors/not-found-error"
 import { CartCreation, CartCreationDefinitive } from "@/protocols"
 import { cartsRepository } from "@/repository/carts.repository"
+import { deletedRepository } from "@/repository/deleted_carts.repository"
 import { typesRepository } from "@/repository/types.repository"
 import { usersRepository } from "@/repository/users.repository"
 import { func, string } from "joi"
@@ -23,7 +24,13 @@ async function getSpecificCart(id: number) {
 }
 
 async function getMyCarts(user_id: number) {
-  return await cartsRepository.getMyCarts(user_id)
+  const active = await cartsRepository.getMyCarts(user_id)
+  const canceled = await deletedRepository.getDeletedByUSerId(user_id)
+
+  return {
+    active,
+    canceled
+  }
 }
 
 async function createCart(body: CartCreation, user_id: number) {
@@ -99,6 +106,8 @@ async function deleteMyCart(user_id: number, cart_id: number) {
   if(!cart) throw NotFoundError("Carreta não encontrada")
 
   if(cart.user_id !== user_id) throw UnauthorizedError("Dono da carreta não credenciado")
+
+  await deletedRepository.createDeleted(cart.title, cart.main_image, cart.user_id)
 
   return cartsRepository.deleteCart(cart_id)
 }
