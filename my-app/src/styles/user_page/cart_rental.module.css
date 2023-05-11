@@ -3,8 +3,14 @@
   width: 100%;
 }
 
+.father h1 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
 .father form {
-  width: 100%s;
+  width: 100%;
   display:  flex;
   flex-direction: column;
   padding: 15px;
@@ -32,8 +38,11 @@
 
 .father form textarea {
   max-width: 100%;
+  width: 100%;
+  min-width: 100%;
   outline: none;
   margin-bottom: 10px;
+  max-height: 100px;
 }
 
 .father form button {
@@ -41,9 +50,14 @@
   border: none;
   color: var(--white);
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 15px;
   cursor: pointer;
-  max-width: 100px;
+  width: 95%;
+  font-size: 20px;
+  max-width: 280px;
+  font-weight: 500 ;
+  align-self: flex-start;
+  margin-top: 20px;
 }
 
 .father form button:hover {
@@ -57,24 +71,33 @@
 
 .first {
   width: 60%;
-
 }
 
 .second {
   width: 35%;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
+  .father {
+    width: 60%;
+  }
+
+  .father form button {
+    align-self: center;
+  }
+  
   .father section {
+    display: flex;
+    width: 100%;
     flex-direction: column;
   }
 
   .first {
-    width: 100%;
+    width: 95%;
   }
 
   .second {
-    width: 100%;
+    width: 95%;
   }
 
   .father textarea {
@@ -83,8 +106,22 @@
 
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .father{
+    margin-top: 60px;
+    width: 100%;
+  }
+
+  .father form section {
+    align-items: center;
+  }
+
+  .father h1 {
+    margin-left: 15px;
     margin-top: 40px;
+  }
+
+  .father div {
+    margin-right: 0px;
   }
 }
