@@ -25,7 +25,7 @@ export default function userArea() {
   return (
     <>
       <div className={style.header}>
-        <Header/>
+        <Header changeToUser={setSelection}/>
       </div>
       <div className={style.sidebar}>
         <Sidebar/>

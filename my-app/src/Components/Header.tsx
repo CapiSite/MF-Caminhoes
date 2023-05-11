@@ -8,10 +8,11 @@ import { logoutUser, verifyToken } from "@/services/user-services"
 import { BsWhatsapp } from "react-icons/bs"
 import Link from "next/link"
 
-export default function Header() {
+export default function Header({changeToUser} : any) {
   const router = useRouter()
   const { userData, setUserData } = useContext(UserContext) as any 
   const [userInfo, setUserinfo] = useState<boolean>(false)
+
 
   const handleCallUser = useCallback(async () => {  
     try {
@@ -38,11 +39,11 @@ export default function Header() {
         <Image onClick={() => router.push("/")} className={style.logo} src={Logo} width={190} height={61} alt='Logo' />
         <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
         <button onClick={() => router.push("/comprar")} className={style.options}>Comprar</button>
-        <button onClick={() => router.push("/perfil")} className={style.options}>Loque sua carreta</button>
+        <button onClick={() =>{ router.push("/perfil"); if(changeToUser) { changeToUser(0)}}} className={style.options} >Loque sua carreta</button>
       </div>
       <div>
         {userInfo? 
-          <Image src="/default_photo.png" width={35} height={30} alt="foto de usuário"/> :
+          <Image src="/default_photo.png" width={35} height={30} alt="foto de usuário" onClick={() =>{ router.push("/perfil"); if(changeToUser){ changeToUser(2)}}}/> :
           <>
             <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
             <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>
