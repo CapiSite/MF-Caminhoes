@@ -12,6 +12,9 @@ async function getAllCarts() {
         cart_type: true,
         brands: true,
         cart_images: true
+      },
+      where:{
+        valid: true
       }
     })
   } catch (err) {

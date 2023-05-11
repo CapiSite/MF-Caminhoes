@@ -15,6 +15,7 @@ export default function Header() {
 
   const [userInfo, setUserinfo] = useState<boolean>(false);
   const [userName, setUserName] = useState<any>();
+  const [adminOn, setAdminOn] = useState<any>(false)
 
   const { userData, setUserData } = useContext(UserContext) as any;
   const { adminData } = useContext(AdminContext) as any
@@ -22,21 +23,22 @@ export default function Header() {
 
   const handleCallUser = useCallback(async () => {
     try {
-      await verifyToken(userData.token);
-      setUserinfo(userData);
+      if(userData){
+        await verifyToken(userData.token);
+        setUserName(userData.user.name);
+        setUserinfo(true)
+      }
+      if(adminData) {
+        setAdminOn(true)
+      }
+
     } catch (err: any) {
       setUserData(null);
     }
   }, []);
 
   useEffect(() => {
-    if (userData) {
-      handleCallUser();
-      setUserinfo(true);
-      setUserName(userData);
-    } else {
-      setUserinfo(false);
-    }
+    handleCallUser();
   }, []);
 
   return (
@@ -68,7 +70,7 @@ export default function Header() {
           </button>
         </div>
         <div>
-          {userInfo || adminData ? (
+          {userInfo || adminOn ? (
             <div
               className={style.userImage}
               onClick={() => {
@@ -76,7 +78,7 @@ export default function Header() {
                 router.push("/perfil");
               }}
             >
-              <p>{userName?.user.name}</p>
+              <p>{adminOn? null:  userName}</p>
               <Image
                 src="/default_photo.png"
                 width={35}

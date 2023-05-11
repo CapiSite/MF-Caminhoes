@@ -24,8 +24,9 @@ export default function SignupAdmin() {
       await signupAdmin({username: informations.username, password: informations.password}, informations.secret)
       router.push("/admin/login")
     }catch(err: any) {
-      const error = err as AxiosError
+
       console.log(err)
+      const error = err as AxiosError
       if(error.response?.status === 400){
         setErrorMessage({...errorMessage, password: err.response?.data.message[0]})
         setFieldError({...fieldError, password: true})
@@ -50,7 +51,7 @@ export default function SignupAdmin() {
         <Sidebar />
       </div>
       <div className={style.background}>
-        <h1 className={style.h1}>Entre na sua conta</h1>
+        <h1 className={style.h1}>Cadastre como Administrador</h1>
         <form className={style.form} onSubmit={(e) => signupAdminPost(e)}>
 
           {fieldError.username && <p className={style.p}>{errorMessage.username}</p>}

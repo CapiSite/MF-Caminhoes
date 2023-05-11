@@ -144,7 +144,7 @@ export default function CartPost() {
             <CartInput type={wheels} alter={setWheelsSelected} value={wheelsSelected} label="Tipo de Roda"/>
 
 
-            <textarea placeholder="Descrição" onChange={(e) => setDescription(e.target.value)} value={description} />
+            <textarea placeholder="Observações" onChange={(e) => setDescription(e.target.value)} value={description} />
           </div>
           <div className={style.second}>
             <input type="file" name="main" onChange={(e) => {if(e.target.files) { setMain(e.target.files[0])}}}/>

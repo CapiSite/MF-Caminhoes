@@ -82,6 +82,7 @@ export default function Login() {
       setAdminData(null)
       router.push("/")
     } catch (err) {
+      console.log(err)
       setDisable(false)
     }
   }
