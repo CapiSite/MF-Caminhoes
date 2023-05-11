@@ -41,7 +41,7 @@ function CardUser({ info }: any) {
   }
 
   return (
-    <div onClick={() => router.push(`/admin/1`)} className={style.Mycard}>
+    <div className={style.Mycard}>
       <Image src={"/caminhao.jpeg"} alt="Caminhão" width={198} height={198} />
       <div>
         <h1>{info.title}</h1>
@@ -71,12 +71,13 @@ function CardMobile({ info }: any) {
   }
 
   return (
-    <div onClick={() => router.push(`/locacoes/${2}`)} className={styleMobile.locationsCard}>
+    <div className={styleMobile.locationsCardPersonal}>
       <Image src={"/caminhao.jpeg"} alt="Caminhão" width={198} height={198} />
       <h2>{info.title}</h2>
-      <p>{info.section} eixos</p>
+      <p>{info.sections} eixos</p>
       <p>R${parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
-      <button> Teste</button>
+      <button onClick={() => setFormOn(!formOn)} className={styleMobile.update}>Atualizar</button>
+      <button onClick={() => deleteMyCartPost()} className={styleMobile.delete}>Deletar</button>
     </div>
   )
 }

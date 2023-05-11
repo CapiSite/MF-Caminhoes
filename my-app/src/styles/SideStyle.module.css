@@ -99,3 +99,24 @@
 .register:hover{
   color: var(--veryDarkYellow);
 }
+.button{
+  position: fixed;
+  bottom:10px;
+  right:8px;
+}
+.button button{
+  background-color: var(--light-green);
+  border: 0px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 300px) {
+  .logo{
+    width: 100%;
+  }
+}

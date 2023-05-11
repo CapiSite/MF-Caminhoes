@@ -64,9 +64,6 @@
   max-width: 55vw;
   margin-bottom: 20px;
 }
-.Mycard:hover{
-  cursor: pointer;
-}
 .Mycard div{
   margin-left: 20px;
   margin-top: 20px;
@@ -137,6 +134,17 @@
 }
 .MymobileCard{
   display: none;
+}
+
+.update{
+  position: absolute;
+  top:90px;
+  right: 30px;
+}
+.delete{
+  position: absolute;
+  top:140px;
+  right: 30px;
 }
 @media (max-width: 800px) {
     .header {

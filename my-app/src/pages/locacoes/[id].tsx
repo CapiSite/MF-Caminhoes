@@ -72,6 +72,7 @@ export default function ProductLocation() {
       </div>
 
       <div className={style.container}>
+        <div className={style.allImages}>
         <div className={style.images}>
         <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={500} height={500} />
           {info ?
@@ -79,6 +80,7 @@ export default function ProductLocation() {
             : null}
         </div>
         <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+        </div>
         <div className={style.info}>
           {info ?
             <>

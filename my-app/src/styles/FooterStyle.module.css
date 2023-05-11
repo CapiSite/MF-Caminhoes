@@ -104,3 +104,21 @@
             align-items: center;
         }
     }
+
+@media (max-width:300px) {
+        .footer{
+            width: 100%;
+        }
+        .address{
+            width: 100%;
+            text-align: center;
+            height: 100px;
+            margin-bottom: 0px;
+        }
+        .logo{
+            width: 100%;
+        }
+        .informations{
+            width: 100%;
+        }
+    }

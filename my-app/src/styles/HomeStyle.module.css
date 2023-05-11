@@ -83,6 +83,56 @@
   transition: all 5ms;
 }
 
+@media (max-width:800px) {
+  .locationsCardPersonal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-right: 20px;
+    width: 200px;
+    margin-bottom: 20px;
+    border: 1px solid var(--black); 
+  }
+  
+  .locationsCardPersonal p{
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .locationsCardPersonal p:nth-child(4){
+    font-weight: bold;
+  }
+  
+  .locationsCardPersonal h2{
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  .locationsCardPersonal button{
+    border:0px;
+    border-radius: 3px;
+    height: 40px;
+    width: 100px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  
+  .delete{
+    background-color: var(--light-red);
+  }
+  .delete:hover{
+    background-color: var(--strong-red);
+  }
+  .update{
+    background-color: var(--darkYellow);
+  }
+  .update:hover{
+    background-color: var(--veryDarkYellow);
+  }
+}
 
 
 

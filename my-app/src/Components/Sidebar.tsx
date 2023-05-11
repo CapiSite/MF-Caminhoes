@@ -7,6 +7,8 @@ import { useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion"
 import { initialize } from "next/dist/server/lib/render-server";
+import Link from "next/link";
+import { BsWhatsapp } from "react-icons/bs";
 
 export default function Sidebar() {
   const [disabled, setDisabled] = useState(true)
@@ -66,6 +68,9 @@ export default function Sidebar() {
       </AnimatePresence>
 
       {/*  */}
+      <div className={style.button}>
+      <Link href="https://web.whatsapp.com/send?phone=55349%209100-1000&text=Ol%C3%A1,%20estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20MF%20Caminh%C3%B5es" target="_blank"><button><BsWhatsapp /></button></Link>
+      </div>
     </>
   )
 }

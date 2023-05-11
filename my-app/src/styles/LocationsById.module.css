@@ -5,7 +5,10 @@
   display: flex;
   padding-top: 20px;
 }
-.container>img{
+.allImages{
+  display: flex;
+}
+.allImages>img{
   margin-top: 20px;
   width: 40vw;
   height: 40vw;
@@ -31,18 +34,6 @@
   cursor: pointer;
 }
 
-.images::-webkit-scrollbar {
-  width: 10px;               /* width of the entire scrollbar */
-}
-
-.images::-webkit-scrollbar-track {
-  background: var(--black);        /* color of the tracking area */
-}
-
-.images::-webkit-scrollbar-thumb {
-  background-color: var(--yellow);    /* color of the scroll thumb */
-  border: 3px solid var(--black);  /* creates padding around scroll thumb */
-}
 
 .info{
 display: flex;
@@ -101,6 +92,52 @@ width: 400px;
   font-weight: bold;
 }
 
+
+@media (min-width: 930px) {
+  .images::-webkit-scrollbar {
+    width: 10px;               /* width of the entire scrollbar */
+  }
+  
+  .images::-webkit-scrollbar-track {
+    background: var(--black);        /* color of the tracking area */
+  }
+  
+  .images::-webkit-scrollbar-thumb {
+    background-color: var(--yellow);    /* color of the scroll thumb */
+    border: 3px solid var(--black);  /* creates padding around scroll thumb */
+  }
+}
+
+@media (max-width:930px) {
+  .container{
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  .allImages>img{
+    width: 70vw;
+    height: 70vw;
+  }
+  .allImages{
+    flex-direction: column;
+  }
+  .images{
+    flex-direction: row;
+    width: 70vw;
+    height: 24vw;
+    margin-left: 0px;
+    margin-right: 0px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  .images>img{
+    width: 20vw;
+    height: 20vw;
+  }
+  
+}
+
+
 @media (max-width: 800px) {
     .header {
       display: none;
@@ -110,4 +147,32 @@ width: 400px;
       display: flex;
     }
     
+}
+
+@media (max-width: 600px) {
+  .allImages>img{
+    width: 85vw;
+    height: 85vw;
+  }
+  .images{
+    flex-direction: row;
+    width: 85vw;
+    height: 30vw;
+  }
+  .images>img{
+    width: 30vw;
+    height: 30vw;
+  }
+}
+
+@media (max-width: 470px) {
+.info{
+  width: 100%;
+  margin: 0px;
+  padding: 20px;
+  text-align: center;
+}
+.specifications{
+  width: 95%;
+}
 }

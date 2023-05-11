@@ -15,7 +15,7 @@ import { roboto } from "@/styles/fonts"
 export default function ProductLocation() {
   const router = useRouter()
 
-  const [mainImage, setMainImage] = useState()
+  const [mainImage, setMainImage] = useState("")
   const [error, setError] = useState<boolean>(false)
   const [info, setInfo] = useState<any>()
 
@@ -70,12 +70,15 @@ export default function ProductLocation() {
       </div>
 
       <div className={style.container}>
-        <div className={style.images}>
+        <div className={style.allImages}>
+          <div className={style.images}>
+        <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={500} height={500} />
           {info ?
             info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
             : null}
         </div>
-        <Image src={`/main/${info?.main_image}`} alt="Caminhão" width={500} height={500} />
+        <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+        </div>
         <div className={style.info}>
           {info ?
             <>
@@ -93,7 +96,7 @@ export default function ProductLocation() {
                 <p>Observações: {info.description}</p>
               </div>
               <p>R$: {parseFloat((info.price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
-              <button> Aprovar</button>
+              <button>Aprovar</button>
               <button>Reprovar</button>
             </>
             : null}
