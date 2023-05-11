@@ -40,5 +40,28 @@
     position: absolute;
     top: 0; left: 0;
     flex-direction: row;
+    text-align: center;
+    background-color: blue;
+  }
+
+  .father div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .father {
+    font-size: 13px;
+  }
+}
+
+
+@media (max-width: 350px) {
+  .father header h4 {
+    display: none;
+  }
+
+  .father {
+    font-size: 14px;
   }
 }
