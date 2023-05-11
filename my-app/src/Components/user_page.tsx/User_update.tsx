@@ -15,9 +15,9 @@ export default function UserUpdate() {
   const [disable, setDisable] = useState(false)
   const [informations, setInformations] = useState<any>({ name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: 0 })
   const [errorMessage, setErrorMessage] = useState({ name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" })
-  const [fieldError, setFieldError] = useState(() => ({name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
-  const [states, setStates] = useState<{ id: number, name: string }[]>()
-  
+  const [fieldError, setFieldError] = useState(() => ({ name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
+  const [states, setStates] = useState<{ id: number, name: string }[]>([])
+
   const { userData, setUserData } = useContext(UserContext) as any
 
   const handleCall = useCallback(async () => {
@@ -30,8 +30,9 @@ export default function UserUpdate() {
   useEffect(() => {
     if (userData) {
       handleCall()
-      setInformations({...informations, 
-        name : userData.user.name, cpf:userData.user.cpf, phone: userData.user.phone,
+      setInformations({
+        ...informations,
+        name: userData.user.name, cpf: userData.user.cpf, phone: userData.user.phone,
         cep: Number(userData.user.address.cep),
         address: userData.user.address.address,
         number: Number(userData.user.address.number),
@@ -42,6 +43,18 @@ export default function UserUpdate() {
     }
 
   }, [])
+
+  function findId(value: string) {
+    let found = -1
+    states.forEach((e, index) => {
+      if (e.name == value) {
+        found = index
+      }
+    })
+    console.log(found)
+
+    setInformations({ ...informations, uf: found })
+  }
 
   async function handleCep(e: ChangeEvent | any) {
     const value = e.target.value
@@ -126,30 +139,30 @@ export default function UserUpdate() {
     }
 
     try {
-      const user =await updateUser(register, userData.token)
+      const user = await updateUser(register, userData.token)
       setDisable(false)
-      setUserData({...userData, user:user})
+      setUserData({ ...userData, user: user })
     } catch (err) {
       console.log(err)
       setDisable(false)
     }
   }
-  
+
   async function logoutUserPost() {
-    try{
+    try {
       await logoutUser(userData.token)
       setUserData(null)
       router.push("/")
-    }catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
 
   async function deleteUserPost() {
-    try{
+    try {
       await deleteUser(userData.token)
       setUserData(null)
-    }catch(err) {
+    } catch (err) {
       console.log("mosntro")
     }
   }
@@ -158,14 +171,14 @@ export default function UserUpdate() {
     <>
       <div className={`${style.background} ${roboto.className}`}>
         {deleter &&
-           <div className={style.modal}>
+          <div className={style.modal}>
             <h1>Deseja mesmo deletar sua conta?</h1>
             <p>Você perderá todos os seus dados e não poderá recuperá-los!</p>
             <div className={style.buttons}>
               <button onClick={() => setDeleter(false)}>Não</button>
               <button onClick={() => deleteUserPost()}>Sim</button>
             </div>
-            
+
           </div>}
         <form className={style.form} onSubmit={(e) => updateUserPost(e)}>
 
@@ -187,7 +200,7 @@ export default function UserUpdate() {
           <div>
             <h1>Endereço</h1>
             {fieldError.cep && <p className={style.p}>{errorMessage.cep}</p>}
-            <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />          
+            <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
             {fieldError.address && <p className={style.p}>{errorMessage.address}</p>}
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
             {fieldError.number && <p className={style.p}>{errorMessage.number}</p>}
@@ -195,11 +208,10 @@ export default function UserUpdate() {
             {fieldError.complement && <p className={style.p}>{errorMessage.complement}</p>}
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
 
-            <select className={style.input} value={states ? states[informations.uf].name : 0}>
+            <select className={style.input} onChange={(e) => findId(e.target.value)}>
               {states ?
                 states.map((s, index) => {
-                  return <option key={index} className={style.input}
-                    onClick={(e) => setInformations({ ...informations, uf: s.id })} placeholder="Estado">
+                  return <option key={index} className={style.input} placeholder="Estado">
                     {s.name}
                   </option>
                 })

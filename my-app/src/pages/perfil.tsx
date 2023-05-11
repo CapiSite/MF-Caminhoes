@@ -9,30 +9,33 @@ import style from '@/styles/user_page/page.module.css'
 import UserContext from "@/APIContext/UserContext";
 import AlertMessage from "@/Components/user_page.tsx/Alert_message";
 import Sidebar from "@/Components/Sidebar";
+import OptionContext from "@/APIContext/UserOption";
 
 export default function userArea() {
   const [selection, setSelection] = useState<number>(0)
   const [error, setError] = useState<number>(0)
 
   const { userData } = useContext(UserContext) as { userData: any }
+  const { optionData } = useContext(OptionContext) as any
 
   useEffect(() => {
     if (!userData) {
       setError(1)
     }
-  }, [userData])
+    setSelection(optionData)
+  }, [userData, optionData])
 
   return (
     <>
       <div className={style.header}>
-        <Header changeToUser={setSelection}/>
+        <Header/>
       </div>
       <div className={style.sidebar}>
         <Sidebar/>
       </div>
       <div className={style.father}>
 
-        <NavOptions subsets={["Loque minha Carreta", "Minhas Carretas", "Meu perfil"]} select={setSelection} key={0}/>
+        <NavOptions subsets={["Loque minha Carreta", "Minhas Carretas", "Meu perfil"]} key={0}/>
 
         {error === 1 ?
           <AlertMessage key={1} /> :
