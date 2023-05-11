@@ -8,14 +8,17 @@ import { verifyToken } from "@/services/user-services";
 import { BsWhatsapp } from "react-icons/bs";
 import Link from "next/link";
 import OptionContext from "@/APIContext/UserOption";
+import AdminContext from "@/APIContext/AdminContext";
 
 export default function Header() {
   const router = useRouter();
-  const { userData, setUserData } = useContext(UserContext) as any;
+
   const [userInfo, setUserinfo] = useState<boolean>(false);
   const [userName, setUserName] = useState<any>();
 
-  const {setOptionData} = useContext(OptionContext) as any
+  const { userData, setUserData } = useContext(UserContext) as any;
+  const { adminData } = useContext(AdminContext) as any
+  const { setOptionData } = useContext(OptionContext) as any
 
   const handleCallUser = useCallback(async () => {
     try {
@@ -65,7 +68,7 @@ export default function Header() {
           </button>
         </div>
         <div>
-          {userInfo ? (
+          {userInfo || adminData ? (
             <div
               className={style.userImage}
               onClick={() => {
@@ -73,7 +76,7 @@ export default function Header() {
                 router.push("/perfil");
               }}
             >
-              <p>{userName.user.name}</p>
+              <p>{userName?.user.name}</p>
               <Image
                 src="/default_photo.png"
                 width={35}

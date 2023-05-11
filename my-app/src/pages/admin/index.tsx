@@ -1,13 +1,37 @@
-import CardAdm from "@/Components/CardAdm";
+import AdminContext from "@/APIContext/AdminContext";
+import CardAdm from "@/Components/adm/CardAdm";
 import Carousel from "@/Components/Carousel";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
+import { getUnvalidCarts } from "@/services/cart.services";
 import style from "@/styles/AdmStyle.module.css";
-
-const carrosel = ["Caminhão 1", "Caminhão 2", "Caminhão 3", "Caminhão 4", "Caminhão 5", "Caminhão 6", "Caminhão 7", "Caminhão 8", "Caminhão 9", "Caminhão 10"]
+import { useRouter } from "next/router";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 export default function Adm() {
+  const router = useRouter()
+
+  const [carts, setCarts] = useState<[]>([])
+
+  const {adminData} = useContext(AdminContext) as any
+  
+  const handleCall = useCallback(async () => {
+    try {
+      const cartsReceived = await getUnvalidCarts(adminData)
+      setCarts(cartsReceived)
+
+    } catch (err: any) { }
+  }, [])
+
+  useEffect(() =>{
+    if(adminData){
+      handleCall()
+    }else{
+      router.push("/")
+    }
+  }, [])
+
   return (
     <>
       <div className={style.header}>
@@ -22,13 +46,13 @@ export default function Adm() {
         </div>
 
         <div className={style.cards}>
-          {carrosel.map((item, index) => (
-            <CardAdm key={index}/>
+          {carts.map((item, index) => (
+            <CardAdm info={item} key={index}/>
           ))}
         </div>
         <div className={style.mobileCard}>
-          {carrosel.map((item, index) => (
-            <Carousel item={item}
+          {carts.map((item, index) => (
+            <Carousel info={item}
               adm={true} key={index} />
           ))}
         </div>

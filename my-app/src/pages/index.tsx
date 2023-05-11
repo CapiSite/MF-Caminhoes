@@ -8,11 +8,29 @@ import Footer from "@/Components/Footer";
 import Sidebar from "@/Components/Sidebar";
 import Cards from "@/Components/Cards";
 import Carousel from "@/Components/Carousel";
-
-const carrosel = ["Caminhão 1", "Caminhão 2", "Caminhão 3", "Caminhão 4", "Caminhão 5", "Caminhão 6", "Caminhão 7", "Caminhão 8", "Caminhão 9", "Caminhão 10"]
+import { useCallback, useEffect, useState } from "react";
+import { getAllCarts } from "@/services/cart.services";
+import { AxiosError } from "axios";
 
 export default function Home() {
-  const router = useRouter();
+  const [carrosel, setCarrosel] = useState([])
+
+  const handleCall = useCallback(async () => {
+    try {
+      const cartsReceived = await getAllCarts()
+      console.log(cartsReceived)
+      setCarrosel(cartsReceived)
+
+    } catch (err) {
+      const error = err as AxiosError
+    }
+
+  }, [])
+
+
+  useEffect(() => {
+    handleCall()
+  }, [])
   
   return (
     <div>
@@ -32,8 +50,9 @@ export default function Home() {
             alt="Banner-Mobile"
           />
           <div className={style.carousel}>
+            
             {carrosel.map((item, index) => (
-              <Carousel item={item} key={index}/>
+              <Carousel info={item} key={index}/>
             ))}
           </div>
           

@@ -9,6 +9,7 @@ import ActiveLink from "@/hooks/a";
 import UserContext from "@/APIContext/UserContext";
 import { loginUser } from "@/services/user-services";
 import { AiOutlineClose } from "react-icons/ai";
+import AdminContext from "@/APIContext/AdminContext";
 
 export default function Login() {
   const router = useRouter()
@@ -18,9 +19,9 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false }))
 
-  const { userData, setUserData } = useContext(UserContext) as any
+  const { setUserData } = useContext(UserContext) as any
+  const { setAdminData } = useContext(AdminContext) as any
   const [admin, setAdmin] = useState<boolean>(false)
-
 
   return (
     <>
@@ -32,7 +33,7 @@ export default function Login() {
       </div>
       <div className={style.background}>
         <h1 className={style.h1}>Entre na sua conta</h1>
-        <form className={style.form} onSubmit={login}>
+        <form className={style.form} onSubmit={(e) => login(e)}>
           {fieldError.email && <p className={style.p}>{errorMessage.email}</p>}
           <input disabled={disable} className={style.input} value={informations.email} onChange={(e) => setInformations({ ...informations, email: e.target.value })} type="email" placeholder="Email" />
           {fieldError.password && <p className={style.p}>{errorMessage.password}</p>}
@@ -77,8 +78,8 @@ export default function Login() {
 
     try {
       const tokenAndUser = await loginUser(informations)
-      console.log(tokenAndUser)
       setUserData(tokenAndUser)
+      setAdminData(null)
       router.push("/")
     } catch (err) {
       setDisable(false)

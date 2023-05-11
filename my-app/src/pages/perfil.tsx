@@ -1,13 +1,13 @@
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
-import CartPost from "@/Components/user_page.tsx/Cart_post";
-import MyCarts from "@/Components/user_page.tsx/My_Carts";
-import NavOptions from "@/Components/user_page.tsx/Nav_options";
-import UserUpdate from "@/Components/user_page.tsx/User_update";
+import CartPost from "@/Components/user_page/Cart_post";
+import MyCarts from "@/Components/user_page/My_Carts";
+import NavOptions from "@/Components/user_page/Nav_options";
+import UserUpdate from "@/Components/user_page/User_update";
 import { FormEvent, useState, useContext, useEffect } from 'react'
 import style from '@/styles/user_page/page.module.css'
 import UserContext from "@/APIContext/UserContext";
-import AlertMessage from "@/Components/user_page.tsx/Alert_message";
+import AlertMessage from "@/Components/user_page/Alert_message";
 import Sidebar from "@/Components/Sidebar";
 import OptionContext from "@/APIContext/UserOption";
 

@@ -5,12 +5,11 @@ import Sidebar from "@/Components/Sidebar"
 import style from "@/styles/LocationsById.module.css"
 import styleError from "@/styles/error.module.css"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/router"
-import { useCallback, useEffect, useState } from "react"
-import { BsWhatsapp } from "react-icons/bs"
-import { getSpecificCart } from "@/services/cart.services"
+import { useCallback, useContext, useEffect, useState } from "react"
+import { deleteAnyCart, getSpecificCart, validateCart } from "@/services/cart.services"
 import { roboto } from "@/styles/fonts"
+import AdminContext from "@/APIContext/AdminContext"
 
 export default function ProductLocation() {
   const router = useRouter()
@@ -18,6 +17,8 @@ export default function ProductLocation() {
   const [mainImage, setMainImage] = useState("")
   const [error, setError] = useState<boolean>(false)
   const [info, setInfo] = useState<any>()
+
+  const {adminData} = useContext(AdminContext) as any
 
   const handleCall = useCallback(async () => {
     if (router.query.id === undefined) {
@@ -28,16 +29,35 @@ export default function ProductLocation() {
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
         setInfo(infoReceived)
+        setMainImage(`/main/${infoReceived.main_image}`)
       } catch (err: any) {
       }
     }
   }, [])
 
-
   useEffect(() => {
-    handleCall()
+    if(adminData){
+      handleCall()
+    }
   }, [])
 
+  async function validateCartPost() {
+    try{  
+      await validateCart(info.id, adminData)
+      router.push("/admin")
+    }catch(err){
+
+    }
+  }
+
+  async function unvalidateCartPost() {
+    try{  
+      await deleteAnyCart(info.id, adminData)
+      router.push("/admin")
+    }catch(err){
+
+    }
+  }
 
   if (error) {
     return (
@@ -52,14 +72,13 @@ export default function ProductLocation() {
         <div className={`${styleError.father} ${roboto.className}`}>
           <h1>Carreta não encontrada</h1>
           <h2>Por favor, tente mais tarde</h2>
-          <button onClick={() => router.push("/locacoes")}>Voltar</button>
+          <button onClick={() => router.push("/admin")}>Voltar</button>
         </div>
 
         <Footer />
       </>
     )
   }
-
   return (
     <>
       <div className={style.header}>
@@ -72,12 +91,12 @@ export default function ProductLocation() {
       <div className={style.container}>
         <div className={style.allImages}>
           <div className={style.images}>
-        <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={500} height={500} />
-          {info ?
-            info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
-            : null}
-        </div>
-        <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+            <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={500} height={500} />
+            {info ?
+              info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
+              : null}
+          </div>
+          <Image src={mainImage} alt="Caminhão" width={500} height={500} />
         </div>
         <div className={style.info}>
           {info ?
@@ -95,9 +114,9 @@ export default function ProductLocation() {
                 <p>Status: Novo</p>
                 <p>Observações: {info.description}</p>
               </div>
-              <p>R$: {parseFloat((info.price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
-              <button>Aprovar</button>
-              <button>Reprovar</button>
+              <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
+              <button onClick={() => validateCartPost()}>Aprovar</button>
+              <button onClick={() => unvalidateCartPost()}>Reprovar</button>
             </>
             : null}
         </div>

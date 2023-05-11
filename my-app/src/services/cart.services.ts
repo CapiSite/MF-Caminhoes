@@ -55,7 +55,7 @@ export async function deleteAnyCart(id: number, AdminToken: string) {
   return response.data
 }
 
-export async function ValidateCart(id: number, AdminToken: string) {
+export async function validateCart(id: number, AdminToken: string) {
   const response = await instance.post(`/carts/${id}/validate`, {}, { headers: { Authorization: `Bearer ${AdminToken}` } })
   return response.data
 }
