@@ -3,11 +3,13 @@ import style from "@/styles/user_page/navigator.module.css"
 import UserContext from "@/APIContext/UserContext"
 import Image from "next/image"
 import { roboto } from "@/styles/fonts"
+import OptionContext from "@/APIContext/UserOption"
 
-export default function NavOptions({ subsets, select }: { subsets: string[], select: Function }) {
+export default function NavOptions({ subsets }: { subsets: string[] }) {
   const [ userInfo, setUserInfo] = useState<any>()
 
   const { userData } = useContext(UserContext) as { userData: any }
+  const { setOptionData }= useContext(OptionContext) as any
 
   useEffect(() =>{
     if(userData) {
@@ -25,7 +27,7 @@ export default function NavOptions({ subsets, select }: { subsets: string[], sel
         </h4>
       </header>
       {subsets.map((e, index) => {
-        return <div onClick={() => select(index)} key={index}>{e}</div>
+        return <div onClick={() => setOptionData(index)} key={index}>{e}</div>
       })}
     </div>
   )

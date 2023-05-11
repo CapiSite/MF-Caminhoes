@@ -2,17 +2,20 @@ import Image from "next/image";
 import style from "../styles/HeaderStyle.module.css";
 import { useRouter } from "next/router";
 import Logo from "../../public/LogoLocacao.png";
-import { FormEvent, useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import UserContext from "@/APIContext/UserContext";
-import { logoutUser, verifyToken } from "@/services/user-services";
+import { verifyToken } from "@/services/user-services";
 import { BsWhatsapp } from "react-icons/bs";
 import Link from "next/link";
+import OptionContext from "@/APIContext/UserOption";
 
-export default function Header({ changeToUser }: any) {
+export default function Header() {
   const router = useRouter();
   const { userData, setUserData } = useContext(UserContext) as any;
   const [userInfo, setUserinfo] = useState<boolean>(false);
   const [userName, setUserName] = useState<any>();
+
+  const {setOptionData} = useContext(OptionContext) as any
 
   const handleCallUser = useCallback(async () => {
     try {
@@ -53,10 +56,8 @@ export default function Header({ changeToUser }: any) {
           </button>
           <button
             onClick={() => {
+              setOptionData(0);
               router.push("/perfil");
-              if (changeToUser) {
-                changeToUser(0);
-              }
             }}
             className={style.options}
           >
@@ -68,10 +69,8 @@ export default function Header({ changeToUser }: any) {
             <div
               className={style.userImage}
               onClick={() => {
+                setOptionData(2)
                 router.push("/perfil");
-                if (changeToUser) {
-                  changeToUser(2);
-                }
               }}
             >
               <p>{userName.user.name}</p>
