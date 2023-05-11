@@ -1,3 +1,4 @@
+import { AdminProvider } from '@/APIContext/AdminContext'
 import { UserProvider } from '@/APIContext/UserContext'
 import { OptionProvider } from '@/APIContext/UserOption'
 import '@/styles/globals.css'
@@ -7,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
       <OptionProvider>
-        <Component {...pageProps} />
+        <AdminProvider>
+         <Component {...pageProps} />
+        </AdminProvider>
       </OptionProvider>
     </UserProvider>
   )

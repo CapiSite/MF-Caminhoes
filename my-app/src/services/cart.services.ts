@@ -5,8 +5,8 @@ export async function getAllCarts() {
   return response.data
 }
 
-export async function getUnvalidCarts() {
-  const response = await instance.get("/carts/unvalid")
+export async function getUnvalidCarts(adminToken: string) {
+  const response = await instance.get("/carts/unvalid", { headers: { Authorization: `Bearer ${adminToken}` } } )
   return response.data
 }
 

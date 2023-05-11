@@ -7,35 +7,34 @@ import style from "@/styles/AdmStyle.module.css";
 
 const carrosel = ["Caminhão 1", "Caminhão 2", "Caminhão 3", "Caminhão 4", "Caminhão 5", "Caminhão 6", "Caminhão 7", "Caminhão 8", "Caminhão 9", "Caminhão 10"]
 
-export default function Adm(){
-    return(
-        <>
-        <div className={style.header}>
+export default function Adm() {
+  return (
+    <>
+      <div className={style.header}>
         <Header />
       </div>
       <div className={style.sidebar}>
         <Sidebar />
       </div>
-        <div className={style.container}>
-          <div className={style.title}>
-            <h1>Carretas para aprovar</h1>
-          </div>
-            
-            <div className={style.cards}>
-            {carrosel.map((item, index) => (
-              <CardAdm/>
-            ))}
-            </div>
-            <div className={style.mobileCard}>
-            {carrosel.map((item, index) => (
-              <Carousel item={item} 
-             adm={true} key={index}/>
-            ))}
-            </div>
+      <div className={style.container}>
+        <div className={style.title}>
+          <h1>Carretas para aprovar</h1>
         </div>
 
+        <div className={style.cards}>
+          {carrosel.map((item, index) => (
+            <CardAdm key={index}/>
+          ))}
+        </div>
+        <div className={style.mobileCard}>
+          {carrosel.map((item, index) => (
+            <Carousel item={item}
+              adm={true} key={index} />
+          ))}
+        </div>
+      </div>
 
-      <Footer/>
-        </>
-    )
+      <Footer />
+    </>
+  )
 }
