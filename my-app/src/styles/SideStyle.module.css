@@ -115,6 +115,27 @@
   align-items: center;
   justify-content: center;
 }
+
+.logoSide{
+  height: 81px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.userImage{
+  color: var(--white);
+  display: flex; 
+  align-items: center; 
+  flex-direction: row !important;
+  font-weight: 500;
+  font-size:19px;
+}
+
+.userImage img{
+  margin-right: 20px;
+}
 @media (max-width: 300px) {
   .logo{
     width: 100%;

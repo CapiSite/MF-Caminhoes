@@ -27,6 +27,20 @@
     align-items: center;
 }
 
+.userImage{
+    color: var(--white);
+    display: flex; 
+    align-items: center; 
+    flex-direction: row !important;
+    font-weight: 500;
+    font-size:19px;
+    cursor: pointer;
+  }
+
+  .userImage img{
+    margin-left: 20px;
+  }
+
 .button{
     position: fixed;
     bottom:10px;

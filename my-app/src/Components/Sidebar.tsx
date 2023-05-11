@@ -3,15 +3,20 @@ import style from "../styles/SideStyle.module.css"
 import { useRouter } from "next/router"
 import Logo from "../../public/LogoLocacaoSemFundo.png"
 import { VscThreeBars } from "react-icons/vsc";
-import { useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion"
 import { initialize } from "next/dist/server/lib/render-server";
 import Link from "next/link";
 import { BsWhatsapp } from "react-icons/bs";
+import UserContext from "@/APIContext/UserContext";
+import { verifyToken } from "@/services/user-services";
 
-export default function Sidebar() {
+export default function Sidebar({changeToUser} : any) {
   const [disabled, setDisabled] = useState(true)
+  const { userData, setUserData } = useContext(UserContext) as any 
+  const [userInfo, setUserinfo] = useState<boolean>(false)
+  const [ userName, setUserName] = useState<any>()
   const router = useRouter()
 
   const initial = {
@@ -25,6 +30,27 @@ export default function Sidebar() {
   const transition = {
     duration: 0.5
   }
+
+
+  const handleCallUser = useCallback(async () => {  
+    try {
+      await verifyToken(userData.token)
+      setUserinfo(userData)
+    } catch (err: any) {
+      setUserData(null)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (userData) {
+      handleCallUser()
+      setUserinfo(true)
+      setUserName(userData)
+      
+    }else{
+      setUserinfo(false)
+    }
+  }, [])
 
 
   return (
@@ -46,21 +72,29 @@ export default function Sidebar() {
             <section onClick={() => setDisabled(true)}>
               <IoMdArrowRoundBack />
             </section>
-
+            {!userInfo?<div className={style.logoSide}>
+            <Image src={Logo} alt="sidebar-logo" width={250} />
+            </div>:
+            <div className={style.userImage} onClick={() =>{ router.push("/perfil"); if(changeToUser){ changeToUser(2)}}}>
+              
+              <Image src="/default_photo.png" width={35} height={30} alt="foto de usuário" />
+              <p>{userName.user.name}</p>
+            </div>
+            }
             <div>
               <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
-              <button onClick={() => router.push("/comprar")} className={style.options}>Comprar</button>
-              <button onClick={() => router.push("/comprar")} className={style.options}>Loque sua carreta</button>
+              <button onClick={() => router.push("/perfil")} className={style.options}>Loque sua carreta</button>
             </div>
-
-            <div>
+          {!userInfo?<div>
               <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
               <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>
-            </div>
-
+            </div>:<></>}
+            {userInfo?
             <footer className={style.img}>
-              <Image  src={Logo} alt="sidebar-logo" width={200} />
-            </footer>
+              <Image src={Logo} alt="sidebar-logo" width={250} />
+            </footer>  
+          :<></>}
+            
           </motion.aside>
 
         )}
