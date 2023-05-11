@@ -15,6 +15,7 @@ export default function MyCarts() {
   const handleCall = useCallback(async () => {
     try {
       const carts = await getMyCarts(userData.token)
+      console.log(carts)
       setCarts(carts.active)
       setRefused(carts.canceled)
     } catch (err: any) { 
@@ -29,7 +30,8 @@ export default function MyCarts() {
   return (
     <div>
       <div className={style.MyCarts}>
-        { cartsInfo ?<MyCartsSection info={cartsInfo}/>: null}
+        { cartsInfo ?<MyCartsSection info={cartsInfo} change={{render, setRender}} type={0}/>: null}
+        { refusedCarts && refusedCarts.length > 0 ?<MyCartsSection info={refusedCarts} change={{render, setRender}} type={1}/>: null}
       </div>
     </div>
   )

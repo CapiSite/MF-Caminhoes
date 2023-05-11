@@ -18,7 +18,16 @@ async function getDeletedByUSerId(user_id: number) {
   })
 }
 
+async function confirmSawAllDeletedByUserid(user_id: number) {
+  return prismaDb.deleted_carts.deleteMany({
+    where:{
+      user_id
+    }
+  })
+}
+
 export const deletedRepository = {
   createDeleted,
-  getDeletedByUSerId
+  getDeletedByUSerId,
+  confirmSawAllDeletedByUserid
 }

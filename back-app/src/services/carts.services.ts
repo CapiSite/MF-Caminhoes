@@ -33,6 +33,10 @@ async function getMyCarts(user_id: number) {
   }
 }
 
+async function confirmSawDeletedCarts(user_id: number){
+  return deletedRepository.confirmSawAllDeletedByUserid(user_id)
+}
+
 async function createCart(body: CartCreation, user_id: number) {
   const user = await usersRepository.getFullUserById(user_id)
   if(!user) throw UnauthorizedError("Usuário não cadastrado")
@@ -108,14 +112,14 @@ async function deleteMyCart(user_id: number, cart_id: number) {
 
   if(cart.user_id !== user_id) throw UnauthorizedError("Dono da carreta não credenciado")
 
-  await deletedRepository.createDeleted(cart.title, cart.main_image, cart.user_id)
-
   return cartsRepository.deleteCart(cart_id)
 }
 
 async function deleteAnyCart(cart_id: number) {
   const cart =  await cartsRepository.getSpecificCart(cart_id)
   if(!cart) throw NotFoundError("Carreta não encontrada")
+
+  await deletedRepository.createDeleted(cart.title, cart.main_image, cart.user_id)
 
   return cartsRepository.deleteCart(cart_id)
 }
@@ -129,5 +133,6 @@ export const cartsServices = {
   deleteAnyCart,
   createCart,
   getUnvalidCarts,
-  updateCart
+  updateCart,
+  confirmSawDeletedCarts
 }

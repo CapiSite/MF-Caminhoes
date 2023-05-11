@@ -45,6 +45,11 @@ export async function deleteMyCart(id: number, token: string) {
   return response.data
 }
 
+export async function confirmSawAllDeletedCarts(token: string) {
+  const response = await instance.delete(`/carts/refused/mine`, { headers: { Authorization: `Bearer ${token}` } })
+  return response.data
+}
+
 export async function deleteAnyCart(id: number, AdminToken: string) {
   const response = await instance.delete(`/carts/${id}`, { headers: { Authorization: `Bearer ${AdminToken}` } })
   return response.data
