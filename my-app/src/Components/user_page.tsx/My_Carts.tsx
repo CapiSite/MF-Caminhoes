@@ -3,6 +3,7 @@ import { getMyCarts } from "@/services/cart.services"
 import { FormEvent, useCallback, useContext, useEffect, useState } from "react"
 import CardUser from "./Card_user";
 import MyCartsSection from "./Card_user";
+import style from "@/styles/MyCarts.module.css";
 
 export default function MyCarts() {
   const [cartsInfo, setCarts] = useState<[]>([])
@@ -27,7 +28,7 @@ export default function MyCarts() {
 
   return (
     <div>
-      <div>
+      <div className={style.MyCarts}>
         { cartsInfo ?<MyCartsSection info={cartsInfo}/>: null}
       </div>
     </div>

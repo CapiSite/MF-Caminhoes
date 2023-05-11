@@ -73,6 +73,7 @@
   border: 1px solid var(--black);
   height: fit-content;
   padding: 10px 5px ;
+  z-index: 1;
 }
 
 .modal h1{
