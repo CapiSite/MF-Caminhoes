@@ -128,9 +128,11 @@ export default function Location() {
                 <option value="Z-A">Preço maior - menor</option>
               </select>
             </div>
+            {carts.length===0?<div className={style.locationsContainer}><p className={style.noCars}>Não há carretas</p></div>:
             <div className={style.locationsContainer}>
-              {carts.map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
-            </div>
+            {carts.map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
+          </div>}
+            
             {ct <= carts.length ? <div className={style.more}>
               <button onClick={() => setCt(ct + 8)}>Ver mais</button>
             </div> : <></>}

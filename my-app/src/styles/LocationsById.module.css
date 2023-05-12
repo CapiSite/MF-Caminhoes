@@ -26,15 +26,30 @@
 .images img{
   margin-right:20px;
   margin-bottom:20px;
-  height: 14vw;
   width: 14vw;
-
+  min-height: 14vw;
 }
+
 .images img:hover{
   cursor: pointer;
 }
 
-
+.button{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  
+}
+.button button{
+  max-width: 130px;
+  color: var(--white);
+}
+.button button:nth-child(2):hover{
+  background-color: var(--strong-red);
+}
+.button button:nth-child(2){
+  background-color: red;
+}
 .info{
 display: flex;
 flex-direction: column;
@@ -58,6 +73,7 @@ width: 400px;
 }
 .specifications p{
   margin-top: 10px;
+  word-wrap: break-word;
 }
 .info button{
   background-color: rgb(10, 231, 10);

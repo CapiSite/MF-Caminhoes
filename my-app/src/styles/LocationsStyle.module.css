@@ -58,7 +58,6 @@ cursor: pointer;
     margin-top: 40px;
     font-weight: 700;
     margin-right: 60px;
-
 }
 .filter input::-webkit-outer-spin-button,
 .filter input::-webkit-inner-spin-button {
@@ -105,7 +104,7 @@ cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 75vw;
+    min-width: 60vw;
 }
 .div select{
     width: 130px;
@@ -176,6 +175,10 @@ cursor: pointer;
 
 .mobileFilter{
     display: none;
+}
+
+.noCars{
+    font-size: 25px;
 }
 @media (max-width: 800px) {
     .header {
@@ -264,15 +267,12 @@ cursor: pointer;
         margin-bottom: 5px;
         font-weight: bold;
     }
-
-}
-
-@media (min-width:1500px) {
-    .filter{
-        margin-left: 300px;
+    .noCars{
+        margin: 200px 0px;
     }
-    
 }
+
+
 
 @media (max-width:300px) {
     .filterMobile{
@@ -289,8 +289,8 @@ cursor: pointer;
         margin-bottom: 0px;
     }
     .div h1{
-        margin-top: 20px;
-
+        margin: 20px 0px;
+        
     }
     .div{
         justify-content: space-around;

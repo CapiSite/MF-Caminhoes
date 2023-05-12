@@ -34,10 +34,12 @@ export default function Login() {
       <div className={style.background}>
         <h1 className={style.h1}>Entre na sua conta</h1>
         <form className={style.form} onSubmit={(e) => login(e)}>
-          {fieldError.email && <p className={style.p}>{errorMessage.email}</p>}
+          <p className={style.p2}>Email:</p>
           <input disabled={disable} className={style.input} value={informations.email} onChange={(e) => setInformations({ ...informations, email: e.target.value })} type="email" placeholder="Email" />
-          {fieldError.password && <p className={style.p}>{errorMessage.password}</p>}
+          {fieldError.email ? <p className={style.p}>{errorMessage.email}</p>:<div className={style.space}></div>}
+          <p className={style.p2}>Senha:</p>
           <input disabled={disable} className={style.input} value={informations.password} onChange={(e) => setInformations({ ...informations, password: e.target.value })} type="password" placeholder="Senha" />
+          {fieldError.password ? <p className={style.p}>{errorMessage.password}</p>:<div className={style.space}></div>}
           <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Entrar"}</button>
           {ActiveLink({ children: "Não possui uma conta? Cadastre-se!", href: "/cadastrar" })}
         </form>
@@ -56,14 +58,22 @@ export default function Login() {
   async function login(e: FormEvent) {
     e.preventDefault()
     setDisable(true)
-
+    let error = { email: "", password: "" }
     const fields = ["email", "password"]
     let newFieldError: any = { email: false, password: false };
-
+    if(informations.email.includes(".") === false){
+      setDisable(false)
+      newFieldError = { ...newFieldError, email: true };
+      error = { ...error, email: "Email inválido!" }
+    }
     if (!informations.email) {
       newFieldError = { ...newFieldError, email: true };
-    } else if (!informations.password) {
-      newFieldError = { ...newFieldError, password: false };
+      error = {...error, email: "Campo Obrigatório!"}
+    }
+    
+    if (!informations.password) {
+      newFieldError = { ...newFieldError, password: true };
+      error = {...error, password: "Campo Obrigatório!"}
     }
 
     let foundError;
@@ -73,6 +83,7 @@ export default function Login() {
     if (foundError) {
       setDisable(false)
       setFieldError(newFieldError)
+      setErrorMessage(error)
       return
     }
 

@@ -34,7 +34,7 @@ export default function Cadastro() {
     else {
       handleCall()
     }
-  }, [])
+  }, [fieldError])
 
   async function handleCep(e: ChangeEvent | any) {
     const value = e.target.value
@@ -61,7 +61,7 @@ export default function Cadastro() {
             city: cep.localidade,
             uf: findUf(cep.uf)
           })
-          setErrorMessage({ ...errorMessage, cep: "campo Obrigatório" })
+          setErrorMessage({ ...errorMessage, cep: "Campo Obrigatório" })
           setFieldError({ ...fieldError, cep: false })
         } else {
           setInformations({ ...informations, cep: value })
@@ -75,7 +75,7 @@ export default function Cadastro() {
     }
     if (value.length < 8) {
       setInformations({ ...informations, cep: value })
-      setErrorMessage({ ...errorMessage, cep: "campo Obrigatório" })
+      setErrorMessage({ ...errorMessage, cep: "Campo Obrigatório" })
       setFieldError({ ...fieldError, cep: false })
     }
   }
@@ -93,34 +93,44 @@ export default function Cadastro() {
         <form className={style.form} onSubmit={(e) => SignUp(e)}>
 
           <div>
-            {fieldError.email && <p className={style.p}>{errorMessage.email}</p>}
+            
+            <p className={style.p2}>Email:</p>
             <input disabled={disable} className={style.input} value={informations.email} onChange={(e) => setInformations({ ...informations, email: e.target.value })} type="email" placeholder="Email" />
-            {fieldError.password && <p className={style.p}>{errorMessage.password}</p>}
+            {fieldError.email ? <p className={style.p}>{errorMessage.email}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Senha:</p>
             <input disabled={disable} className={style.input} value={informations.password} onChange={(e) => setInformations({ ...informations, password: e.target.value })} type="password" placeholder="Senha" />
-            {fieldError.password_confirmation && <p className={style.p}>{errorMessage.password_confirmation}</p>}
+            {fieldError.password ? <p className={style.p}>{errorMessage.password}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Confirmar a senha:</p>
             <input disabled={disable} className={style.input} value={informations.password_confirmation} onChange={(e) => setInformations({ ...informations, password_confirmation: e.target.value })} type="password" placeholder="Confirmar senha" />
-            {fieldError.name && <p className={style.p}>{errorMessage.name}</p>}
+            {fieldError.password_confirmation ? <p className={style.p}>{errorMessage.password_confirmation}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Nome</p>
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
-            {fieldError.last_name && <p className={style.p}>{errorMessage.last_name}</p>}
+            {fieldError.name ? <p className={style.p}>{errorMessage.name}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Sobrenome</p>
             <input disabled={disable} className={style.input} value={informations.last_name} onChange={(e) => setInformations({ ...informations, last_name: e.target.value })} type="text" placeholder="Sobrenome" />
-            {fieldError.cpf && <p className={style.p}>{errorMessage.cpf}</p>}
+            {fieldError.last_name ? <p className={style.p}>{errorMessage.last_name}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>CPF:</p>
             <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
-            {fieldError.phone && <p className={style.p}>{errorMessage.phone}</p>}
-            <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
+            {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Telefone:</p>
+            <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} pattern="^([0-9]{2}) [0-9]{5}-[0-9]{4}$" type="tel" placeholder="Telefone" />
+            {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p>:<div className={style.space}></div>}
           </div>
-
           <div>
 
-            {fieldError.cep && <p className={style.p}>{errorMessage.cep}</p>}
+            <p className={style.p2}>CEP:</p>
             <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
-
-            {fieldError.address && <p className={style.p}>{errorMessage.address}</p>}
+            {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Endereço:</p>
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
-            {fieldError.number && <p className={style.p}>{errorMessage.number}</p>}
+            {fieldError.address ? <p className={style.p}>{errorMessage.address}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Número:</p>
             <input disabled={disable} className={style.input} value={informations.number} onChange={(e) => setInformations({ ...informations, number: e.target.value })} type="number" placeholder="Número" />
-            {fieldError.complement && <p className={style.p}>{errorMessage.complement}</p>}
+            {fieldError.number ? <p className={style.p}>{errorMessage.number}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Complemento:</p>
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
-
+            {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Estado:</p>
             <select className={style.input} value={states ? states[informations.uf].name : 0}>
               {states ?
                 states.map((s, index) => {
@@ -131,8 +141,10 @@ export default function Cadastro() {
                 })
                 : null}
             </select>
-
+            {fieldError.uf ? <p className={style.p}>{errorMessage.uf}</p>:<div className={style.space}></div>}
+            <p className={style.p2}>Cidade:</p>
             <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
+            {fieldError.city ? <p className={style.p}>{errorMessage.city}</p>:<div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Cadastrar"}</button>
           </div>
         </form>
@@ -146,31 +158,80 @@ export default function Cadastro() {
     setDisable(true)
     const fields = ["name", "email", "password", "password_confirmation", "last_name", "cpf", "phone", "cep", "address", "number", "complement", "city", "uf"]
     let newFieldError: any = { name: false, email: false, password: false, password_confirmation: false, last_name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: false };
-
+    let error = { email: "Campo Obrigatório!", password: "Campo Obrigatório!", password_confirmation: "Campo Obrigatório!", name: "Campo Obrigatório!", last_name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" }
     for (let item of fields) {
       if (!informations[item]) {
         newFieldError = { ...newFieldError, [item]: true };
-      } else {
-        newFieldError = { ...newFieldError, [item]: false };
+        error = { ...error, [item]: "Campo Obrigatório!" }
+      } 
+    }
+    for (let item of fields) {
+      if (informations[item].length>100) {
+        newFieldError = { ...newFieldError, [item]: true };
+        error = { ...error, [item]: "Quantia máxima de caracteres: 100" }
       }
     }
-
-    let foundError;
-    for (let item of fields) {
-      foundError = newFieldError[item] === true
-    }
-    if (foundError) {
+    
+    if(informations.email.includes(".") === false){
       setDisable(false)
-      setFieldError(newFieldError)
-      return
+      newFieldError = { ...newFieldError, email: true };
+      error = { ...error, email: "Email inválido!" }
+    }
+    if(informations.password.length<6){
+      setDisable(false)
+      newFieldError = { ...newFieldError, password: true };
+      error = { ...error, password: "Senha muito curta!" }
     }
     if (informations.password !== informations.password_confirmation) {
       setDisable(false)
       newFieldError = { ...newFieldError, password_confirmation: true };
-      setErrorMessage({ ...errorMessage, password_confirmation: "Senhas não podem ser diferentes!" })
-      setFieldError(newFieldError)
+      error = { ...error, password_confirmation: "Senhas não podem ser diferentes!" }
+    }
+
+    if (informations.name.length < 3) {
+      setDisable(false)
+      newFieldError = { ...newFieldError, name: true };
+      error = { ...error, name: "Nome muito curto!" }
+    }
+
+    if (/[0-9]/.test(informations.name) === true) {
+      setDisable(false)
+      newFieldError = { ...newFieldError, name: true };
+      error = { ...error, name: "Nome inválido!" }
+    }
+    if (/[0-9]/.test(informations.last_name) === true) {
+      setDisable(false)
+      newFieldError = { ...newFieldError, last_name: true };
+      error = { ...error, last_name: "Sobrenome inválido!" }
+    }
+    if(informations.cpf.length<11){
+      setDisable(false)
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }
+    }
+    if(informations.phone.length<11){
+      setDisable(false)
+      newFieldError = { ...newFieldError, phone: true };
+      error = { ...error, phone: "Telefone inválido!" }
+    }
+    if(informations.cep.length<8){
+      setDisable(false)
+      newFieldError = { ...newFieldError, cep: true };
+      error = { ...error, cep: "CEP inválido!" }
+    }
+    let foundError;
+    for (let item of fields) {
+      if(newFieldError[item]) foundError = true
+    } 
+    console.log(foundError)
+    if (foundError) {
+      setDisable(false)
+      setErrorMessage({...error})
+      setFieldError({...newFieldError})
       return
     }
+
+
 
     const register = {
       name: informations.name + " " + informations.last_name,

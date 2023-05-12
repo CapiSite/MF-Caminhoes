@@ -17,19 +17,21 @@ export default function UserUpdate() {
   const [errorMessage, setErrorMessage] = useState({ name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({ name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
   const [states, setStates] = useState<{ id: number, name: string }[]>([])
-
+  const [userState, setUserState] = useState<string>("")
   const { userData, setUserData } = useContext(UserContext) as any
 
   const handleCall = useCallback(async () => {
     try {
       const states = await getStates()
       setStates(states)
+      setUserState(states[userData.user.address.cities.states_id-1].name)
     } catch (err: any) { }
   }, [])
 
   useEffect(() => {
     if (userData) {
       handleCall()
+      
       setInformations({
         ...informations,
         name: userData.user.name, cpf: userData.user.cpf, phone: userData.user.phone,
@@ -38,11 +40,11 @@ export default function UserUpdate() {
         number: Number(userData.user.address.number),
         complement: userData.user.address.complement,
         city: userData.user.address.cities.name,
-        uf: userData.user.address.cities.state_id
+        uf: userData.user.address.cities.states_id
       })
     }
 
-  }, [])
+  }, [userState])
 
   function findId(value: string) {
     let found = -1
@@ -53,7 +55,7 @@ export default function UserUpdate() {
     })
     console.log(found)
 
-    setInformations({ ...informations, uf: found })
+    setInformations({ ...informations, uf: found+1 })
   }
 
   async function handleCep(e: ChangeEvent | any) {
@@ -81,6 +83,7 @@ export default function UserUpdate() {
             city: cep.localidade,
             uf: findUf(cep.uf)
           })
+          
           setErrorMessage({ ...errorMessage, cep: "campo Obrigatório" })
           setFieldError({ ...fieldError, cep: false })
         } else {
@@ -190,7 +193,7 @@ export default function UserUpdate() {
             <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
             {fieldError.phone && <p className={style.p}>{errorMessage.phone}</p>}
             <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
-            <button className={style.disconnect} onClick={() => logoutUserPost()}>Desconectar</button>
+            <button className={style.disconnect} type="button" onClick={() => logoutUserPost()}>Desconectar</button>
             <button className={style.delete} type="button" onClick={() => setDeleter(true)}>Deletar Conta</button>
           </div>
 
@@ -208,7 +211,7 @@ export default function UserUpdate() {
             {fieldError.complement && <p className={style.p}>{errorMessage.complement}</p>}
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
 
-            <select className={style.input} onChange={(e) => findId(e.target.value)}>
+            <select value={userState} className={style.input} onChange={(e) => findId(e.target.value)}>
               {states ?
                 states.map((s, index) => {
                   return <option key={index} className={style.input} placeholder="Estado">

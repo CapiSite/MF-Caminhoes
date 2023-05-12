@@ -91,7 +91,7 @@ export default function ProductLocation() {
       <div className={style.container}>
         <div className={style.allImages}>
           <div className={style.images}>
-            <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={500} height={500} />
+            <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={198} height={198} />
             {info ?
               info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
               : null}
@@ -115,8 +115,10 @@ export default function ProductLocation() {
                 <p>Observações: {info.description}</p>
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
-              <button onClick={() => validateCartPost()}>Aprovar</button>
-              <button onClick={() => unvalidateCartPost()}>Reprovar</button>
+              <div className={style.button}>
+              <button  onClick={() => validateCartPost()}>Aprovar</button>
+              <button  onClick={() => unvalidateCartPost()}>Reprovar</button>
+              </div>
             </>
             : null}
         </div>

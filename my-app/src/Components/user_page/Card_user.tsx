@@ -5,11 +5,11 @@ import { confirmSawAllDeletedCarts, deleteMyCart } from "@/services/cart.service
 import { useContext, useEffect, useState } from "react";
 import UserContext from "@/APIContext/UserContext";
 import styleModal from "@/styles/user_page/user_update.module.css";
+import OptionContext from "@/APIContext/UserOption";
 
 export default function MyCartsSection({ info, change, type }: { info: any, change: {render: any, setRender: any,},  type: number }) {
   const { userData } = useContext(UserContext) as any
-
-  console.log(type)
+  const { setOptionData }= useContext(OptionContext) as any
 
 
   async function deleteMyCartPost(id: number) {
@@ -33,16 +33,24 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
   if(type === 0) {
     return (
       <>
+        {info.length>0?
+        <>
         <div className={style.cards}>
-          {info.map((item: any, index: any) => (
-            <CardUser info={item} key={index} deleteMyCartPost={deleteMyCartPost}/>
-          ))}
-        </div>
-        <div className={style.MymobileCard}>
-          {info.map((item: any, index: any) => (
-            <CardMobile info={item} key={index} deleteMyCartPost={deleteMyCartPost}/>
-          ))}
-        </div>
+        {info.map((item: any, index: any) => (
+          <CardUser info={item} key={index} deleteMyCartPost={deleteMyCartPost}/>
+        ))}
+      </div>
+      <div className={style.MymobileCard}>
+        {info.map((item: any, index: any) => (
+          <CardMobile info={item} key={index} deleteMyCartPost={deleteMyCartPost}/>
+        ))}
+      </div>
+      </>:<div className={styleMobile.notFound}>
+        <p>Você ainda não locou nenhuma carreta</p>
+        <button onClick={() => setOptionData(0)}>Locar uma carreta</button>
+        
+        </div>}
+        
       </>
     )
   }

@@ -44,7 +44,12 @@ export default function Adm() {
         <div className={style.title}>
           <h1>Carretas para aprovar</h1>
         </div>
-
+        {carts.length===0?<div className={style.div}>
+          <h1>Nenhuma carreta para aprovar</h1>
+          <button onClick={()=>router.push("/")}>Voltar para a home
+          </button>
+        </div>:
+        <>
         <div className={style.cards}>
           {carts.map((item, index) => (
             <CardAdm info={item} key={index}/>
@@ -56,6 +61,9 @@ export default function Adm() {
               adm={true} key={index} />
           ))}
         </div>
+        </>
+        }
+        
       </div>
 
       <Footer />
