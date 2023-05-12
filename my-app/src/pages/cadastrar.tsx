@@ -10,6 +10,8 @@ import { signupUser } from "@/services/user-services";
 import { getStates } from "@/services/types.services";
 import { cepValidation } from "@/services/cep";
 import { DebounceInput } from 'react-debounce-input';
+import { IoMdReturnLeft } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Cadastro() {
   const router = useRouter()
@@ -26,7 +28,7 @@ export default function Cadastro() {
     try {
       const states = await getStates()
       setStates(states)
-    } catch (err: any) {  }
+    } catch (err: any) { }
   }, [])
 
   useEffect(() => {
@@ -80,6 +82,39 @@ export default function Cadastro() {
     }
   }
 
+  function handleCpfMask(value: string) {
+    let goBackValue = ""
+
+    for (let i = 0; i < value.length; i++) {
+      goBackValue += value[i]
+      if (i === 2 || i === 5) {
+        goBackValue += "."
+      }
+      if (i === 8) {
+        goBackValue += "-"
+      }
+    }
+    return goBackValue
+  }
+
+  function handlePhone(value: string) {
+    let goBackValue = ""
+
+    for (let i = 0; i < value.length; i++) {
+      if (i === 0) {
+        goBackValue += "("
+      }
+      goBackValue += value[i]
+      if (i === 1) {
+        goBackValue += ")"
+      }
+      if (i === 6) {
+        goBackValue += "."
+      }
+    }
+    return goBackValue
+  }
+
   return (
     <>
       <div className={style.header}>
@@ -93,43 +128,43 @@ export default function Cadastro() {
         <form className={style.form} onSubmit={(e) => SignUp(e)}>
 
           <div>
-            
+
             <p className={style.p2}>Email:</p>
             <input disabled={disable} className={style.input} value={informations.email} onChange={(e) => setInformations({ ...informations, email: e.target.value })} type="email" placeholder="Email" />
-            {fieldError.email ? <p className={style.p}>{errorMessage.email}</p>:<div className={style.space}></div>}
+            {fieldError.email ? <p className={style.p}>{errorMessage.email}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Senha:</p>
             <input disabled={disable} className={style.input} value={informations.password} onChange={(e) => setInformations({ ...informations, password: e.target.value })} type="password" placeholder="Senha" />
-            {fieldError.password ? <p className={style.p}>{errorMessage.password}</p>:<div className={style.space}></div>}
+            {fieldError.password ? <p className={style.p}>{errorMessage.password}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Confirmar a senha:</p>
             <input disabled={disable} className={style.input} value={informations.password_confirmation} onChange={(e) => setInformations({ ...informations, password_confirmation: e.target.value })} type="password" placeholder="Confirmar senha" />
-            {fieldError.password_confirmation ? <p className={style.p}>{errorMessage.password_confirmation}</p>:<div className={style.space}></div>}
+            {fieldError.password_confirmation ? <p className={style.p}>{errorMessage.password_confirmation}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Nome</p>
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
-            {fieldError.name ? <p className={style.p}>{errorMessage.name}</p>:<div className={style.space}></div>}
+            {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Sobrenome</p>
             <input disabled={disable} className={style.input} value={informations.last_name} onChange={(e) => setInformations({ ...informations, last_name: e.target.value })} type="text" placeholder="Sobrenome" />
-            {fieldError.last_name ? <p className={style.p}>{errorMessage.last_name}</p>:<div className={style.space}></div>}
+            {fieldError.last_name ? <p className={style.p}>{errorMessage.last_name}</p> : <div className={style.space}></div>}
             <p className={style.p2}>CPF:</p>
-            <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
-            {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p>:<div className={style.space}></div>}
+            <input disabled={disable} className={style.input} value={handleCpfMask(informations.cpf)} onChange={(e) => setInformations({ ...informations, cpf: e.target.value.replaceAll(".", "").replace("-", "") })} type="string" placeholder="CPF" />
+            {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Telefone:</p>
-            <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} pattern="^([0-9]{2}) [0-9]{5}-[0-9]{4}$" type="tel" placeholder="Telefone" />
-            {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p>:<div className={style.space}></div>}
+            <input disabled={disable} className={style.input} value={handlePhone(informations.phone)} onChange={(e) => setInformations({ ...informations, phone: e.target.value.replace(".", "").replace("(", "").replace(")", "") })}  type="tel" placeholder="Telefone" />
+            {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p> : <div className={style.space}></div>}
           </div>
           <div>
 
             <p className={style.p2}>CEP:</p>
             <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
-            {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p>:<div className={style.space}></div>}
+            {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Endereço:</p>
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
-            {fieldError.address ? <p className={style.p}>{errorMessage.address}</p>:<div className={style.space}></div>}
+            {fieldError.address ? <p className={style.p}>{errorMessage.address}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Número:</p>
             <input disabled={disable} className={style.input} value={informations.number} onChange={(e) => setInformations({ ...informations, number: e.target.value })} type="number" placeholder="Número" />
-            {fieldError.number ? <p className={style.p}>{errorMessage.number}</p>:<div className={style.space}></div>}
+            {fieldError.number ? <p className={style.p}>{errorMessage.number}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Complemento:</p>
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
-            {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p>:<div className={style.space}></div>}
+            {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Estado:</p>
             <select className={style.input} value={states ? states[informations.uf].name : 0}>
               {states ?
@@ -141,10 +176,10 @@ export default function Cadastro() {
                 })
                 : null}
             </select>
-            {fieldError.uf ? <p className={style.p}>{errorMessage.uf}</p>:<div className={style.space}></div>}
+            {fieldError.uf ? <p className={style.p}>{errorMessage.uf}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Cidade:</p>
             <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
-            {fieldError.city ? <p className={style.p}>{errorMessage.city}</p>:<div className={style.space}></div>}
+            {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Cadastrar"}</button>
           </div>
         </form>
@@ -163,21 +198,21 @@ export default function Cadastro() {
       if (!informations[item]) {
         newFieldError = { ...newFieldError, [item]: true };
         error = { ...error, [item]: "Campo Obrigatório!" }
-      } 
+      }
     }
     for (let item of fields) {
-      if (informations[item].length>100) {
+      if (informations[item].length > 100) {
         newFieldError = { ...newFieldError, [item]: true };
         error = { ...error, [item]: "Quantia máxima de caracteres: 100" }
       }
     }
-    
-    if(informations.email.includes(".") === false){
+
+    if (informations.email.includes(".") === false) {
       setDisable(false)
       newFieldError = { ...newFieldError, email: true };
       error = { ...error, email: "Email inválido!" }
     }
-    if(informations.password.length<6){
+    if (informations.password.length < 6) {
       setDisable(false)
       newFieldError = { ...newFieldError, password: true };
       error = { ...error, password: "Senha muito curta!" }
@@ -204,30 +239,30 @@ export default function Cadastro() {
       newFieldError = { ...newFieldError, last_name: true };
       error = { ...error, last_name: "Sobrenome inválido!" }
     }
-    if(informations.cpf.length<11){
+    if (informations.cpf.length < 11) {
       setDisable(false)
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
-    if(informations.phone.length<11){
+    if (informations.phone.length < 11) {
       setDisable(false)
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
-    if(informations.cep.length<8){
+    if (informations.cep.length < 8) {
       setDisable(false)
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
     }
     let foundError;
     for (let item of fields) {
-      if(newFieldError[item]) foundError = true
-    } 
+      if (newFieldError[item]) foundError = true
+    }
     console.log(foundError)
     if (foundError) {
       setDisable(false)
-      setErrorMessage({...error})
-      setFieldError({...newFieldError})
+      setErrorMessage({ ...error })
+      setFieldError({ ...newFieldError })
       return
     }
 
@@ -252,8 +287,11 @@ export default function Cadastro() {
     try {
       await signupUser(register)
       router.push("/login")
-    } catch (err) {
+    } catch (err: any) {
       setDisable(false)
+      if (err?.response?.status === 409) {
+        toast.warn(err.response.data.message)
+      }
     }
   }
 }

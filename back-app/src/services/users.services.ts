@@ -9,10 +9,10 @@ import jwt from 'jsonwebtoken'
 async function createUser(user: UserCreation) {
 
   const emailExist = await usersRepository.getUsersByEmail(user.email)
-  if (emailExist) throw ConflictError("E-mail já usado")
+  if (emailExist) throw ConflictError("E-mail inválido")
 
   const cpfExist = await usersRepository.getUserByCpf(user.cpf)
-  if (cpfExist) throw ConflictError("Cpf já em uso")
+  if (cpfExist) throw ConflictError("Cpf inválido")
 
   const address = await addressRepository.createAddress(user.address)
 
@@ -40,7 +40,7 @@ async function loginUser(email: string, password: string) {
   const user_session = await sessionsRepository.getSessionByUserId(userExist.id)
 
   if (!user_session) {
-    const token = jwt.sign(password, process.env.JWT_SECRET)
+    const token = jwt.sign({ id: `${email}${fullUser.cpf}${password}`}, process.env.JWT_SECRET, {expiresIn: 604800})
     const session = await sessionsRepository.createSession(token, userExist.id)
 
     return { token: session.token, user: fullUser }
@@ -53,10 +53,10 @@ async function loginUser(email: string, password: string) {
 
 async function editUser(user: UserCreation, id: number) {
   const userExist = await usersRepository.getFullUserById(id)
-  if (!userExist) throw UnauthorizedError("Usuaŕio não cadastrado")
+  if (!userExist) throw UnauthorizedError("E-mail inválido")
 
   const cpfValid = await usersRepository.getUserButCpfCanbeTheSame(user.cpf, id)
-  if (!cpfValid) throw ConflictError("Cpf já em uso")
+  if (!cpfValid) throw ConflictError("Cpf inválido")
 
   const newAddress = await addressRepository.updateAddress(user.address, userExist.address_id, userExist.id)
 
@@ -71,7 +71,7 @@ async function editUser(user: UserCreation, id: number) {
 
 async function logoutUser(user_id: number) {
   const userExist = await usersRepository.getFullUserById(user_id)
-  if (!userExist) throw UnauthorizedError("Usuaŕio não cadastrado")
+  if (!userExist) throw UnauthorizedError("Usuaŕio inválido")
 
   return usersRepository.logoutUser(user_id)
 }
@@ -79,7 +79,7 @@ async function logoutUser(user_id: number) {
 async function deleteUser(user_id: number) {
 
   const userExist = await usersRepository.getFullUserById(user_id)
-  if (!userExist) throw UnauthorizedError("Usuaŕio não cadastrado")
+  if (!userExist) throw UnauthorizedError("Usuaŕio inválido")
 
   return usersRepository.deleteUser(user_id)
 }

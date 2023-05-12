@@ -30,7 +30,6 @@ export default function loginAdminForm() {
       const admin = await loginAdmin(informations)
       setUserData(null)
       setAdminData(admin)
-
       router.push("/admin")
     }catch(err: any) {
       const error = err as AxiosError

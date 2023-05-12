@@ -9,6 +9,9 @@ import { BsWhatsapp } from "react-icons/bs";
 import Link from "next/link";
 import OptionContext from "@/APIContext/UserOption";
 import AdminContext from "@/APIContext/AdminContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+
 
 export default function Header() {
   const router = useRouter();
@@ -33,13 +36,14 @@ export default function Header() {
       }
 
     } catch (err: any) {
+      toast.warn(err.response.data.message)
       setUserData(null);
     }
   }, []);
 
   useEffect(() => {
     handleCallUser();
-  }, []);
+  }, [userData]);
 
   return (
     <>
@@ -78,7 +82,7 @@ export default function Header() {
                 router.push("/perfil");
               }}
             >
-              <p>{adminOn? null:  userName}</p>
+              <p>{adminOn ? null : userName}</p>
               <Image
                 src="/default_photo.png"
                 width={35}
@@ -115,6 +119,19 @@ export default function Header() {
           </button>
         </Link>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
     </>
   );
 }
