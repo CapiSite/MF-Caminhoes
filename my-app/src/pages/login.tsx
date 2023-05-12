@@ -76,6 +76,14 @@ export default function Login() {
       error = {...error, password: "Campo Obrigatório!"}
     }
 
+    if (informations.password.length>100) {
+      newFieldError = { ...newFieldError, password: true };
+      error = {...error, password: "Insira menos de 100 caracteres"}
+    }
+    if (informations.email.length>100) {
+      newFieldError = { ...newFieldError, password: true };
+      error = {...error, email: "Insira menos de 100 caracteres"}
+    }
     let foundError;
     for (let item of fields) {
       foundError = newFieldError[item] === true
