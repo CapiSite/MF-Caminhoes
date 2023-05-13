@@ -1,6 +1,7 @@
 import { useState } from "react";
+import style from '@/styles/user_page/cart_rental.module.css'
 
-export default function CartInput({ type, alter, value, label} : {type: any[], alter: any, value: string | number, label: string}) {
+export default function CartInput({ type, alter, value, label, disable} : {type: any[], alter: any, value: string | number, label: string, disable: boolean}) {
   const [active, setActive] = useState<boolean>(false)
 
   function findId(value: string) {
@@ -22,7 +23,7 @@ export default function CartInput({ type, alter, value, label} : {type: any[], a
   return (
     <>
       <h2>{label}</h2>
-      <select onChange={(e) => findId(e.target.value)}>
+      <select disabled={disable} onChange={(e) => findId(e.target.value)}>
         {type ?
           type.map((e, index) => {
             return <option key={index}>{e.name}</option>
@@ -31,7 +32,7 @@ export default function CartInput({ type, alter, value, label} : {type: any[], a
         <option>Outros</option>
       </select>
       {active?
-        <input placeholder="Nome" onChange={(e) =>{ console.log(e.target.value); alter(e.target.value)}} value={value}/>
+        <input className={style.input} disabled={disable} placeholder="Nome" onChange={(e) =>{ console.log(e.target.value); alter(e.target.value)}} value={value}/>
       : null}
     </>
   )

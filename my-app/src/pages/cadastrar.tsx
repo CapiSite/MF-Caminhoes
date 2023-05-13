@@ -173,49 +173,40 @@ export default function Cadastro() {
     }
     
     if(informations.email.includes(".") === false){
-      setDisable(false)
       newFieldError = { ...newFieldError, email: true };
       error = { ...error, email: "Email inválido!" }
     }
     if(informations.password.length<6){
-      setDisable(false)
       newFieldError = { ...newFieldError, password: true };
       error = { ...error, password: "Senha muito curta!" }
     }
     if (informations.password !== informations.password_confirmation) {
-      setDisable(false)
       newFieldError = { ...newFieldError, password_confirmation: true };
       error = { ...error, password_confirmation: "Senhas não podem ser diferentes!" }
     }
 
     if (informations.name.length < 3) {
-      setDisable(false)
       newFieldError = { ...newFieldError, name: true };
       error = { ...error, name: "Nome muito curto!" }
     }
 
     if (/[0-9]/.test(informations.name) === true) {
-      setDisable(false)
       newFieldError = { ...newFieldError, name: true };
       error = { ...error, name: "Nome inválido!" }
     }
     if (/[0-9]/.test(informations.last_name) === true) {
-      setDisable(false)
       newFieldError = { ...newFieldError, last_name: true };
       error = { ...error, last_name: "Sobrenome inválido!" }
     }
     if(informations.cpf.length<11){
-      setDisable(false)
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
     if(informations.phone.length<11){
-      setDisable(false)
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
     if(informations.cep.length<8){
-      setDisable(false)
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
     }
@@ -223,7 +214,6 @@ export default function Cadastro() {
     for (let item of fields) {
       if(newFieldError[item]) foundError = true
     } 
-    console.log(foundError)
     if (foundError) {
       setDisable(false)
       setErrorMessage({...error})

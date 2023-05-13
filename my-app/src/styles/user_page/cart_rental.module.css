@@ -20,11 +20,21 @@
   display: flex;
   width: 100%;
 }
-
+.p{
+  font-size:15px;
+  color: var(--light-red);
+  font-weight:600;
+  margin-bottom: 5px;
+}
+.space{
+  height: 10px;
+}
 .father div {
   margin-right: 20px;
 }
-
+.input{
+  margin-top: 10px;
+}
 .father input, .father select{
   width:100%;
   padding: 10px 15px;
@@ -33,7 +43,10 @@
   border: none;
   border: 1px solid var(--black);
   border-radius:3px;
-  margin-bottom: 10px;
+}
+
+.father p{
+  margin-bottom: 5px;
 }
 
 .father form textarea {
@@ -41,7 +54,6 @@
   width: 100%;
   min-width: 100%;
   outline: none;
-  margin-bottom: 10px;
   max-height: 100px;
 }
 
