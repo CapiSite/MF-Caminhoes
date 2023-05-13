@@ -5,8 +5,10 @@ export default function CartInput({ type, alter, value, label, disable} : {type:
   const [active, setActive] = useState<boolean>(false)
 
   function findId(value: string) {
-
-    if(value === "Outros") {
+    if(value ==="Selecione uma opção"){
+      alter("Selecione uma opção")
+    }
+    else if(value === "Outros") {
       setActive(true)
       alter("")
     }else{
@@ -24,6 +26,7 @@ export default function CartInput({ type, alter, value, label, disable} : {type:
     <>
       <h2>{label}</h2>
       <select disabled={disable} onChange={(e) => findId(e.target.value)}>
+        <option>Selecione uma opção</option>
         {type ?
           type.map((e, index) => {
             return <option key={index}>{e.name}</option>
@@ -32,7 +35,7 @@ export default function CartInput({ type, alter, value, label, disable} : {type:
         <option>Outros</option>
       </select>
       {active?
-        <input className={style.input} disabled={disable} placeholder="Nome" onChange={(e) =>{ console.log(e.target.value); alter(e.target.value)}} value={value}/>
+        <input className={style.input} disabled={disable} placeholder="Nome" onChange={(e) =>{ alter(e.target.value)}} value={value}/>
       : null}
     </>
   )

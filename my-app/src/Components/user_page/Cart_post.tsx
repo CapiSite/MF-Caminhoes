@@ -157,21 +157,39 @@ export default function CartPost() {
     
 
 
-    if(Number(year)<1900||Number(year)>dayjs().year()){
+    if(Number(year)<1950||Number(year)>dayjs().year()){
       newFieldError.year = true
       error.year = "Digite um ano válido"
     }
-    if(Number(price)<2000||Number(price)>1000000){
+    if(Number(price)<=0||Number(price)>1500000){
       newFieldError.price = true
-      error.price = "Digite um preço maior que 2000 e menor que 1.000.000,00"
+      error.price = "Digite um preço maior que 0 e menor que 1.500.000,00"
     }
-    if(Number(size)<50||Number(size)>100){
+    if(Number(size)<=0||Number(size)>50){
       newFieldError.size = true
-      error.size = "Digite um tamanho maior que 50 e menor que 100"
+      error.size = "Digite um tamanho maior que 0 e menor que 50"
     }
-    if(Number(section)<2||Number(section)>13){
+    if(Number(section)<2||Number(section)>9){
       newFieldError.section = true
       error.section = "Digite a quantia de eixos válida"
+    }
+
+
+    if(wheelsSelected==="Selecione uma opção"){
+      newFieldError.wheelsSelected = true
+      error.wheelsSelected = "Selecione uma opção é inválido"
+    }
+    if(typesSelected==="Selecione uma opção") {
+      newFieldError.typesSelected = true
+      error.typesSelected = "Selecione uma opção é inválido"
+    }
+    if(modelsSelected==="Selecione uma opção") {
+      newFieldError.modelsSelected = true
+      error.modelsSelected = "Selecione uma opção é inválido"
+    }
+    if(brandsSelected==="Selecione uma opção"){
+      newFieldError.brandsSelected = true
+      error.brandsSelected = "Selecione uma opção é inválido"
     }
 
 
