@@ -56,7 +56,15 @@
   border: 1px solid var(--black);
   border-radius: 3px;
 }
-
+.space{
+  height: 20px;
+}
+.p{
+  font-size:15px;
+  color: var(--light-red);
+  font-weight:600;
+  margin-bottom: 5px;
+}
 .modal {
   background-color: var(--gray-light);
   position: fixed;
@@ -74,6 +82,12 @@
   height: fit-content;
   padding: 10px 5px ;
   z-index: 1;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .modal h1{
@@ -112,7 +126,9 @@
   
 }
 
-
+.form select{
+  margin-bottom: 20px;
+}
 .buttons{
   width: 300px;
   display: flex;
@@ -120,13 +136,12 @@
 }
 .input {
   padding-left: 10px;
-  margin-bottom: 20px;
 }
 .delete{
   background-color: var(--strong-red);
   color: white;
   font-weight: 700;
-  margin-bottom: 20px;
+  
 }
 .disconnect{
   background-color: var(--veryDarkYellow);

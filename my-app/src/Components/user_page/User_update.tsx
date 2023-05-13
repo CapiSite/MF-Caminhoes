@@ -14,7 +14,7 @@ export default function UserUpdate() {
   const [deleter, setDeleter] = useState(false)
   const [disable, setDisable] = useState(false)
   const [informations, setInformations] = useState<any>({ name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: 0 })
-  const [errorMessage, setErrorMessage] = useState({ name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" })
+  const [errorMessage, setErrorMessage] = useState({ name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: "" })
   const [fieldError, setFieldError] = useState(() => ({ name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
   const [states, setStates] = useState<{ id: number, name: string }[]>([])
   const [userState, setUserState] = useState<string>("")
@@ -53,14 +53,13 @@ export default function UserUpdate() {
         found = index
       }
     })
-    console.log(found)
 
     setInformations({ ...informations, uf: found+1 })
   }
 
   async function handleCep(e: ChangeEvent | any) {
     const value = e.target.value
-
+    
     function findUf(uf: string | null): number {
       if (uf === null || undefined) return 1
 
@@ -106,24 +105,53 @@ export default function UserUpdate() {
   async function updateUserPost(e: FormEvent) {
     e.preventDefault()
     setDisable(true)
-    const fields = ["name", "email", "password", "password_confirmation", "cpf", "phone", "cep", "address", "number", "complement", "city", "uf"]
-    let newFieldError: any = { name: false, email: false, password: false, password_confirmation: false, last_name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: false };
+    
+    const fields = ["name", "cpf", "phone", "cep", "address", "number", "complement", "city", "uf"]
+    let newFieldError: any = { name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: false };
+    let error = {name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: "" }
 
     for (let item of fields) {
-      if (!informations[item]) {
+      if (!String(informations[item])) {
         newFieldError = { ...newFieldError, [item]: true };
-      } else {
-        newFieldError = { ...newFieldError, [item]: false };
+        error = { ...error, [item]: "Campo Obrigatório!" }
       }
+    }
+    for (let item of fields) {
+      if (String(informations[item]).length > 100) {
+        newFieldError = { ...newFieldError, [item]: true };
+        error = { ...error, [item]: "Quantia máxima de caracteres: 100" }
+      }
+    }
+
+    if (informations.name.length < 3) {
+      newFieldError = { ...newFieldError, name: true };
+      error = { ...error, name: "Nome muito curto!" }
+    }
+    if (/[0-9]/.test(informations.name) === true) {
+      newFieldError = { ...newFieldError, name: true };
+      error = { ...error, name: "Nome inválido!" }
+    }
+    if(informations.cpf.length<11){
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }
+    }
+    if(informations.phone.length<11){
+      newFieldError = { ...newFieldError, phone: true };
+      error = { ...error, phone: "Telefone inválido!" }
+    }
+    if(String(informations.cep).length!==8){
+      newFieldError = { ...newFieldError, cep: true };
+      error = { ...error, cep: "CEP inválido!" }
     }
 
     let foundError;
     for (let item of fields) {
-      foundError = newFieldError[item] === true
+      if(newFieldError[item]) foundError = true
     }
     if (foundError) {
       setDisable(false)
-      setFieldError(newFieldError)
+      setErrorMessage({ ...error })
+      setFieldError({ ...newFieldError })
       return
     }
 
@@ -147,6 +175,8 @@ export default function UserUpdate() {
       setUserData({ ...userData, user: user })
     } catch (err) {
       console.log(err)
+      setErrorMessage({ ...errorMessage, cep: "CEP inválido!"})
+      setFieldError({ ...fieldError, cep: true })
       setDisable(false)
     }
   }
@@ -187,14 +217,14 @@ export default function UserUpdate() {
 
           <div>
             <h1>Informações Pessoais</h1>
-            {fieldError.name && <p className={style.p}>{errorMessage.name}</p>}
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
-            {fieldError.cpf && <p className={style.p}>{errorMessage.cpf}</p>}
+            {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
             <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
-            {fieldError.phone && <p className={style.p}>{errorMessage.phone}</p>}
+            {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p> : <div className={style.space}></div>}
             <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
-            <button className={style.disconnect} type="button" onClick={() => logoutUserPost()}>Desconectar</button>
-            <button className={style.delete} type="button" onClick={() => setDeleter(true)}>Deletar Conta</button>
+            {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p> : <div className={style.space}></div>}
+            <button className={style.disconnect} disabled={disable} type="button" onClick={() => logoutUserPost()}>Desconectar</button>
+            <button className={style.delete} disabled={disable} type="button" onClick={() => setDeleter(true)}>Deletar Conta</button>
           </div>
 
           <div className={style.color}>
@@ -202,15 +232,14 @@ export default function UserUpdate() {
 
           <div>
             <h1>Endereço</h1>
-            {fieldError.cep && <p className={style.p}>{errorMessage.cep}</p>}
             <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
-            {fieldError.address && <p className={style.p}>{errorMessage.address}</p>}
+            {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p> : <div className={style.space}></div>}
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
-            {fieldError.number && <p className={style.p}>{errorMessage.number}</p>}
+            {fieldError.address ? <p className={style.p}>{errorMessage.address}</p> : <div className={style.space}></div>}
             <input disabled={disable} className={style.input} value={informations.number} onChange={(e) => setInformations({ ...informations, number: e.target.value })} type="number" placeholder="Número" />
-            {fieldError.complement && <p className={style.p}>{errorMessage.complement}</p>}
+            {fieldError.number ? <p className={style.p}>{errorMessage.number}</p> : <div className={style.space}></div>}
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
-
+            {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p> : <div className={style.space}></div>}
             <select value={userState} className={style.input} onChange={(e) => findId(e.target.value)}>
               {states ?
                 states.map((s, index) => {
@@ -220,8 +249,8 @@ export default function UserUpdate() {
                 })
                 : null}
             </select>
-
             <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
+            {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Atualizar"}</button>
 
           </div>

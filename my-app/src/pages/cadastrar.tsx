@@ -241,7 +241,7 @@ export default function Cadastro() {
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
-    if(informations.cep.length<8){
+    if(informations.cep.length!==8){
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
     }
