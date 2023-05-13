@@ -12,6 +12,7 @@ import { cepValidation } from "@/services/cep";
 import { DebounceInput } from 'react-debounce-input';
 import { IoMdReturnLeft } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
+import MaskedInput from "react-text-mask";
 
 export default function Cadastro() {
   const router = useRouter()
@@ -39,7 +40,8 @@ export default function Cadastro() {
   }, [fieldError])
 
   async function handleCep(e: ChangeEvent | any) {
-    const value = e.target.value
+    const value = e.target.value.replace(/[^\d]/g, "")
+    
 
     function findUf(uf: string | null): number {
       if (uf === null || undefined) return 1
@@ -82,39 +84,6 @@ export default function Cadastro() {
     }
   }
 
-  function handleCpfMask(value: string) {
-    let goBackValue = ""
-
-    for (let i = 0; i < value.length; i++) {
-      goBackValue += value[i]
-      if (i === 2 || i === 5) {
-        goBackValue += "."
-      }
-      if (i === 8) {
-        goBackValue += "-"
-      }
-    }
-    return goBackValue
-  }
-
-  function handlePhone(value: string) {
-    let goBackValue = ""
-
-    for (let i = 0; i < value.length; i++) {
-      if (i === 0) {
-        goBackValue += "("
-      }
-      goBackValue += value[i]
-      if (i === 1) {
-        goBackValue += ")"
-      }
-      if (i === 6) {
-        goBackValue += "."
-      }
-    }
-    return goBackValue
-  }
-
   return (
     <>
       <div className={style.header}>
@@ -145,16 +114,21 @@ export default function Cadastro() {
             <input disabled={disable} className={style.input} value={informations.last_name} onChange={(e) => setInformations({ ...informations, last_name: e.target.value })} type="text" placeholder="Sobrenome" />
             {fieldError.last_name ? <p className={style.p}>{errorMessage.last_name}</p> : <div className={style.space}></div>}
             <p className={style.p2}>CPF:</p>
-            <input disabled={disable} className={style.input} value={handleCpfMask(informations.cpf)} onChange={(e) => setInformations({ ...informations, cpf: e.target.value.replaceAll(".", "").replace("-", "") })} type="string" placeholder="CPF" />
+
+            <MaskedInput type="cpf" defaultValue={""} className={style.input} mask={[ /[0-9]/, /\d/,  /\d/, '.', /\d/, /\d/,  /\d/, '.', /\d/, /\d/,  /\d/,'-', /\d/, /\d/]} value={informations.cpf}
+            onChange={(e) => setInformations({ ...informations, cpf: e.target.value.replace(/[^\d]/g, "")}) } placeholder="CPF" disabled={disable}/>
             {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p> : <div className={style.space}></div>}
+
             <p className={style.p2}>Telefone:</p>
-            <input disabled={disable} className={style.input} value={handlePhone(informations.phone)} onChange={(e) => setInformations({ ...informations, phone: e.target.value.replace(".", "").replace("(", "").replace(")", "") })}  type="tel" placeholder="Telefone" />
+            <MaskedInput type="phone" className={style.input} defaultValue={""} mask={['(', /[0-9]/, /\d/,  ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/]} value={informations.phone}
+            onChange={(e) => setInformations({ ...informations, phone: e.target.value.replace(/[^\d]/g, "")}) } placeholder="Celular" disabled={disable}/>
             {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p> : <div className={style.space}></div>}
           </div>
           <div>
 
             <p className={style.p2}>CEP:</p>
-            <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
+            <MaskedInput type="cep" className={style.input} defaultValue={""} mask={[ /[0-9]/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]} value={informations.cep}
+            onChange={(e) => {setInformations({ ...informations, cep: e.target.value.replace(/[^\d]/g, "")}); handleCep(e)} } placeholder="CEP"/>
             {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Endereço:</p>
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
@@ -233,15 +207,15 @@ export default function Cadastro() {
       newFieldError = { ...newFieldError, last_name: true };
       error = { ...error, last_name: "Sobrenome inválido!" }
     }
-    if(informations.cpf.length<11){
+    if(String(informations.cep).trim().length<11){
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
-    if(informations.phone.length<11){
+    if(String(informations.cep).trim().length<11){
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
-    if(informations.cep.length!==8){
+    if(String(informations.cep).trim().length!==8){
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
     }

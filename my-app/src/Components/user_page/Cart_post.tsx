@@ -6,6 +6,8 @@ import { postCart, postCartPhotosMain, postCartPhotosSecondary } from "@/service
 import UserContext from "@/APIContext/UserContext"
 import CartInput from "./Cart_input"
 import dayjs from "dayjs"
+import MaskedInput from "react-text-mask"
+import CurrencyInput from "react-currency-input-field"
 export default function CartPost() {
   const [brands, setBrands] = useState<{ id: number, name: string }[] >([])
   const [types, setTypes] = useState<{ id: number, name: string }[]>([])
@@ -15,8 +17,8 @@ export default function CartPost() {
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
   const [color, setColor] = useState<string>("")
-  const [size, setSize] = useState<number>()
-  const [price, setPrice] = useState<number>()
+  const [size, setSize] = useState<string>("")
+  const [price, setPrice] = useState<number>(0)
   const [brandsSelected, setBrandsSelected] = useState<string | number>("")
   const [typesSelected, setTypesSelected] = useState<string | number>("")
   const [modelsSelected, setModelsSelected] = useState<string | number>("")
@@ -206,9 +208,6 @@ export default function CartPost() {
       return
     }
     
-    
-
-    
     const dataMain = new FormData()
     const dataSecond = new FormData()
 
@@ -221,14 +220,6 @@ export default function CartPost() {
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
       
-
-      console.log( {
-        brand_id: brandsSelected,
-        type_id: typesSelected,
-        wheel_id: wheelsSelected,
-        model_id: modelsSelected,
-      })
-
       await postCart( {
         description: description,
         size: Number(size),
@@ -238,7 +229,7 @@ export default function CartPost() {
         type_id: typesSelected,
         wheel_id: wheelsSelected,
         model_id: modelsSelected,
-        price: Number(price),
+        price: Number(price* 100),
         main_image: mainImage.main,
         secondary_images: secondaryImages.secondary,
         sections: Number(section),
@@ -250,13 +241,15 @@ export default function CartPost() {
       setTitle("")
       setDescription("")
       setColor("")
-      setSize(0)
+      setSize("")
       setPrice(0)
       setSection(0)
       setMain({})
       setSecondary([])
       setYear(0)
       setStatus("")
+
+      setFieldError({ title: false, description: false, color: false, size: false, price: false, brandsSelected: false, typesSelected: false, modelsSelected: false, wheelsSelected: false, year: false, status: false, main: false, secondary: false, section: false })
     }catch(err){
       console.log(err)
     }
@@ -272,24 +265,35 @@ export default function CartPost() {
             <h2>Título</h2>
             <input disabled={disable} placeholder="Título" type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
             {fieldError.title ? <p className={style.p}>{errorMessage.title}</p>:<div className={style.space}></div>}
+
             <h2>Cor</h2>
             <input disabled={disable} placeholder="Cor" type="text" onChange={(e) => setColor(e.target.value)} value={color} />
             {fieldError.color ? <p className={style.p}>{errorMessage.color}</p>:<div className={style.space}></div>}
-            <h2>Tamanho</h2>
-            <input disabled={disable} placeholder="Tamanho" type="number" onChange={(e) => setSize(Number(e.target.value))} value={size} />
+
+            <h2>Comprimento</h2>
+            <MaskedInput defaultValue={""} className={style.input} mask={[/[0-9]/, /\d/, ",", /\d/, /\d/, " Metros"]} value={size}
+              onChange={(e) => setSize(e.target.value.replace(/[^\d]/g, ""))} placeholder="Comprimento" disabled={disable} />
             {fieldError.size ? <p className={style.p}>{errorMessage.size}</p>:<div className={style.space}></div>}
-            <h2>Valor Estimado</h2>
-            <input disabled={disable} placeholder="Valor" type="number" onChange={(e) => setPrice(Number(e.target.value))}  value={price}/>
+
+            <h2>Valor Estimado</h2> 
+            <CurrencyInput placeholder="Valor Estimado" intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} decimalsLimit={2} value={price} 
+            onChange={(e) =>{ setPrice(Number(e.target.value.replace(/[^\d]/g, ""))/100)}}/>
             {fieldError.price ? <p className={style.p}>{errorMessage.price}</p>:<div className={style.space}></div>}
+
             <h2>Ano</h2>
-            <input disabled={disable} placeholder="Ano" type="number" onChange={(e) => setYear(Number(e.target.value))} value={year} />
+            <MaskedInput  defaultValue={""} className={style.input} mask={[/[1-2]/, /\d/, /\d/, /\d/]} value={year}
+              onChange={(e) => setYear(Number(e.target.value.replace(/[^\d]/g, "")))} placeholder="Ano" disabled={disable} />
             {fieldError.year ? <p className={style.p}>{errorMessage.year}</p>:<div className={style.space}></div>}
+
             <h2>Eixos</h2>
-            <input disabled={disable} placeholder="Eixos" type="number" onChange={(e) => setSection(Number(e.target.value))} value={section} />
+            <MaskedInput  defaultValue={""} className={style.input} mask={[ /[1-9]/, " Eixos"]} value={section}
+              onChange={(e) => setSection(Number(e.target.value.replace(/[^\d]/g, "")))} placeholder="Quantos Eixos" disabled={disable} />
             {fieldError.section ? <p className={style.p}>{errorMessage.section}</p>:<div className={style.space}></div>}
+            
             <h2>Status</h2>
             <input disabled={disable} placeholder="Status" type="text" onChange={(e) => setStatus(e.target.value)} value={status} />
             {fieldError.status ? <p className={style.p}>{errorMessage.status}</p>:<div className={style.space}></div>}
+
             <CartInput disable={disable} type={brands} alter={setBrandsSelected} value={brandsSelected} label="Marca"/>
             {fieldError.brandsSelected ? <p className={style.p}>{errorMessage.brandsSelected}</p>:<div className={style.space}></div>}
             <CartInput disable={disable} type={types} alter={setTypesSelected} value={typesSelected} label="Tipo"/>

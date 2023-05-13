@@ -134,10 +134,10 @@ export default function CartUpdate({info, changeInfo, disableThis} : any) {
             <h2>Status</h2>
             <input placeholder="Status" type="text" onChange={(e) => setStatus(e.target.value)} value={status} />
 
-            <CartInput type={brands} alter={setBrandsSelected} value={brandsSelected} label="Marca"/>
-            <CartInput type={types} alter={setTypesSelected} value={typesSelected} label="Tipo"/>
-            <CartInput type={models} alter={setModelsSelected} value={modelsSelected} label="Modelo"/>
-            <CartInput type={wheels} alter={setWheelsSelected} value={wheelsSelected} label="Tipo de Roda"/>
+            <CartInput type={brands} alter={setBrandsSelected} value={brandsSelected} label="Marca" disable={false}/>
+            <CartInput type={types} alter={setTypesSelected} value={typesSelected} label="Tipo" disable={false}/>
+            <CartInput type={models} alter={setModelsSelected} value={modelsSelected} label="Modelo" disable={false}/>
+            <CartInput type={wheels} alter={setWheelsSelected} value={wheelsSelected} label="Tipo de Roda" disable={false}/>
 
 
             <textarea placeholder="Descrição" onChange={(e) => setDescription(e.target.value)} value={description} />
