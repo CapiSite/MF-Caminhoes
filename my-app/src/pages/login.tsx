@@ -10,6 +10,8 @@ import UserContext from "@/APIContext/UserContext";
 import { loginUser } from "@/services/user-services";
 import { AiOutlineClose } from "react-icons/ai";
 import AdminContext from "@/APIContext/AdminContext";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const router = useRouter()
@@ -100,9 +102,11 @@ export default function Login() {
       setUserData(tokenAndUser)
       setAdminData(null)
       router.push("/")
-    } catch (err) {
-      console.log(err)
+    } catch (err: any) {
       setDisable(false)
+      if (err?.response?.status === 401) {
+        toast.warn(err.response.data.message)
+      }
     }
   }
 }

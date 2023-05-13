@@ -3,6 +3,7 @@ import { UnauthorizedError } from '@/errors/unauthorized-error';
 import { AuthenticatedRequestAdmin } from '@/protocols';
 import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status';
+import jwt from 'jsonwebtoken';
 
 export async function authenticateAdmin(req: AuthenticatedRequestAdmin, res: Response, next: NextFunction) {
   const  authorization  = req.header("Authorization")
@@ -19,6 +20,13 @@ export async function authenticateAdmin(req: AuthenticatedRequestAdmin, res: Res
     });
     
     if (!admin || !admin.active) return unauthorizedError(res);
+
+    jwt.verify(admin.token, process.env.JWT_SECRET, async (error, decoded) =>{
+      console.log(decoded)
+      if(error) {
+        return unauthorizedError(res)
+      }
+    })
 
     req.admin_id = admin.id;
 

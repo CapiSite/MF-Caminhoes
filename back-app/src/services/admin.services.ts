@@ -9,7 +9,7 @@ async function createAdmin(username: string, password: string, secret_password: 
   const adminExist = await  adminRepository.getAdminByUsername(username)
   if(adminExist) throw ConflictError("Nome de usuário já em uso")
 
-  const token = jwt.sign(password, process.env.JWT_SECRET)
+  const token = jwt.sign(`${password}${secret_password}${username}`, process.env.JWT_SECRET)
 
   const uncryptedPassword = bcrypt.hashSync(password, 12)
 
