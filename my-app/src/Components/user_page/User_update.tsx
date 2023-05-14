@@ -7,7 +7,13 @@ import { DebounceInput } from "react-debounce-input";
 import { ThreeDots } from "react-loader-spinner";
 import { getStates } from "@/services/types.services";
 import { roboto } from "@/styles/fonts";
-import { deleteUser, loginUser, logoutUser, updateUser } from "@/services/user-services";
+import { deleteUser, logoutUser, updateUser } from "@/services/user-services";
+import React, { Component } from 'react';
+import MaskedInput from 'react-text-mask'
+import { convertToObject } from "typescript";
+import { toast } from "react-toastify";
+import findId from "@/hooks/findSelectId";
+import handleCep from "@/hooks/handleCep";
 
 export default function UserUpdate() {
   const router = useRouter()
@@ -17,98 +23,40 @@ export default function UserUpdate() {
   const [errorMessage, setErrorMessage] = useState({ name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: "" })
   const [fieldError, setFieldError] = useState(() => ({ name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
   const [states, setStates] = useState<{ id: number, name: string }[]>([])
-  const [userState, setUserState] = useState<string>("")
   const { userData, setUserData } = useContext(UserContext) as any
 
   const handleCall = useCallback(async () => {
     try {
       const states = await getStates()
       setStates(states)
-      setUserState(states[userData.user.address.cities.states_id-1].name)
     } catch (err: any) { }
   }, [])
 
   useEffect(() => {
     if (userData) {
       handleCall()
-      
+
       setInformations({
         ...informations,
         name: userData.user.name, cpf: userData.user.cpf, phone: userData.user.phone,
-        cep: Number(userData.user.address.cep),
+        cep: userData.user.address.cep,
         address: userData.user.address.address,
-        number: Number(userData.user.address.number),
+        number: userData.user.address.number,
         complement: userData.user.address.complement,
         city: userData.user.address.cities.name,
-        uf: userData.user.address.cities.states_id
+        uf: userData.user.address.cities.state_id - 1
       })
     }
 
-  }, [userState])
-
-  function findId(value: string) {
-    let found = -1
-    states.forEach((e, index) => {
-      if (e.name == value) {
-        found = index
-      }
-    })
-
-    setInformations({ ...informations, uf: found+1 })
-  }
-
-  async function handleCep(e: ChangeEvent | any) {
-    const value = e.target.value
-    
-    function findUf(uf: string | null): number {
-      if (uf === null || undefined) return 1
-
-      const judge = states?.map((e) => e.name)
-      if (!judge?.indexOf(uf?.toUpperCase())) return -2
-
-      return judge?.indexOf(uf?.toUpperCase())
-    }
-
-    if (value.length >= 8) {
-      try {
-        const cep = await cepValidation(value)
-
-        if (cep.uf !== undefined) {
-          setInformations({
-            ...informations,
-            cep: value,
-            address: cep.bairro + " " + cep.logradouro,
-            complement: cep.complemento,
-            city: cep.localidade,
-            uf: findUf(cep.uf)
-          })
-          
-          setErrorMessage({ ...errorMessage, cep: "campo Obrigatório" })
-          setFieldError({ ...fieldError, cep: false })
-        } else {
-          setInformations({ ...informations, cep: value })
-          setErrorMessage({ ...errorMessage, cep: "Cep Inválido" })
-          setFieldError({ ...fieldError, cep: true })
-        }
-
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    if (value.length < 8) {
-      setInformations({ ...informations, cep: value })
-      setErrorMessage({ ...errorMessage, cep: "campo Obrigatório" })
-      setFieldError({ ...fieldError, cep: false })
-    }
-  }
+  }, [])
 
   async function updateUserPost(e: FormEvent) {
     e.preventDefault()
     setDisable(true)
-    
+
     const fields = ["name", "cpf", "phone", "cep", "address", "number", "complement", "city", "uf"]
     let newFieldError: any = { name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: false };
-    let error = {name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: "" }
+    let error = { name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: "" }
 
     for (let item of fields) {
       if (!String(informations[item])) {
@@ -132,22 +80,28 @@ export default function UserUpdate() {
       error = { ...error, name: "Nome inválido!" }
     }
     if(informations.cpf.length!==11){
+    if (informations.cpf.length !== 11) {
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
+  }
     if(informations.phone.length!==11){
+    if (informations.phone.length < 11) {
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
+  }
     console.log(informations.cep)
     if(String(informations.cep).length!==8){
+    if (String(informations.cep).trim().length !== 8) {
+      console.log("entrou")
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
     }
-
+  }
     let foundError;
     for (let item of fields) {
-      if(newFieldError[item]) foundError = true
+      if (newFieldError[item]) foundError = true
     }
     if (foundError) {
       setDisable(false)
@@ -159,14 +113,14 @@ export default function UserUpdate() {
     const register = {
       name: informations.name,
       phone: informations.phone,
-      cpf: informations.cpf,
+      cpf: informations.cpf.trim(),
       address: {
-        cep: String(informations.cep),
-        address: informations.address,
-        complement: informations.complement,
+        cep: String(informations.cep).trim(),
+        address: informations.address.trim(),
+        complement: informations.complement.trim(),
         number: String(informations.number),
-        city: informations.city,
-        state_id: informations.uf
+        city: informations.city.trim(),
+        state_id: informations.uf + 1
       }
     }
 
@@ -174,9 +128,13 @@ export default function UserUpdate() {
       const user = await updateUser(register, userData.token)
       setDisable(false)
       setUserData({ ...userData, user: user })
-    } catch (err) {
-      console.log(err)
-      setErrorMessage({ ...errorMessage, cep: "CEP inválido!"})
+    } catch (err: any) {
+      if (err?.response?.status === 409) {
+        toast.warn(err.response.data.message)
+      }
+      if (err?.response?.status === 400) {
+        setErrorMessage({ ...errorMessage, cep: "CEP inválido!" })
+      }
       setFieldError({ ...fieldError, cep: true })
       setDisable(false)
     }
@@ -186,7 +144,6 @@ export default function UserUpdate() {
     try {
       await logoutUser(userData.token)
       setUserData(null)
-      router.push("/")
     } catch (err) {
       console.log(err)
     }
@@ -223,23 +180,32 @@ export default function UserUpdate() {
             {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
             <p className={style.p2}>CPF:</p>
             <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
+
+            <MaskedInput type="cpf" defaultValue={""} className={style.input} mask={[/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]} value={informations.cpf}
+              onChange={(e) => setInformations({ ...informations, cpf: e.target.value.replace(/[^\d]/g, "") })} placeholder="CPF" disabled={disable} />
             {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Telefone:</p>
             <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
+
+            <MaskedInput type="phone" className={style.input} defaultValue={""} mask={['(', /[0-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} value={informations.phone}
+              onChange={(e) => setInformations({ ...informations, phone: e.target.value.replace(/[^\d]/g, "")}) } placeholder="Celular" disabled={disable} />
             {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p> : <div className={style.space}></div>}
+
             <button className={style.disconnect} disabled={disable} type="button" onClick={() => logoutUserPost()}>Desconectar</button>
             <button className={style.delete} disabled={disable} type="button" onClick={() => setDeleter(true)}>Deletar Conta</button>
-          </div>
-
-          <div className={style.color}>
           </div>
 
           <div>
             <h1>Endereço</h1>
             <p className={style.p2}>CEP:</p>
-            <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
+            <MaskedInput type="cep" className={style.input} defaultValue={""} mask={[/[0-9]/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]} value={informations.cep}
+              onChange={(e) => {
+                setInformations({ ...informations, cep: e.target.value.replace(/[^\d]/g, "")});
+                handleCep(e, states, setInformations, informations,errorMessage, setErrorMessage, fieldError, setFieldError)
+              }} placeholder="CEP" />
             {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Endereço:</p>
+
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
             {fieldError.address ? <p className={style.p}>{errorMessage.address}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Número:</p>
@@ -249,7 +215,9 @@ export default function UserUpdate() {
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
             {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Estado:</p>
-            <select value={userState} className={style.input} onChange={(e) => findId(e.target.value)}>
+
+            <select className={style.input} value={states[informations.uf] ? states[informations.uf].name :
+              userData ? userData.user.address.cities.states.name : "AC"} onChange={(e) => findId(e.target.value, states, setInformations, informations)}>
               {states ?
                 states.map((s, index) => {
                   return <option key={index} className={style.input} placeholder="Estado">
@@ -259,6 +227,7 @@ export default function UserUpdate() {
                 : null}
             </select>
             <p className={style.p2}>Cidade:</p>
+
             <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
             {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Atualizar"}</button>
