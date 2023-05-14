@@ -7,18 +7,23 @@ import styleError from "@/styles/error.module.css"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { BsWhatsapp } from "react-icons/bs"
 import { getSpecificCart } from "@/services/cart.services"
 import { roboto } from "@/styles/fonts"
+import AdminContext from "@/APIContext/AdminContext"
+import styleModal from "@/styles/user_page/user_update.module.css";
+
 
 export default function ProductLocation() {
   const router = useRouter()
+  const [deleter, setDeleter] = useState<any>(false)
 
-  
+  const {adminData} = useContext(AdminContext) as any
   const [error, setError] = useState<boolean>(false)
   const [info, setInfo] = useState<any>()
   const [mainImage, setMainImage] = useState("")
+
   const handleCall = useCallback(async () => {
     if (router.query.id === undefined) {
       setError(true)
@@ -98,7 +103,18 @@ export default function ProductLocation() {
                 <p>Observações: {info.description}</p>
               </div>
               <p>R$: {parseFloat((info.price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
-              <Link href="https://web.whatsapp.com/send?phone=55349%209100-1000&text=Ol%C3%A1,%20estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20MF%20Caminh%C3%B5es" target="_blank"><button>Fazer uma proposta<BsWhatsapp /></button></Link>
+              <Link href="https://api.whatsapp.com/send?phone=5534992771000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!
+" target="_blank"><button >Fazer uma proposta<BsWhatsapp /></button></Link>
+              {adminData ?<div className={style.delete}><button  onClick={() => setDeleter(true)}>Deletar carreta</button></div>:<></>}
+              {deleter &&
+        <div className={styleModal.modal}>
+          <h1>Deseja mesmo deletar essa carreta?</h1>
+          <p>Essa carreta será excluída!</p>
+          <div className={styleModal.buttons}>
+            <button onClick={() => setDeleter(false)}>Não</button>
+            <button onClick={() => {}/* DELETA AQUI A CARRETA! */}>Sim</button>
+          </div>
+        </div>}
             </>
             : null}
         </div>

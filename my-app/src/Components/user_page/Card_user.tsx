@@ -77,7 +77,6 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
 
 function CardUser({ info, deleteMyCartPost }: any) {
   const [deleter, setDeleter] = useState<any>(false)
-  const [formOn, setFormOn] = useState<boolean>(false)
 
   return (
     <>

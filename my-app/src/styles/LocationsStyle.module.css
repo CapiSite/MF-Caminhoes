@@ -181,6 +181,10 @@ cursor: pointer;
     font-size: 25px;
 }
 @media (max-width: 800px) {
+    .locationsCard{
+        width: 60%;
+        min-width: 200px;
+    }
     .header {
       display: none;
     }
@@ -270,6 +274,7 @@ cursor: pointer;
     .noCars{
         margin: 200px 0px;
     }
+
 }
 
 
@@ -278,6 +283,7 @@ cursor: pointer;
     .filterMobile{
         max-width: 95vw;
     }
+    
     
 }
 
@@ -301,4 +307,5 @@ cursor: pointer;
     .locationsCard{
         margin-right: 0px;
     }
+
 }

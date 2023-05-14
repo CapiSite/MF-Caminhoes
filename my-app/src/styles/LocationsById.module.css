@@ -107,7 +107,18 @@ width: 400px;
   font-size: 25px;
   font-weight: bold;
 }
-
+.delete{
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.delete button{
+  background-color: var(--strong-red);
+  color: white;
+}
+.delete button:hover{
+  background-color: var(--light-red);
+}
 
 @media (min-width: 930px) {
   .images::-webkit-scrollbar {

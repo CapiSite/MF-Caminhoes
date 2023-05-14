@@ -9,6 +9,7 @@ import dayjs from "dayjs"
 import MaskedInput from "react-text-mask"
 import CurrencyInput from "react-currency-input-field"
 import styleModal from "@/styles/user_page/user_update.module.css";
+import { useRouter } from "next/router"
 
 export default function CartPost() {
   const [brands, setBrands] = useState<{ id: number, name: string }[] >([])
@@ -36,6 +37,7 @@ export default function CartPost() {
 
   const { userData } = useContext(UserContext) as any
 
+  const router = useRouter()
   const handleCall = useCallback(async () => {
     try {
       const brands = await getBrands()
@@ -265,7 +267,7 @@ export default function CartPost() {
           <h1>Carreta enviada para análise</h1>
           <p>Sua carreta foi enviada para análise, você pode ver ela na sessão Minhas Carretas, caso ela seja reprovada, você será avisado por lá.</p>
           <div>
-            <button className={styleModal.ok} onClick={() => setDisable(false)}>Ok</button>
+            <button className={styleModal.ok} onClick={() => {setDisable(false);router.push("/locacoes")}}>Ok</button>
           </div>
 
         </div>}
