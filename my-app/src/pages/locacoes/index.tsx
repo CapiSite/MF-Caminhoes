@@ -17,6 +17,7 @@ import { useCallback, useEffect, useState } from "react"
 export default function Location() {
   const [filter, setFilter] = useState({ type: "", model: "", brand: "", wheel:"", price:{min:"0", max:"150000000"} })
   const [ct, setCt] = useState(8)
+  const [topFilter, setTopFilter] = useState("Destaques")
   const [filterPrice, setFilterPrice] = useState({min:"RS 0,00", max:"R$ 150000000,00"})
   const [mobileFilter, setMobileFilter] = useState(false)
   const [allcarts, setAllcarts] = useState<string[]>([])
@@ -74,10 +75,10 @@ export default function Location() {
               <h1>Preço</h1>
               <div className={style.rangeMobile}>
                 <p>Min:</p>
-                <input type="number" min="10000" placeholder="R$ 10000,00" />
+                <input type="number" value={filterPrice.min} onChange={(e) => setFilterPrice({ ...filterPrice, min: e.target.value })} min="10000" placeholder="R$ 10000,00" />
                 <p>Max:</p>
-                <input type="number" placeholder="R$ 1000000,00" />
-                <button>Filtrar</button>
+                <input type="number" value={filterPrice.max} onChange={(e) => setFilterPrice({ ...filterPrice, max: e.target.value })} placeholder="R$ 1000000,00" />
+                <button onClick={()=>filterP()}>Filtrar</button>
               </div>
               <h1>Tipo</h1>
               {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
@@ -114,12 +115,12 @@ export default function Location() {
           <div className={style.locations}>
             <div className={style.div}>
               <h1>Destaques</h1>
-              <select name="Ordenar">
-                <option value="">Destaques</option>
-                <option value="A-Z">Nome A-Z</option>
-                <option value="Z-A">Nome Z-A</option>
-                <option value="Z-A">Preço menor - maior</option>
-                <option value="Z-A">Preço maior - menor</option>
+              <select onChange={(e) => TopFilter(e.target.value)} name="Ordenar">
+                <option value="Destaques">Destaques</option>
+                <option value="Nome A-Z">Nome A-Z</option>
+                <option value="Nome Z-A">Nome Z-A</option>
+                <option value="Preço menor - maior">Preço menor - maior</option>
+                <option value="Preço maior - menor">Preço maior - menor</option>
               </select>
             </div>
             {carts.length===0?<div className={style.locationsContainer}><p className={style.noCars}>Não há carretas</p></div>:
@@ -139,6 +140,29 @@ export default function Location() {
     </>
 
   )
+
+
+function TopFilter(e:any){
+setTopFilter(e)
+setCaminhoes(carts.sort((a:any, b:any)=>{
+  if(e === "Preço menor - maior"){
+    return Number(a.price) - Number(b.price)
+  }
+  if(e === "Preço maior - menor"){
+    return Number(b.price) - Number(a.price)
+  }
+  if(e=== "Nome A-Z"){
+    return a.title.localeCompare(b.title)
+  }
+  if(e=== "Nome Z-A"){
+    return b.title.localeCompare(a.title)
+  }
+  if(e==="Destaques"){
+    return Number(a.id) - Number(b.id)
+  }
+}))
+
+}
 
 function filterP(){
   const priceMin = filterPrice.min.replace("R$ ", "")
@@ -160,6 +184,8 @@ function filtrar(item:any){
     if (item.wheel.name){
      filtro = filtro.filter((o:any) => o.wheel.name === item.wheel.name)
     }
+    TopFilter(topFilter)
+    
     setCaminhoes(filtro)
     
 }
