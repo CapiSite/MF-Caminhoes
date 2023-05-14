@@ -11,6 +11,7 @@
 .form {
   display: flex;
   justify-content: space-around;
+  width: 90%;
 }
 
 .p {
@@ -43,7 +44,13 @@
   font-weight: 500;
   margin-bottom: 15px;
 }
-
+.ok{
+  background-color: var(--light-green) !important;
+  color: var(--white) !important;
+}
+.ok:hover{
+  background-color: var(--strong-green) !important;
+}
 .input,
 .button,
 .delete,

@@ -15,11 +15,9 @@ export default function MyCarts() {
   const handleCall = useCallback(async () => {
     try {
       const carts = await getMyCarts(userData.token)
-      console.log(carts)
       setCarts(carts.active)
       setRefused(carts.canceled)
     } catch (err: any) { 
-      console.log(err)
     }
   }, [])
 

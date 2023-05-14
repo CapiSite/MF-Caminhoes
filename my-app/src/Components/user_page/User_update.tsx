@@ -91,10 +91,8 @@ export default function UserUpdate() {
       error = { ...error, phone: "Telefone inválido!" }
     }
   }
-    console.log(informations.cep)
     if(String(informations.cep).length!==8){
     if (String(informations.cep).trim().length !== 8) {
-      console.log("entrou")
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
     }
@@ -145,7 +143,6 @@ export default function UserUpdate() {
       await logoutUser(userData.token)
       setUserData(null)
     } catch (err) {
-      console.log(err)
     }
   }
 
@@ -154,7 +151,6 @@ export default function UserUpdate() {
       await deleteUser(userData.token)
       setUserData(null)
     } catch (err) {
-      console.log("mosntro")
     }
   }
 
@@ -179,14 +175,11 @@ export default function UserUpdate() {
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
             {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
             <p className={style.p2}>CPF:</p>
-            <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
 
             <MaskedInput type="cpf" defaultValue={""} className={style.input} mask={[/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]} value={informations.cpf}
               onChange={(e) => setInformations({ ...informations, cpf: e.target.value.replace(/[^\d]/g, "") })} placeholder="CPF" disabled={disable} />
             {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Telefone:</p>
-            <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
-
             <MaskedInput type="phone" className={style.input} defaultValue={""} mask={['(', /[0-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} value={informations.phone}
               onChange={(e) => setInformations({ ...informations, phone: e.target.value.replace(/[^\d]/g, "")}) } placeholder="Celular" disabled={disable} />
             {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p> : <div className={style.space}></div>}

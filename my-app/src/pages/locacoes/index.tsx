@@ -45,12 +45,10 @@ export default function Location() {
       setTypes(typesReceived)
 
       const modelsReceived = await getModels()
-      console.log(modelsReceived)
       setModels(modelsReceived)
 
       const wheelsReceived = await getWheels()
       setWheels(wheelsReceived)
-      console.log(wheelsReceived)
     } catch (err) {
       const error = err as AxiosError
 

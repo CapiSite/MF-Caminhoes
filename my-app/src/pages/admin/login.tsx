@@ -33,7 +33,6 @@ export default function loginAdminForm() {
       router.push("/admin")
     }catch(err: any) {
       const error = err as AxiosError
-      console.log(err)
       setDisable(false)
     }
   }
@@ -49,13 +48,12 @@ export default function loginAdminForm() {
       <div className={style.background}>
         <h1 className={style.h1}>Entre na sua conta</h1>
         <form className={style.form} onSubmit={(e) => loginPost(e)}>
-
-          {fieldError.username && <p className={style.p}>{errorMessage.username}</p>}
+          <p className={style.p2}>Email:</p>
           <input disabled={disable} className={style.input} value={informations.username} onChange={(e) => setInformations({ ...informations, username: e.target.value })} type="email" placeholder="Email" />
-
-          {fieldError.password && <p className={style.p}>{errorMessage.password}</p>}
+          {fieldError.username ? <p className={style.p}>{errorMessage.username}</p>:<div className={style.space}></div>}
+          <p className={style.p2}>Senha:</p>
           <input disabled={disable} className={style.input} value={informations.password} onChange={(e) => setInformations({ ...informations, password: e.target.value })} type="password" placeholder="Senha" />
-
+          {fieldError.password ? <p className={style.p}>{errorMessage.password}</p>:<div className={style.space}></div>}
           <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Entrar"}</button>
         </form>
       </div>

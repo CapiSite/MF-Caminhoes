@@ -18,7 +18,6 @@ export default function Home() {
   const handleCall = useCallback(async () => {
     try {
       const cartsReceived = await getAllCarts()
-      console.log(cartsReceived)
       setCarrosel(cartsReceived)
 
     } catch (err) {

@@ -140,13 +140,7 @@
 
 
 
-.update {
-  background-color: var(--darkYellow);
-}
 
-.update:hover {
-  background-color: var(--yellow);
-}
 
 .delete {
   background-color: var(--strong-red) ;
@@ -166,14 +160,10 @@
   display: none;
 }
 
-.update{
-  position: absolute;
-  top:90px;
-  right: 30px;
-}
+
 .delete{
   position: absolute;
-  top:140px;
+  top:90px;
   right: 30px;
 }
 @media (max-width: 800px) {
@@ -199,7 +189,9 @@
     display: flex;
     flex-direction: column;
     margin-top: 80px;
+    align-items: center;
   }
+  
   .mobileCard>div{
     border: 1px solid var(--black);
     border-radius: 5px;

@@ -41,7 +41,6 @@ async function createCart(body: CartCreation, user_id: number) {
   const user = await usersRepository.getFullUserById(user_id)
   if(!user) throw UnauthorizedError("Usuário não cadastrado")
 
-  console.log(1)
 
   if( typeof(body.brand_id) === "string"){ 
     const brand = await typesRepository.addBrands(body.brand_id as string)

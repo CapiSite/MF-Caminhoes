@@ -74,7 +74,6 @@ export default function Cadastro() {
         }
 
       } catch (err) {
-        console.log(err)
       }
     }
     if (value.length < 8) {

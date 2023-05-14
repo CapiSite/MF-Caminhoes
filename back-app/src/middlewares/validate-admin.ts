@@ -22,7 +22,6 @@ export async function authenticateAdmin(req: AuthenticatedRequestAdmin, res: Res
     if (!admin || !admin.active) return unauthorizedError(res);
 
     jwt.verify(admin.token, process.env.JWT_SECRET, async (error, decoded) =>{
-      console.log(decoded)
       if(error) {
         return unauthorizedError(res)
       }

@@ -69,7 +69,6 @@ export default function CartUpdate({info, changeInfo, disableThis} : any) {
     try{
       const mainImage = await postCartPhotosMain(dataMain, userData.token)
       const secondaryImages = await postCartPhotosSecondary(dataSecond, userData.token)
-      console.log(secondaryImages)
 
       const cart = await updateCart( {
         description: description,
@@ -102,7 +101,6 @@ export default function CartUpdate({info, changeInfo, disableThis} : any) {
       setYear(0)
       setStatus("")
     }catch(err){
-      console.log(err)
     }
   }
 
@@ -147,7 +145,6 @@ export default function CartUpdate({info, changeInfo, disableThis} : any) {
             <input type="file" name="secondary" onChange={(e) => {if(e.target.files) { 
               const temp  = secondary as any
               temp.push(e.target.files[e.target.files.length-1])
-              console.log(temp)
               setSecondary(temp)
             }}}/>
           </div>

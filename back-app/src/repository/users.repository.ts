@@ -9,7 +9,6 @@ async function getUserByCpf(cpf: string) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -27,7 +26,6 @@ async function getUserButCpfCanbeTheSame(cpf: string, user_id: number) {
 
     return true
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -42,7 +40,8 @@ async function getFullUserById(id: number) {
           include: {
             cities: {
               include: {
-                states: true
+                states:
+                      true
               }
             }
           }
@@ -50,7 +49,6 @@ async function getFullUserById(id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -62,7 +60,6 @@ async function getUsersByEmail(email: string) {
       },
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -72,7 +69,6 @@ async function createUser(user: Userinfo) {
       data: user
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -85,7 +81,6 @@ async function updateUser(user: Omit<Userinfo, 'email' | 'password'>, user_id: n
       data: user
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -106,7 +101,6 @@ async function logoutUser(user_id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -125,7 +119,6 @@ async function deleteUser(user_id: number) {
     })
 
   } catch (err) {
-    console.log(err)
   }
 }
 

@@ -8,7 +8,6 @@ async function getSessionByUserId(user_id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 
 }
@@ -23,7 +22,6 @@ async function createSession(token: string, user_id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -38,7 +36,6 @@ async function activateSession(session_id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -53,7 +50,6 @@ async function deactivateSession(session_id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 

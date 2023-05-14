@@ -8,6 +8,8 @@ import CartInput from "./Cart_input"
 import dayjs from "dayjs"
 import MaskedInput from "react-text-mask"
 import CurrencyInput from "react-currency-input-field"
+import styleModal from "@/styles/user_page/user_update.module.css";
+
 export default function CartPost() {
   const [brands, setBrands] = useState<{ id: number, name: string }[] >([])
   const [types, setTypes] = useState<{ id: number, name: string }[]>([])
@@ -37,7 +39,6 @@ export default function CartPost() {
   const handleCall = useCallback(async () => {
     try {
       const brands = await getBrands()
-      console.log(brands)
       setBrands(brands)
 
       const types = await getTypes()
@@ -165,9 +166,12 @@ export default function CartPost() {
     }
     if(Number(price)<=0||Number(price)>1500000){
       newFieldError.price = true
-      error.price = "Digite um preço maior que 0 e menor que 1.500.000,00"
+      error.price = "Digite um preço maior que 0 e menor que 1.500.000"
     }
-    if(Number(size)<=0||Number(size)>50){
+    if(size.includes(".")){
+      size.replace(".","")
+    }
+    if(Number(size)<=1000||Number(size)>5000){
       newFieldError.size = true
       error.size = "Digite um tamanho maior que 0 e menor que 50"
     }
@@ -251,12 +255,20 @@ export default function CartPost() {
 
       setFieldError({ title: false, description: false, color: false, size: false, price: false, brandsSelected: false, typesSelected: false, modelsSelected: false, wheelsSelected: false, year: false, status: false, main: false, secondary: false, section: false })
     }catch(err){
-      console.log(err)
     }
   }
 
   return (
     <div className={`${style.father} ${roboto.className}`}>
+      {disable &&
+        <div className={styleModal.modal}>
+          <h1>Carreta enviada para análise</h1>
+          <p>Sua carreta foi enviada para análise, você pode ver ela na sessão Minhas Carretas, caso ela seja reprovada, você será avisado por lá.</p>
+          <div>
+            <button className={styleModal.ok} onClick={() => setDisable(false)}>Ok</button>
+          </div>
+
+        </div>}
       <h1>Loque sua carreta</h1>
 
       <form onSubmit={(e) => handlePost(e)}>
@@ -276,8 +288,8 @@ export default function CartPost() {
             {fieldError.size ? <p className={style.p}>{errorMessage.size}</p>:<div className={style.space}></div>}
 
             <h2>Valor Estimado</h2> 
-            <CurrencyInput placeholder="Valor Estimado" intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} decimalsLimit={2} value={price} 
-            onChange={(e) =>{ setPrice(Number(e.target.value.replace(/[^\d]/g, ""))/100)}}/>
+            <CurrencyInput placeholder="Valor Estimado" disabled={disable} intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={price} 
+            onChange={(e) =>{ setPrice(Number(e.target.value.replace(/[^\d]/g, "")))}}/>
             {fieldError.price ? <p className={style.p}>{errorMessage.price}</p>:<div className={style.space}></div>}
 
             <h2>Ano</h2>
@@ -302,7 +314,7 @@ export default function CartPost() {
             {fieldError.modelsSelected ? <p className={style.p}>{errorMessage.modelsSelected}</p>:<div className={style.space}></div>}
             <CartInput disable={disable} type={wheels} alter={setWheelsSelected} value={wheelsSelected} label="Tipo de Roda"/>
             {fieldError.wheelsSelected ? <p className={style.p}>{errorMessage.wheelsSelected}</p>:<div className={style.space}></div>}
-            <textarea placeholder="Observações" onChange={(e) => setDescription(e.target.value)} value={description} />
+            <textarea disabled={disable} placeholder="Observações" onChange={(e) => setDescription(e.target.value)} value={description} />
             {fieldError.description ? <p className={style.p}>{errorMessage.description}</p>:<div className={style.space}></div>}
           </div>
           <div className={style.second}>
