@@ -1,7 +1,8 @@
 import Cards from "@/Components/Cards";
 import Brand from "@/Components/Filter/Brand";
-import Status from "@/Components/Filter/Status";
+import Model from "@/Components/Filter/Model";
 import Type from "@/Components/Filter/Type";
+import Wheel from "@/Components/Filter/Wheel";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
@@ -12,20 +13,13 @@ import { AxiosError } from "axios";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react"
 
-const caminhao = ["Caminhao 1", "Caminhao 2", "Caminhao 3", "Caminhao 4", "Caminhao 5", "Caminhao 6", "Caminhao 1", "Caminhao 2", "Caminhao 3", "Caminhao 4", "Caminhao 5", "Caminhao 6", "Caminhao 1", "Caminhao 2", "Caminhao 3", "Caminhao 4", "Caminhao 3", "Caminhao 4", "Caminhao 3", "Caminhao 4"]
-
-
-const tipo = ["Caminhao", "Carreta", "Cabeça"]
-const estado = ["Novo", "Seminovo"]
-const marca = ["Bitrem", "Bitrem 9 eixos", "Rodotrem", "Semi-Reboque", "Volkswagen", "Iveco", "Mercedes-Benz", "Scania", "Volvo"]
-
-const Ordenar = "Ordenar"
 
 export default function Location() {
-  const [filter, setFilter] = useState({ type: "", status: "", brand: "" })
+  const [filter, setFilter] = useState({ type: "", model: "", brand: "", wheel:"", price:{min:"0", max:"150000000"} })
   const [ct, setCt] = useState(8)
+  const [filterPrice, setFilterPrice] = useState({min:"RS 0,00", max:"R$ 150000000,00"})
   const [mobileFilter, setMobileFilter] = useState(false)
-
+  const [allcarts, setAllcarts] = useState<string[]>([])
   const [carts, setCaminhoes] = useState<string[]>([])
   const [types, setTypes] = useState<string[]>([])
   const [models, setModels] = useState<string[]>([])
@@ -36,8 +30,9 @@ export default function Location() {
   const handleCall = useCallback(async () => {
     try {
       const cartsReceived = await getAllCarts()
+      setAllcarts(cartsReceived)
       setCaminhoes(cartsReceived)
-      
+      console.log(cartsReceived)
       const brandsReceived = await getBrands()
       setBrands(brandsReceived)
 
@@ -49,6 +44,7 @@ export default function Location() {
 
       const wheelsReceived = await getWheels()
       setWheels(wheelsReceived)
+
     } catch (err) {
       const error = err as AxiosError
 
@@ -84,13 +80,13 @@ export default function Location() {
                 <button>Filtrar</button>
               </div>
               <h1>Tipo</h1>
-              {types ? types.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+              {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
               <h1>Modelo</h1>
-              {models ? models.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+              {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
               <h1>Marca</h1>
-              {brands ? brands.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+              {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
               <h1>Roda</h1>
-              {wheels ? wheels.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+              {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
             </div>
           }
         </div>
@@ -99,18 +95,18 @@ export default function Location() {
           <h1>Filtros</h1>
           <h1>Preço</h1>
           <div className={style.range}>
-            <input type="number" min="10000" placeholder="R$ 10000,00" />
-            <input type="number" placeholder="R$ 1000000,00" />
-            <button>Filtrar</button>
+            <input type="number" value={filterPrice.min} onChange={(e) => setFilterPrice({ ...filterPrice, min: e.target.value })} min="10000" placeholder="R$ 10000,00" />
+            <input type="number" value={filterPrice.max} onChange={(e) => setFilterPrice({ ...filterPrice, max: e.target.value })} placeholder="R$ 1000000,00" />
+            <button onClick={()=>filterP()}>Filtrar</button>
           </div>
           <h1>Tipo</h1>
-          {types ? types.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+          {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
           <h1>Modelo</h1>
-          {models ? models.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+          {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
           <h1>Marca</h1>
-          {brands ? brands.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+          {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
           <h1>Roda</h1>
-          {wheels ? wheels.map((o, i) => { return <Type setFilter={setFilter} filter={filter} item={o} key={i} /> }) : null}
+          {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
         </div>
 
 
@@ -128,7 +124,7 @@ export default function Location() {
             </div>
             {carts.length===0?<div className={style.locationsContainer}><p className={style.noCars}>Não há carretas</p></div>:
             <div className={style.locationsContainer}>
-            {carts.map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
+            {carts.filter((o:any)=> o.price<=Number(filter.price.max) && o.price>=Number(filter.price.min)).map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
           </div>}
             
             {ct <= carts.length ? <div className={style.more}>
@@ -143,4 +139,28 @@ export default function Location() {
     </>
 
   )
+
+function filterP(){
+  const priceMin = filterPrice.min.replace("R$ ", "")
+  const priceMax = filterPrice.max.replace("R$ ", "")
+
+  setFilter({...filter, price:{min:priceMin,max:priceMax}})
+}
+function filtrar(item:any){
+  let filtro:any = allcarts;
+    if (item.brand.name){
+      filtro = filtro.filter((o:any) => o.brands.name === item.brand.name)
+    }
+    if (item.model.name){
+      filtro = filtro.filter((o:any) => o.cart_model.name === item.model.name)
+    }
+    if (item.type.name){
+      filtro = filtro.filter((o:any) => o.cart_type.name === item.type.name)
+    }
+    if (item.wheel.name){
+     filtro = filtro.filter((o:any) => o.wheel.name === item.wheel.name)
+    }
+    setCaminhoes(filtro)
+    
+}
 }
