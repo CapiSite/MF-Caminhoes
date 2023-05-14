@@ -18,7 +18,6 @@ async function getAllCarts() {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -37,7 +36,6 @@ async function getUnvalidCarts() {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -56,7 +54,6 @@ async function getSpecificCart(id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -75,7 +72,6 @@ async function getMyCarts(user_id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -88,7 +84,6 @@ async function createCart(cart: CartCreationDefinitive, user_id: number) {
       data: {...cartCreation, user_id}
     })
 
-    console.log("banco")
 
     const images = cart.secondary_images.map((e) => {
       return {
@@ -102,7 +97,6 @@ async function createCart(cart: CartCreationDefinitive, user_id: number) {
     })
 
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -132,7 +126,6 @@ async function updateCart(cart: CartCreationDefinitive, id: number, user_id: num
       data:{...cart, user_id}
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -186,7 +179,6 @@ async function validateCart(cart_id: number) {
     return cart
 
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -198,7 +190,6 @@ async function deleteCart(id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 

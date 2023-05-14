@@ -17,7 +17,6 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
       await deleteMyCart(id, userData.token)
       change.setRender(!change.render)
     } catch (err: any) {
-      console.log(err)
     }
   }
 
@@ -26,7 +25,6 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
       await confirmSawAllDeletedCarts(userData.token)
       change.setRender(!change.render)
     } catch (err: any) {
-      console.log(err)
     }
   }
 
@@ -56,8 +54,12 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
   }
   else{
     return (
-      <>
-        <button onClick={() => confirmSawCart()}>Atualizar</button>
+      <div className={styleMobile.myDeleteCarts}>
+        <div className={styleMobile.text}>
+          <p>Lista de carretas recusadas</p>
+          <button onClick={() => confirmSawCart()}>Limpar lista</button>
+        </div>
+        
         <div className={style.cards}>
           {info.map((item: any, index: any) => (
             <CardUserRefused info={item} key={index}/>
@@ -68,14 +70,13 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
             <CardMobileRefused info={item} key={index}/>
           ))}
         </div>
-      </>
+      </div>
     )
   }  
 }
 
 function CardUser({ info, deleteMyCartPost }: any) {
   const [deleter, setDeleter] = useState<any>(false)
-  const [formOn, setFormOn] = useState<boolean>(false)
 
   return (
     <>
@@ -96,7 +97,6 @@ function CardUser({ info, deleteMyCartPost }: any) {
           <p>{info.sections} eixos</p>
         </div>
         <p>R${parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
-        <button onClick={() => setFormOn(!formOn)} className={style.update}>Atualizar</button>
         <button onClick={() => setDeleter(true)} className={style.delete}>Deletar</button>
       </div>
     </>
@@ -126,7 +126,6 @@ function CardMobile({ info, deleteMyCartPost }: any) {
         <h2>{info.title}</h2>
         <p>{info.sections} eixos</p>
         <p>R${parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
-        <button onClick={() => setFormOn(!formOn)} className={styleMobile.update}>Atualizar</button>
         <button onClick={() => setDeleter(true)} className={styleMobile.delete}>Deletar</button>
       </div>
     </>

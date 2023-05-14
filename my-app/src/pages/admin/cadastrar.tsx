@@ -25,7 +25,6 @@ export default function SignupAdmin() {
       router.push("/admin/login")
     }catch(err: any) {
 
-      console.log(err)
       const error = err as AxiosError
       if(error.response?.status === 400){
         setErrorMessage({...errorMessage, password: err.response?.data.message[0]})
@@ -53,15 +52,15 @@ export default function SignupAdmin() {
       <div className={style.background}>
         <h1 className={style.h1}>Cadastre como Administrador</h1>
         <form className={style.form} onSubmit={(e) => signupAdminPost(e)}>
-
-          {fieldError.username && <p className={style.p}>{errorMessage.username}</p>}
+          <p className={style.p2}>Email:</p>
           <input disabled={disable} className={style.input} value={informations.username} onChange={(e) => setInformations({ ...informations, username: e.target.value })} type="email" placeholder="Email" />
-
-          {fieldError.password && <p className={style.p}>{errorMessage.password}</p>}
+          {fieldError.username ? <p className={style.p}>{errorMessage.username}</p> : <div className={style.space}></div>}
+          <p className={style.p2}>Senha:</p>
           <input disabled={disable} className={style.input} value={informations.password} onChange={(e) => setInformations({ ...informations, password: e.target.value })} type="password" placeholder="Senha" />
-
-          {fieldError.password && <p className={style.p}>{errorMessage.secret}</p>}
+          {fieldError.password ? <p className={style.p}>{errorMessage.password}</p> : <div className={style.space}></div>}
+          <p className={style.p2}>Digite o PIN:</p>
           <input disabled={disable} className={style.input} value={informations.secret} onChange={(e) => setInformations({ ...informations, secret: e.target.value })} type="password" placeholder="PIN" />
+          {fieldError.secret ? <p className={style.p}>{errorMessage.secret}</p> : <div className={style.space}></div>}
 
           <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Entrar"}</button>
         </form>

@@ -19,7 +19,6 @@ async function createAddress(address: UserAddress) {
       }
     })
   }catch(err) {
-    console.log(err)
   }
 }
 
@@ -43,7 +42,6 @@ async function updateAddress(address: UserAddress, address_id: number, user_id: 
     })
 
   }catch(err) {
-    console.log(err)
   }
 
 }
@@ -58,7 +56,6 @@ async function cityExisting(city: string) {
 
     return cityExist
   }catch(err) {
-    console.log(err)
   }
 }
 
@@ -110,7 +107,6 @@ async function implementAddressWithNewcity(address: UserAddress, id: number, use
     return newAddress
 
   }catch(err) {
-    console.log(err)
   }
 }
 
@@ -133,7 +129,6 @@ async function createAddressWithNewcity(address: UserAddress) {
       }
     })
   }catch(err) {
-    console.log(err)
   }
   
 }

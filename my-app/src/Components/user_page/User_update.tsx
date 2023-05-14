@@ -79,20 +79,24 @@ export default function UserUpdate() {
       newFieldError = { ...newFieldError, name: true };
       error = { ...error, name: "Nome inválido!" }
     }
-    if (informations.cpf.length < 11) {
+    if(informations.cpf.length!==11){
+    if (informations.cpf.length !== 11) {
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
+  }
+    if(informations.phone.length!==11){
     if (informations.phone.length < 11) {
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
+  }
+    if(String(informations.cep).length!==8){
     if (String(informations.cep).trim().length !== 8) {
-      console.log("entrou")
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
     }
-
+  }
     let foundError;
     for (let item of fields) {
       if (newFieldError[item]) foundError = true
@@ -139,7 +143,6 @@ export default function UserUpdate() {
       await logoutUser(userData.token)
       setUserData(null)
     } catch (err) {
-      console.log(err)
     }
   }
 
@@ -148,7 +151,6 @@ export default function UserUpdate() {
       await deleteUser(userData.token)
       setUserData(null)
     } catch (err) {
-      console.log("mosntro")
     }
   }
 
@@ -169,13 +171,15 @@ export default function UserUpdate() {
 
           <div>
             <h1>Informações Pessoais</h1>
+            <p className={style.p2}>Nome:</p>
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
             {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>CPF:</p>
 
             <MaskedInput type="cpf" defaultValue={""} className={style.input} mask={[/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]} value={informations.cpf}
               onChange={(e) => setInformations({ ...informations, cpf: e.target.value.replace(/[^\d]/g, "") })} placeholder="CPF" disabled={disable} />
             {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p> : <div className={style.space}></div>}
-
+            <p className={style.p2}>Telefone:</p>
             <MaskedInput type="phone" className={style.input} defaultValue={""} mask={['(', /[0-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} value={informations.phone}
               onChange={(e) => setInformations({ ...informations, phone: e.target.value.replace(/[^\d]/g, "")}) } placeholder="Celular" disabled={disable} />
             {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p> : <div className={style.space}></div>}
@@ -186,19 +190,24 @@ export default function UserUpdate() {
 
           <div>
             <h1>Endereço</h1>
+            <p className={style.p2}>CEP:</p>
             <MaskedInput type="cep" className={style.input} defaultValue={""} mask={[/[0-9]/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]} value={informations.cep}
               onChange={(e) => {
                 setInformations({ ...informations, cep: e.target.value.replace(/[^\d]/g, "")});
                 handleCep(e, states, setInformations, informations,errorMessage, setErrorMessage, fieldError, setFieldError)
               }} placeholder="CEP" />
             {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Endereço:</p>
 
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
             {fieldError.address ? <p className={style.p}>{errorMessage.address}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Número:</p>
             <input disabled={disable} className={style.input} value={informations.number} onChange={(e) => setInformations({ ...informations, number: e.target.value })} type="number" placeholder="Número" />
             {fieldError.number ? <p className={style.p}>{errorMessage.number}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Complemento:</p>
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
             {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Estado:</p>
 
             <select className={style.input} value={states[informations.uf] ? states[informations.uf].name :
               userData ? userData.user.address.cities.states.name : "AC"} onChange={(e) => findId(e.target.value, states, setInformations, informations)}>
@@ -210,6 +219,7 @@ export default function UserUpdate() {
                 })
                 : null}
             </select>
+            <p className={style.p2}>Cidade:</p>
 
             <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
             {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}

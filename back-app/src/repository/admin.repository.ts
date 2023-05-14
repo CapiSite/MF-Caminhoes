@@ -10,7 +10,6 @@ async function getAdminByUsername(username: string) {
     })
 
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -20,7 +19,6 @@ async function createAdmin(info: AdminCreation) {
       data: info
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -35,7 +33,6 @@ async function loginAdmin(id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 
@@ -50,7 +47,6 @@ async function logoutAdmin(id: number) {
       }
     })
   } catch (err) {
-    console.log(err)
   }
 }
 

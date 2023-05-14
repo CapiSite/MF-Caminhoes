@@ -24,15 +24,17 @@ export default function Footer() {
         <div className={style.numbers}>
           <Link
             target="_blank"
-            href="https://web.whatsapp.com/send?phone=55349%209100-1000&text=Ol%C3%A1,%20estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20MF%20Caminh%C3%B5es."
+            href="https://api.whatsapp.com/send?phone=5534991001000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!
+"
           >
             (34) 9 9100-1000
           </Link>
           <Link
             target="_blank"
-            href="https://web.whatsapp.com/send?phone=553499274-1000&text=Ol%C3%A1,%20estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20MF%20Caminh%C3%B5es."
+            href="https://api.whatsapp.com/send?phone=5534993011000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!
+"
           >
-            (34) 9 9274-1000
+            (34) 9 9301-1000
           </Link>
         </div>
         <p className={style.address}>
@@ -53,7 +55,7 @@ export default function Footer() {
         </div>
         <div className={style.ion}>
           <BiRegistered />
-          <span className={style.span}> 2023 MF Caminhões</span>
+          <span className={style.span}> 2023 LocaAqui</span>
         </div>
       </div>
     </footer>

@@ -39,7 +39,6 @@ export default async function handleCep(e: ChangeEvent | any, states: { id: numb
       }
 
     } catch (err) {
-      console.log(err)
     }
   }
   if (value.length < 8) {

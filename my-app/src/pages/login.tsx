@@ -15,15 +15,17 @@ import { toast } from "react-toastify";
 
 export default function Login() {
   const router = useRouter()
-
+  const [forgotEmail, setForgotEmail] = useState("")
+  const [code, setCode] = useState("")
+  const [newPassword, setNewPassword] = useState({password: "", confirmPassword: ""})
   const [disable, setDisable] = useState(false)
   const [informations, setInformations] = useState<{ email: string, password: string }>({ email: "", password: "" })
   const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false }))
-
+  const [messageError, setMessageErro] = useState("")
   const { setUserData } = useContext(UserContext) as any
   const { setAdminData } = useContext(AdminContext) as any
-  const [admin, setAdmin] = useState<boolean>(false)
+  const [forgot, setForgot] = useState<number>(0)
 
   return (
     <>
@@ -44,18 +46,70 @@ export default function Login() {
           {fieldError.password ? <p className={style.p}>{errorMessage.password}</p>:<div className={style.space}></div>}
           <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Entrar"}</button>
           {ActiveLink({ children: "Não possui uma conta? Cadastre-se!", href: "/cadastrar" })}
+          <p className={style.forgot} onClick={()=> setForgot(1)}>Esqueceu a senha?</p>
         </form>
-        {admin && <div className={style.admin}>
-          <h1>Insira o PIN para entrar</h1>
-          <input placeholder="Insira o PIN" />
-          <button onClick={() => router.push("/locacoes")}>Acessar</button>
-          <AiOutlineClose onClick={() => setAdmin(!admin)} />
+        
+        {forgot ===  1 && <div className={style.forgotPass}>
+          <h1>Insira seu email</h1>
+          <input value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)}placeholder="Email" />
+          {messageError? <p className={style.p}>{messageError}</p>:<div className={style.space}></div>}
+          <button onClick={() => forgotPassword()}>Enviar código</button>
+        </div>
+        }
+        {forgot === 2 && <div className={style.forgotPass}>
+          <h1>Insira o código</h1>
+          <input value={code} onChange={(e) => setCode(e.target.value)}placeholder="Código" />
+          {messageError? <p className={style.p}>{messageError}</p>:<div className={style.space}></div>}
+          <button onClick={() => verifyCode()}>Enviar código</button>
         </div>}
+        {forgot === 3 && <form onSubmit={newPass} className={style.forgotPass}>
+          <h1>Insira a nova senha</h1>
+          <input type="password" value={newPassword.password} onChange={(e) => setNewPassword({...newPassword, password: e.target.value})}placeholder="Nova senha" />
+          <input type="password" value={newPassword.confirmPassword} onChange={(e) => setNewPassword({...newPassword, confirmPassword: e.target.value})}placeholder="Confirme a nova senha" />
+          {messageError? <p className={style.p}>{messageError}</p>:<div className={style.space}></div>}
+          <button type="submit">Enviar código</button>
+        </form>}
       </div>
 
       <Footer />
     </>
   )
+
+
+  function newPass(e: FormEvent) {
+    e.preventDefault()
+    if(!newPassword.password || !newPassword.confirmPassword){
+      setMessageErro("Preencha todos os campos")
+      return
+    }
+    if(newPassword.password !== newPassword.confirmPassword){
+      setMessageErro("As senhas devem ser iguais")
+      return
+    }
+    if(newPassword.password.length<6 || newPassword.confirmPassword.length<6){
+      setMessageErro("A senha deve conter mais de 6 caracteres")
+      return
+    }
+    setMessageErro("")
+    setForgot(0)
+  }
+
+  function verifyCode(){
+    if(!code){
+      setMessageErro("Insira um código válido")
+      return
+    }
+    setMessageErro("")
+    setForgot(3)
+  }
+  function forgotPassword(){
+    if(!forgotEmail || !forgotEmail.includes("@") || !forgotEmail.includes(".")){
+      setMessageErro("Insira um email válido")
+      return
+    }
+    setMessageErro("")
+    setForgot(2)
+  }
 
   async function login(e: FormEvent) {
     e.preventDefault()

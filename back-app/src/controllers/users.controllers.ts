@@ -65,8 +65,6 @@ export async function logoutUser(req: AuthenticatedRequest, res: Response) {
 
 export async function deleteUser(req: AuthenticatedRequest, res: Response) {
 
-  console.log(req.user_id)
-
   try {
     const updatedInfo = await userServices.deleteUser(req.user_id)
     return res.status(httpStatus.CREATED).send(updatedInfo)

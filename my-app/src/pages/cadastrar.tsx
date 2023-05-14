@@ -74,7 +74,6 @@ export default function Cadastro() {
         }
 
       } catch (err) {
-        console.log(err)
       }
     }
     if (value.length < 8) {
@@ -107,10 +106,10 @@ export default function Cadastro() {
             <p className={style.p2}>Confirmar a senha:</p>
             <input disabled={disable} className={style.input} value={informations.password_confirmation} onChange={(e) => setInformations({ ...informations, password_confirmation: e.target.value })} type="password" placeholder="Confirmar senha" />
             {fieldError.password_confirmation ? <p className={style.p}>{errorMessage.password_confirmation}</p> : <div className={style.space}></div>}
-            <p className={style.p2}>Nome</p>
+            <p className={style.p2}>Nome:</p>
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
             {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
-            <p className={style.p2}>Sobrenome</p>
+            <p className={style.p2}>Sobrenome:</p>
             <input disabled={disable} className={style.input} value={informations.last_name} onChange={(e) => setInformations({ ...informations, last_name: e.target.value })} type="text" placeholder="Sobrenome" />
             {fieldError.last_name ? <p className={style.p}>{errorMessage.last_name}</p> : <div className={style.space}></div>}
             <p className={style.p2}>CPF:</p>
@@ -207,14 +206,18 @@ export default function Cadastro() {
       newFieldError = { ...newFieldError, last_name: true };
       error = { ...error, last_name: "Sobrenome inválido!" }
     }
-    if(String(informations.cep).trim().length<11){
+    if(informations.cpf.length!==11){
+    if(String(informations.cpf).trim().length!==11){
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
-    if(String(informations.cep).trim().length<11){
+  }
+    if(String(informations.phone).trim().length!==11){
+    if(informations.phone.length!==11){
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
+  }
     if(String(informations.cep).trim().length!==8){
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }

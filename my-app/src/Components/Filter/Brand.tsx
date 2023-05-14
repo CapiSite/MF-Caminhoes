@@ -1,7 +1,11 @@
-export default function Brand({ item, setFilter, filter }: any) {
+import style from "@/styles/Filter.module.css"
+
+
+export default function Brand({ item, setFilter, filter, filtrar }: any) {
   return (
     <>
-      {filter.brand === item ? <h6 onClick={() => setFilter({ ...filter, brand: "" })}>{item}</h6> : <p onClick={() => setFilter({ ...filter, brand: item })}>{item}</p>}
-    </>
+    {filter.brand ===item ? <p className={style.p1} onClick={async () => {setFilter({ ...filter, brand: "" });filtrar({ ...filter, brand: "" })}}>{item.name}</p>:<p className={style.p2} onClick={async () => {setFilter({ ...filter, brand: item });filtrar({ ...filter, brand: item })}}>{item.name}</p>}
+     
+  </>
   )
 }
