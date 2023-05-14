@@ -8,11 +8,11 @@ import UserContext from "@/APIContext/UserContext";
 import { useRouter } from "next/router";
 import { signupUser } from "@/services/user-services";
 import { getStates } from "@/services/types.services";
-import { cepValidation } from "@/services/cep";
-import { DebounceInput } from 'react-debounce-input';
-import { IoMdReturnLeft } from "react-icons/io";
-import { ToastContainer, toast } from "react-toastify";
+
 import MaskedInput from "react-text-mask";
+import findId from "@/hooks/findSelectId";
+import handleCep from "@/hooks/handleCep";
+import { toast } from "react-toastify";
 
 export default function Cadastro() {
   const router = useRouter()
@@ -21,7 +21,7 @@ export default function Cadastro() {
   const [informations, setInformations] = useState<any>({ email: "", password: "", password_confirmation: "", name: "", last_name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: 0 })
   const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!", password_confirmation: "Campo Obrigatório!", name: "Campo Obrigatório!", last_name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false, password_confirmation: false, name: false, last_name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
-  const [states, setStates] = useState<{ id: number, name: string }[]>()
+  const [states, setStates] = useState<{ id: number, name: string }[]>([])
 
   const { userData } = useContext(UserContext) as { userData: string }
 
@@ -38,50 +38,6 @@ export default function Cadastro() {
       handleCall()
     }
   }, [fieldError])
-
-  async function handleCep(e: ChangeEvent | any) {
-    const value = e.target.value.replace(/[^\d]/g, "")
-    
-
-    function findUf(uf: string | null): number {
-      if (uf === null || undefined) return 1
-
-      const judge = states?.map((e) => e.name)
-      if (!judge?.indexOf(uf?.toUpperCase())) return -2
-
-      return judge?.indexOf(uf?.toUpperCase())
-    }
-
-    if (value.length >= 8) {
-      try {
-        const cep = await cepValidation(value)
-
-        if (cep.uf !== undefined) {
-          setInformations({
-            ...informations,
-            cep: value,
-            address: cep.bairro + " " + cep.logradouro,
-            complement: cep.complemento,
-            city: cep.localidade,
-            uf: findUf(cep.uf)
-          })
-          setErrorMessage({ ...errorMessage, cep: "Campo Obrigatório" })
-          setFieldError({ ...fieldError, cep: false })
-        } else {
-          setInformations({ ...informations, cep: value })
-          setErrorMessage({ ...errorMessage, cep: "Cep Inválido" })
-          setFieldError({ ...fieldError, cep: true })
-        }
-
-      } catch (err) {
-      }
-    }
-    if (value.length < 8) {
-      setInformations({ ...informations, cep: value })
-      setErrorMessage({ ...errorMessage, cep: "Campo Obrigatório" })
-      setFieldError({ ...fieldError, cep: false })
-    }
-  }
 
   return (
     <>
@@ -126,8 +82,11 @@ export default function Cadastro() {
           <div>
 
             <p className={style.p2}>CEP:</p>
-            <MaskedInput type="cep" className={style.input} defaultValue={""} mask={[ /[0-9]/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]} value={informations.cep}
-            onChange={(e) => {setInformations({ ...informations, cep: e.target.value.replace(/[^\d]/g, "")}); handleCep(e)} } placeholder="CEP"/>
+            <MaskedInput type="cep" className={style.input} defaultValue={""} mask={[/[0-9]/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]} value={informations.cep}
+              onChange={(e) => {
+                setInformations({ ...informations, cep: e.target.value.replace(/[^\d]/g, "")});
+                handleCep(e, states, setInformations, informations,errorMessage, setErrorMessage, fieldError, setFieldError)
+              }} placeholder="CEP" />
             {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Endereço:</p>
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
@@ -139,11 +98,10 @@ export default function Cadastro() {
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
             {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Estado:</p>
-            <select className={style.input} value={states ? states[informations.uf].name : 0}>
+            <select className={style.input} value={states[informations.uf - 1] ? states[informations.uf -1].name : "AC"} disabled={true}>
               {states ?
                 states.map((s, index) => {
-                  return <option key={index} className={style.input}
-                    onClick={(e) => setInformations({ ...informations, uf: s.id })} placeholder="Estado">
+                  return <option key={index} className={style.input} placeholder="Estado">
                     {s.name}
                   </option>
                 })
@@ -151,7 +109,7 @@ export default function Cadastro() {
             </select>
             {fieldError.uf ? <p className={style.p}>{errorMessage.uf}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Cidade:</p>
-            <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
+            <input className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} disabled={true} type="text" placeholder="Cidade" />
             {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Cadastrar"}</button>
           </div>
@@ -233,7 +191,7 @@ export default function Cadastro() {
       return
     }
 
-
+    console.log(informations.uf)
 
     const register = {
       name: informations.name + " " + informations.last_name,

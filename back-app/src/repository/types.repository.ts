@@ -39,6 +39,14 @@ async function getStates() {
   return prismaDb.states.findMany()
 }
 
+async function getStateById(id: number) {
+  return prismaDb.states.findFirst({
+    where:{
+      id
+    }
+  })
+}
+
 async function addTypes(name: string) {
   const exist = await prismaDb.cart_type.findFirst({
     where:{
@@ -104,5 +112,6 @@ export const typesRepository = {
   addBrands,
   addModels,
   addTypes,
-  addWheels
+  addWheels,
+  getStateById
 }

@@ -141,5 +141,6 @@ export const usersRepository = {
   createUser,
   updateUser,
   logoutUser,
-  deleteUser
+  deleteUser,
+  getUserButCpfCanbeTheSame
 }

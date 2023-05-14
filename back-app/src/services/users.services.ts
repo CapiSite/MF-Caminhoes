@@ -5,6 +5,7 @@ import { addressRepository } from "@/repository/address.repository"
 import { usersRepository } from "@/repository/users.repository"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { typesRepository } from "@/repository/types.repository"
 
 async function createUser(user: UserCreation) {
 
@@ -13,6 +14,9 @@ async function createUser(user: UserCreation) {
 
   const cpfExist = await usersRepository.getUserByCpf(user.cpf)
   if (cpfExist) throw ConflictError("Cpf inválido")
+
+  const state = await typesRepository.getStateById(user.address.state_id)
+  if(!state) throw ConflictError("Estado inválido")
 
   const address = await addressRepository.createAddress(user.address)
 

@@ -8,18 +8,17 @@ export default async function handleCep(e: ChangeEvent | any, states: { id: numb
 
   function findUf(uf: string | null): number {
     if (uf === null || undefined) return 1
+    const judge = states?.map((e) => e.name.trim())    
+    if (judge?.indexOf(uf?.toUpperCase().trim()) === -1) return -2
 
-    const judge = states?.map((e) => e.name)
-    if (!judge?.indexOf(uf?.toUpperCase())) return -2
-
-    return judge?.indexOf(uf?.toUpperCase())
+    return Number(judge?.indexOf(uf?.toUpperCase().trim())) + 1
   }
 
   if (value.length >= 8) {
     try {
       const cep = await cepValidation(value)
 
-      if (cep.uf !== undefined) {
+      if (cep.uf !== undefined) {      
         setValue({
           ...presentValues,
           cep: value,
