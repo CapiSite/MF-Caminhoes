@@ -13,24 +13,6 @@ async function getUserByCpf(cpf: string) {
   }
 }
 
-async function getUserButCpfCanbeTheSame(cpf: string, user_id: number) {
-  try {
-    const user = await prismaDb.users.findFirst({
-      where: {
-        cpf
-      }
-    })
-
-    if(user.id !== user_id) {
-      return false
-    }
-
-    return true
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 async function getFullUserById(id: number) {
   try {
     return prismaDb.users.findFirst({
@@ -81,6 +63,17 @@ async function updateUser(user: Omit<Userinfo, 'email' | 'password'>, user_id: n
     return prismaDb.users.update({
       where: {
         id: user_id
+      },
+      include:{
+        address: {
+          include: {
+            cities: {
+              include: {
+                states: true
+              }
+            }
+          }
+        }
       },
       data: user
     })
@@ -135,7 +128,6 @@ export const usersRepository = {
   getUsersByEmail,
   createUser,
   updateUser,
-  getUserButCpfCanbeTheSame,
   logoutUser,
   deleteUser
 }

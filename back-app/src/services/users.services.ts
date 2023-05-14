@@ -55,8 +55,8 @@ async function editUser(user: UserCreation, id: number) {
   const userExist = await usersRepository.getFullUserById(id)
   if (!userExist) throw UnauthorizedError("E-mail inválido")
 
-  const cpfValid = await usersRepository.getUserButCpfCanbeTheSame(user.cpf, id)
-  if (!cpfValid) throw ConflictError("Cpf inválido")
+  const userCpf = await usersRepository.getUserByCpf(user.cpf)
+  if(userCpf && userCpf?.id  !== id) throw ConflictError("Cpf inválido")
 
   const newAddress = await addressRepository.updateAddress(user.address, userExist.address_id, userExist.id)
 

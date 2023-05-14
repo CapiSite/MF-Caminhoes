@@ -79,14 +79,6 @@ async function implementAddressWithNewcity(address: UserAddress, id: number, use
       }
     })
 
-    if (how_many.length === 1) {
-      await prismaDb.cities.delete({
-        where: {
-          id: User_address.id
-        }
-      })
-    }
-
     const city = await prismaDb.cities.create({
       data: {
         name: address.city,
@@ -94,7 +86,7 @@ async function implementAddressWithNewcity(address: UserAddress, id: number, use
       }
     })
 
-    return await prismaDb.address.update({
+    const newAddress = await prismaDb.address.update({
       where: {
         id
       },
@@ -106,6 +98,16 @@ async function implementAddressWithNewcity(address: UserAddress, id: number, use
         city_id: city.id
       }
     })
+
+    if (how_many.length === 1) {
+      await prismaDb.cities.delete({
+        where: {
+          id: User_address.city_id
+        }
+      })
+    }
+
+    return newAddress
 
   }catch(err) {
     console.log(err)
