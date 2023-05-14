@@ -131,14 +131,15 @@ export default function UserUpdate() {
       newFieldError = { ...newFieldError, name: true };
       error = { ...error, name: "Nome inválido!" }
     }
-    if(informations.cpf.length<11){
+    if(informations.cpf.length!==11){
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
-    if(informations.phone.length<11){
+    if(informations.phone.length!==11){
       newFieldError = { ...newFieldError, phone: true };
       error = { ...error, phone: "Telefone inválido!" }
     }
+    console.log(informations.cep)
     if(String(informations.cep).length!==8){
       newFieldError = { ...newFieldError, cep: true };
       error = { ...error, cep: "CEP inválido!" }
@@ -217,10 +218,13 @@ export default function UserUpdate() {
 
           <div>
             <h1>Informações Pessoais</h1>
+            <p className={style.p2}>Nome:</p>
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
             {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>CPF:</p>
             <input disabled={disable} className={style.input} value={informations.cpf} onChange={(e) => setInformations({ ...informations, cpf: e.target.value })} type="number" placeholder="CPF" />
             {fieldError.cpf ? <p className={style.p}>{errorMessage.cpf}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Telefone:</p>
             <input disabled={disable} className={style.input} value={informations.phone} onChange={(e) => setInformations({ ...informations, phone: e.target.value })} type="number" placeholder="Telefone" />
             {fieldError.phone ? <p className={style.p}>{errorMessage.phone}</p> : <div className={style.space}></div>}
             <button className={style.disconnect} disabled={disable} type="button" onClick={() => logoutUserPost()}>Desconectar</button>
@@ -232,14 +236,19 @@ export default function UserUpdate() {
 
           <div>
             <h1>Endereço</h1>
+            <p className={style.p2}>CEP:</p>
             <DebounceInput disabled={disable} className={style.input} value={informations.cep} debounceTimeout={300} minLength={1} onChange={async (e) => handleCep(e)} type="number" placeholder="CEP" />
             {fieldError.cep ? <p className={style.p}>{errorMessage.cep}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Endereço:</p>
             <input disabled={disable} className={style.input} value={informations.address} onChange={(e) => setInformations({ ...informations, address: e.target.value })} type="text" placeholder="Endereço" />
             {fieldError.address ? <p className={style.p}>{errorMessage.address}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Número:</p>
             <input disabled={disable} className={style.input} value={informations.number} onChange={(e) => setInformations({ ...informations, number: e.target.value })} type="number" placeholder="Número" />
             {fieldError.number ? <p className={style.p}>{errorMessage.number}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Complemento:</p>
             <input disabled={disable} className={style.input} value={informations.complement} onChange={(e) => setInformations({ ...informations, complement: e.target.value })} type="text" placeholder="Complemento" />
             {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p> : <div className={style.space}></div>}
+            <p className={style.p2}>Estado:</p>
             <select value={userState} className={style.input} onChange={(e) => findId(e.target.value)}>
               {states ?
                 states.map((s, index) => {
@@ -249,6 +258,7 @@ export default function UserUpdate() {
                 })
                 : null}
             </select>
+            <p className={style.p2}>Cidade:</p>
             <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
             {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Atualizar"}</button>
