@@ -48,6 +48,19 @@ export async function editUser(req: AuthenticatedRequest, res: Response) {
   }
 }
 
+export async function forgotPassword(req: Request, res: Response) {
+  const body = req.body
+
+  try {
+    const updatedInfo = await userServices.forgotPassword(body.email, body.password)
+    return res.status(httpStatus.CREATED).send(updatedInfo)
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error)
+    }
+  }
+}
+
 export async function logoutUser(req: AuthenticatedRequest, res: Response) {
 
   try {

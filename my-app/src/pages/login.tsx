@@ -56,13 +56,15 @@ export default function Login() {
           <button onClick={() => forgotPassword()}>Enviar código</button>
         </div>
         }
+        
         {forgot === 2 && <div className={style.forgotPass}>
           <h1>Insira o código</h1>
           <input value={code} onChange={(e) => setCode(e.target.value)}placeholder="Código" />
           {messageError? <p className={style.p}>{messageError}</p>:<div className={style.space}></div>}
           <button onClick={() => verifyCode()}>Enviar código</button>
         </div>}
-        {forgot === 3 && <form onSubmit={newPass} className={style.forgotPass}>
+
+        {forgot === 3 && <form onSubmit={(e) => newPass(e)} className={style.forgotPass}>
           <h1>Insira a nova senha</h1>
           <input type="password" value={newPassword.password} onChange={(e) => setNewPassword({...newPassword, password: e.target.value})}placeholder="Nova senha" />
           <input type="password" value={newPassword.confirmPassword} onChange={(e) => setNewPassword({...newPassword, confirmPassword: e.target.value})}placeholder="Confirme a nova senha" />
@@ -102,6 +104,7 @@ export default function Login() {
     setMessageErro("")
     setForgot(3)
   }
+
   function forgotPassword(){
     if(!forgotEmail || !forgotEmail.includes("@") || !forgotEmail.includes(".")){
       setMessageErro("Insira um email válido")

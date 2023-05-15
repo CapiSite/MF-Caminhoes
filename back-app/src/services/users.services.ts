@@ -6,6 +6,7 @@ import { usersRepository } from "@/repository/users.repository"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { typesRepository } from "@/repository/types.repository"
+import { NotFoundError } from "@/errors/not-found-error"
 
 async function createUser(user: UserCreation) {
 
@@ -73,6 +74,15 @@ async function editUser(user: UserCreation, id: number) {
     userExist.id)
 }
 
+async function forgotPassword(email: string, newPassword: string) {
+  const fullUser = await usersRepository.getUsersByEmail(email)
+  if(!fullUser) throw NotFoundError("E-mail inválido")
+
+  const encryptedPassword = bcrypt.hashSync(newPassword, 12)
+
+  return usersRepository.updateUserPassword(fullUser.id, encryptedPassword)
+}
+
 async function logoutUser(user_id: number) {
   const userExist = await usersRepository.getFullUserById(user_id)
   if (!userExist) throw UnauthorizedError("Usuaŕio inválido")
@@ -93,6 +103,7 @@ export const userServices = {
   loginUser,
   editUser,
   logoutUser,
-  deleteUser
+  deleteUser,
+  forgotPassword
 }
 

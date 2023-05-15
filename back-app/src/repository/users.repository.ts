@@ -96,6 +96,20 @@ async function updateUser(user: Omit<Userinfo, 'email' | 'password'>, user_id: n
   }
 }
 
+async function updateUserPassword(user_id: number, password: string) {
+  try {
+    return prismaDb.users.update({
+      where: {
+        id: user_id
+      },
+      data: {
+        password
+      }
+    })
+  } catch (err) {
+  }
+}
+
 async function logoutUser(user_id: number) {
   try {
     const session = await prismaDb.sessions.findFirst({
@@ -142,5 +156,6 @@ export const usersRepository = {
   updateUser,
   logoutUser,
   deleteUser,
-  getUserButCpfCanbeTheSame
+  getUserButCpfCanbeTheSame,
+  updateUserPassword
 }

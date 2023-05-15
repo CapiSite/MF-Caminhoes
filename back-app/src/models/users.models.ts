@@ -35,3 +35,8 @@ export const userLogin = Joi.object<UserLogin> ({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required()
 })
+
+export const forgotPassword = Joi.object<UserLogin> ({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required()
+})
