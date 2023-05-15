@@ -16,16 +16,16 @@ import styleModal from "@/styles/user_page/user_update.module.css";
 
 
 export default function ProductLocation() {
-  const router = useRouter()
+  
   const [deleter, setDeleter] = useState<any>(false)
 
   const {adminData} = useContext(AdminContext) as any
   const [error, setError] = useState<boolean>(false)
   const [info, setInfo] = useState<any>()
   const [mainImage, setMainImage] = useState("")
-
+  const router = useRouter()
   const handleCall = useCallback(async () => {
-    if (router.query.id === undefined) {
+        if (router.query.id === undefined) {
       setError(true)
     }
 
@@ -38,7 +38,7 @@ export default function ProductLocation() {
         setError(true)
       }
     }
-  }, [])
+  }, [router, useRouter])
 
 
   useEffect(() => {
@@ -103,8 +103,7 @@ export default function ProductLocation() {
                 <p>Observações: {info.description}</p>
               </div>
               <p>R$: {parseFloat((info.price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
-              <Link href="https://api.whatsapp.com/send?phone=5534992771000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!
-" target="_blank"><button >Fazer uma proposta<BsWhatsapp /></button></Link>
+              <Link href={`https://api.whatsapp.com/send?phone=5534992771000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!%20Quero%20saber%20a%20respeito%20da%20carreta:%20https://locaaqui.com/locacoes/${router.query.id}`} target="_blank"><button >Fazer uma proposta<BsWhatsapp /></button></Link>
               {adminData ?<div className={style.delete}><button  onClick={() => setDeleter(true)}>Deletar carreta</button></div>:<></>}
               {deleter &&
         <div className={styleModal.modal}>
