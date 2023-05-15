@@ -209,7 +209,7 @@ export default function UserUpdate() {
             {fieldError.complement ? <p className={style.p}>{errorMessage.complement}</p> : <div className={style.space}></div>}
             <p className={style.p2}>Estado:</p>
 
-            <select className={style.input} value={states[informations.uf] ? states[informations.uf].name :
+            <select className={style.input} disabled={true} value={states[informations.uf] ? states[informations.uf].name :
               userData ? userData.user.address.cities.states.name : "AC"} onChange={(e) => findId(e.target.value, states, setInformations, informations)}>
               {states ?
                 states.map((s, index) => {
@@ -220,8 +220,7 @@ export default function UserUpdate() {
                 : null}
             </select>
             <p className={style.p2}>Cidade:</p>
-
-            <input disabled={disable} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
+            <input disabled={true} className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} type="text" placeholder="Cidade" />
             {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Atualizar"}</button>
 

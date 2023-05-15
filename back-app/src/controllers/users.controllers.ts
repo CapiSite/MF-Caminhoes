@@ -6,6 +6,8 @@ import httpStatus from 'http-status';
 export async function createUser(req: Request, res: Response) {
   const body = req.body
 
+  console.log(body)
+
   try {
     await userServices.createUser(body)
     return res.sendStatus(httpStatus.CREATED)

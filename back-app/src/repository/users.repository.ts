@@ -26,6 +26,7 @@ async function getUserButCpfCanbeTheSame(cpf: string, user_id: number) {
 
     return true
   } catch (err) {
+    console.log(err)
   }
 }
 
@@ -78,6 +79,17 @@ async function updateUser(user: Omit<Userinfo, 'email' | 'password'>, user_id: n
       where: {
         id: user_id
       },
+      include:{
+        address: {
+          include: {
+            cities: {
+              include: {
+                states: true
+              }
+            }
+          }
+        }
+      },
       data: user
     })
   } catch (err) {
@@ -128,7 +140,7 @@ export const usersRepository = {
   getUsersByEmail,
   createUser,
   updateUser,
-  getUserButCpfCanbeTheSame,
   logoutUser,
-  deleteUser
+  deleteUser,
+  getUserButCpfCanbeTheSame
 }
