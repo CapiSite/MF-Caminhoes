@@ -9,10 +9,11 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { BsWhatsapp } from "react-icons/bs"
-import { getSpecificCart } from "@/services/cart.services"
+import { deleteAnyCart, getSpecificCart } from "@/services/cart.services"
 import { roboto } from "@/styles/fonts"
 import AdminContext from "@/APIContext/AdminContext"
 import styleModal from "@/styles/user_page/user_update.module.css";
+import { toast } from "react-toastify"
 
 
 export default function ProductLocation() {
@@ -44,6 +45,15 @@ export default function ProductLocation() {
   useEffect(() => {
     handleCall()
   }, [])
+
+  async function unvalidateCartPost() {
+    try{  
+      await deleteAnyCart(info.id, adminData)
+      router.push("/locacoes")
+    }catch(err){
+      toast.warn("Aconteceu algum erro, tente mais tarde!")
+    }
+  }
 
 
   if (error) {
@@ -111,7 +121,7 @@ export default function ProductLocation() {
           <p>Essa carreta será excluída!</p>
           <div className={styleModal.buttons}>
             <button onClick={() => setDeleter(false)}>Não</button>
-            <button onClick={() => {}/* DELETA AQUI A CARRETA! */}>Sim</button>
+            <button onClick={() => unvalidateCartPost()}>Sim</button>
           </div>
         </div>}
             </>
