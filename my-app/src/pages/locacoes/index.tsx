@@ -12,13 +12,14 @@ import style from "@/styles/LocationsStyle.module.css";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react"
+import CurrencyInput from "react-currency-input-field";
 
 
 export default function Location() {
-  const [filter, setFilter] = useState({ type: "", model: "", brand: "", wheel:"", price:{min:"0", max:"150000000"} })
+  const [filter, setFilter] = useState({ type: "", model: "", brand: "", wheel: "", price: { min: 0, max: 150000000 } })
   const [ct, setCt] = useState(8)
   const [topFilter, setTopFilter] = useState("Destaques")
-  const [filterPrice, setFilterPrice] = useState({min:"RS 0,00", max:"R$ 150000000,00"})
+  const [filterPrice, setFilterPrice] = useState({ min: 0, max: 0 })
   const [mobileFilter, setMobileFilter] = useState(false)
   const [allcarts, setAllcarts] = useState<string[]>([])
   const [carts, setCaminhoes] = useState<string[]>([])
@@ -74,11 +75,11 @@ export default function Location() {
             <div className={style.filterMobile}>
               <h1>Preço</h1>
               <div className={style.rangeMobile}>
-                <p>Min:</p>
-                <input type="number" value={filterPrice.min} onChange={(e) => setFilterPrice({ ...filterPrice, min: e.target.value })} min="10000" placeholder="R$ 10000,00" />
-                <p>Max:</p>
-                <input type="number" value={filterPrice.max} onChange={(e) => setFilterPrice({ ...filterPrice, max: e.target.value })} placeholder="R$ 1000000,00" />
-                <button onClick={()=>filterP()}>Filtrar</button>
+                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)} 
+                  onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} min="10000" placeholder="R$ 10000,00" />
+                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)}
+                  onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} min="10000" placeholder="R$ 1000000,00" />
+                <button onClick={() => filterP()}>Filtrar</button>
               </div>
               <h1>Tipo</h1>
               {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
@@ -96,9 +97,12 @@ export default function Location() {
           <h1>Filtros</h1>
           <h1>Preço</h1>
           <div className={style.range}>
-            <input type="number" value={filterPrice.min} onChange={(e) => setFilterPrice({ ...filterPrice, min: e.target.value })} min="10000" placeholder="R$ 10000,00" />
-            <input type="number" value={filterPrice.max} onChange={(e) => setFilterPrice({ ...filterPrice, max: e.target.value })} placeholder="R$ 1000000,00" />
-            <button onClick={()=>filterP()}>Filtrar</button>
+            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)/100} 
+              onChange={(e) =>{ e.target.setSelectionRange(e.target.value.length -1, e.target.value.length -1); setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, ""))}) }} placeholder="R$ 10000,00" />
+            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)/100} 
+              onChange={(e) => { e.target.setSelectionRange(e.target.value.length -1, e.target.value.length -1); setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })}} placeholder="R$ 1000000,00" />
+
+            <button onClick={() => filterP()}>Filtrar</button>
           </div>
           <h1>Tipo</h1>
           {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
@@ -123,11 +127,11 @@ export default function Location() {
                 <option value="Preço maior - menor">Preço maior - menor</option>
               </select>
             </div>
-            {carts.length===0?<div className={style.locationsContainer}><p className={style.noCars}>Não há carretas</p></div>:
-            <div className={style.locationsContainer}>
-            {carts.filter((o:any)=> o.price<=Number(filter.price.max) && o.price>=Number(filter.price.min)).map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
-          </div>}
-            
+            {carts.length === 0 ? <div className={style.locationsContainer}><p className={style.noCars}>Não há carretas</p></div> :
+              <div className={style.locationsContainer}>
+                {carts.filter((o: any) => o.price <= Number(filter.price.max) && o.price >= Number(filter.price.min)).map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
+              </div>}
+
             {ct <= carts.length ? <div className={style.more}>
               <button onClick={() => setCt(ct + 8)}>Ver mais</button>
             </div> : <></>}
@@ -142,51 +146,49 @@ export default function Location() {
   )
 
 
-function TopFilter(e:any){
-setTopFilter(e)
-setCaminhoes(carts.sort((a:any, b:any)=>{
-  if(e === "Preço menor - maior"){
-    return Number(a.price) - Number(b.price)
-  }
-  if(e === "Preço maior - menor"){
-    return Number(b.price) - Number(a.price)
-  }
-  if(e=== "Nome A-Z"){
-    return a.title.localeCompare(b.title)
-  }
-  if(e=== "Nome Z-A"){
-    return b.title.localeCompare(a.title)
-  }
-  if(e==="Destaques"){
-    return Number(a.id) - Number(b.id)
-  }
-}))
+  function TopFilter(e: any) {
+    setTopFilter(e)
+    setCaminhoes(carts.sort((a: any, b: any) => {
+      if (e === "Preço menor - maior") {
+        return Number(a.price) - Number(b.price)
+      }
+      if (e === "Preço maior - menor") {
+        return Number(b.price) - Number(a.price)
+      }
+      if (e === "Nome A-Z") {
+        return a.title.localeCompare(b.title)
+      }
+      if (e === "Nome Z-A") {
+        return b.title.localeCompare(a.title)
+      }
+      if (e === "Destaques") {
+        return Number(a.id) - Number(b.id)
+      }
+    }))
 
-}
+  }
 
-function filterP(){
-  const priceMin = filterPrice.min.replace("R$ ", "")
-  const priceMax = filterPrice.max.replace("R$ ", "")
+  function filterP() {
+    setFilter({ ...filter, price: { min: Number(filterPrice.min), max: Number(filterPrice.max) } })
+  }
 
-  setFilter({...filter, price:{min:priceMin,max:priceMax}})
-}
-function filtrar(item:any){
-  let filtro:any = allcarts;
-    if (item.brand.name){
-      filtro = filtro.filter((o:any) => o.brands.name === item.brand.name)
+  function filtrar(item: any) {
+    let filtro: any = allcarts;
+    if (item.brand.name) {
+      filtro = filtro.filter((o: any) => o.brands.name === item.brand.name)
     }
-    if (item.model.name){
-      filtro = filtro.filter((o:any) => o.cart_model.name === item.model.name)
+    if (item.model.name) {
+      filtro = filtro.filter((o: any) => o.cart_model.name === item.model.name)
     }
-    if (item.type.name){
-      filtro = filtro.filter((o:any) => o.cart_type.name === item.type.name)
+    if (item.type.name) {
+      filtro = filtro.filter((o: any) => o.cart_type.name === item.type.name)
     }
-    if (item.wheel.name){
-     filtro = filtro.filter((o:any) => o.wheel.name === item.wheel.name)
+    if (item.wheel.name) {
+      filtro = filtro.filter((o: any) => o.wheel.name === item.wheel.name)
     }
     TopFilter(topFilter)
-    
+
     setCaminhoes(filtro)
-    
-}
+
+  }
 }

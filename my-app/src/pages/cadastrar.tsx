@@ -191,8 +191,6 @@ export default function Cadastro() {
       return
     }
 
-    console.log(informations.uf)
-
     const register = {
       name: informations.name + " " + informations.last_name,
       email: informations.email,

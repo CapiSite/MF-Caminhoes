@@ -27,8 +27,6 @@ export default function Adm() {
   useEffect(() =>{
     if(adminData){
       handleCall()
-    }else{
-      router.push("/")
     }
   }, [])
 

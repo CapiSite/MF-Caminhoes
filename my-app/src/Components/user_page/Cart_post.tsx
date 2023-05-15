@@ -166,16 +166,17 @@ export default function CartPost() {
       newFieldError.year = true
       error.year = "Digite um ano válido"
     }
-    if(Number(price)<=0||Number(price)>1500000){
+    if(Number(price)<=0||Number(price)>150000000){
       newFieldError.price = true
       error.price = "Digite um preço maior que 0 e menor que 1.500.000"
     }
     if(size.includes(".")){
       size.replace(".","")
     }
-    if(Number(size)<=1000||Number(size)>5000){
+    console.log(size)
+    if(Number(size)<=100||Number(size)>5000){
       newFieldError.size = true
-      error.size = "Digite um tamanho maior que 0 e menor que 50"
+      error.size = "Digite um tamanho maior que 1 e menor que 50"
     }
     if(Number(section)<2||Number(section)>9){
       newFieldError.section = true
@@ -290,7 +291,7 @@ export default function CartPost() {
             {fieldError.size ? <p className={style.p}>{errorMessage.size}</p>:<div className={style.space}></div>}
 
             <h2>Valor Estimado</h2> 
-            <CurrencyInput placeholder="Valor Estimado" disabled={disable} intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={price} 
+            <CurrencyInput placeholder="Valor Estimado" disabled={disable} intlConfig={{ locale: 'pt-br', currency: 'BRL' }} value={price/100} 
             onChange={(e) =>{ setPrice(Number(e.target.value.replace(/[^\d]/g, "")))}}/>
             {fieldError.price ? <p className={style.p}>{errorMessage.price}</p>:<div className={style.space}></div>}
 

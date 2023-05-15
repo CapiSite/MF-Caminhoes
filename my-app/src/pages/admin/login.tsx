@@ -9,6 +9,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import UserContext from "@/APIContext/UserContext";
 import AdminContext from "@/APIContext/AdminContext";
+import { toast } from "react-toastify";
 
 export default function loginAdminForm() {
   const router = useRouter()
@@ -32,7 +33,12 @@ export default function loginAdminForm() {
       setAdminData(admin)
       router.push("/admin")
     }catch(err: any) {
-      const error = err as AxiosError
+      if(err.response.status === 400){
+        toast.warn("Verifique os dados preenchidos")
+      }
+      if(err.response.status === 401){
+        toast.warn("Verifique os dados preenchidos")
+      }
       setDisable(false)
     }
   }
