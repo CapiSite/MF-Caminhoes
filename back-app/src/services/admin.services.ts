@@ -4,10 +4,10 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
 async function createAdmin(username: string, password: string, secret_password: string | string[]) {
-  if(secret_password !== process.env.ADMIN_PASSWORD) throw UnauthorizedError("Senha Secreta incorreta")
+  if(secret_password !== process.env.ADMIN_PASSWORD) throw UnauthorizedError("Verifique os dados Inseridos")
 
   const adminExist = await  adminRepository.getAdminByUsername(username)
-  if(adminExist) throw ConflictError("Nome de usuário já em uso")
+  if(adminExist) throw ConflictError("Verifique os dados Inseridos")
 
   const token = jwt.sign(`${password}${secret_password}${username}`, process.env.JWT_SECRET)
 

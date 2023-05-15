@@ -24,10 +24,9 @@ export default function SignupAdmin() {
       await signupAdmin({username: informations.username, password: informations.password}, informations.secret)
       router.push("/admin/login")
     }catch(err: any) {
-
       const error = err as AxiosError
       if(error.response?.status === 400){
-        setErrorMessage({...errorMessage, password: err.response?.data.message[0]})
+        setErrorMessage({...errorMessage, password: "Verifique os dados preenchidos"})
         setFieldError({...fieldError, password: true})
       }else if(error.response?.status === 401 ){
         setErrorMessage({...errorMessage, secret: err.response?.data.message})
