@@ -291,7 +291,7 @@ export default function CartPost() {
             {fieldError.size ? <p className={style.p}>{errorMessage.size}</p>:<div className={style.space}></div>}
 
             <h2>Valor Estimado</h2> 
-            <CurrencyInput placeholder="Valor Estimado" disabled={disable} intlConfig={{ locale: 'pt-br', currency: 'BRL' }} value={price/100} 
+            <CurrencyInput placeholder="Valor Estimado" disabled={disable} intlConfig={{ locale: 'pt-br', currency: 'BRL' }} value={price} 
             onChange={(e) =>{ setPrice(Number(e.target.value.replace(/[^\d]/g, "")))}}/>
             {fieldError.price ? <p className={style.p}>{errorMessage.price}</p>:<div className={style.space}></div>}
 

@@ -75,10 +75,11 @@ export default function Location() {
             <div className={style.filterMobile}>
               <h1>Preço</h1>
               <div className={style.rangeMobile}>
-                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)} 
-                  onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} min="10000" placeholder="R$ 10000,00" />
+                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)}
+                  onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 10000,00" />
                 <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)}
-                  onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} min="10000" placeholder="R$ 1000000,00" />
+                  onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 1000000,00" />
+
                 <button onClick={() => filterP()}>Filtrar</button>
               </div>
               <h1>Tipo</h1>
@@ -97,10 +98,10 @@ export default function Location() {
           <h1>Filtros</h1>
           <h1>Preço</h1>
           <div className={style.range}>
-            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)/100} 
-              onChange={(e) =>{ e.target.setSelectionRange(e.target.value.length -1, e.target.value.length -1); setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, ""))}) }} placeholder="R$ 10000,00" />
-            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)/100} 
-              onChange={(e) => { e.target.setSelectionRange(e.target.value.length -1, e.target.value.length -1); setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })}} placeholder="R$ 1000000,00" />
+            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)}
+              onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 10000,00" />
+            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)}
+              onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 1000000,00" />
 
             <button onClick={() => filterP()}>Filtrar</button>
           </div>
@@ -129,7 +130,7 @@ export default function Location() {
             </div>
             {carts.length === 0 ? <div className={style.locationsContainer}><p className={style.noCars}>Não há carretas</p></div> :
               <div className={style.locationsContainer}>
-                {carts.filter((o: any) => o.price <= Number(filter.price.max) && o.price >= Number(filter.price.min)).map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
+                {carts.filter((o: any) => o.price <= Number(filter.price.max * 100) && o.price >= Number(filter.price.min * 100)).map((o: any, i) => <Cards key={i} index={i} ct={ct} setCt={setCt} image={o.main_image} id={o.id} sections={o.sections} title={o.title} price={o.price} />)}
               </div>}
 
             {ct <= carts.length ? <div className={style.more}>
