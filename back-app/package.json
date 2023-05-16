@@ -4,14 +4,15 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "ttsc -p tsconfig.build.json",
-    "start": "node dist/server.js",
+    "build": "tsc",
+    "start": "npm run prisma:migrate:deploy && node dist/src/server.js",
     "migration:run": "prisma migrate deploy",
     "migration:generate": "npm run dev:load-envs prisma migrate dev",
     "dev": "NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts",
     "dev:load-envs": "dotenv -e .env.development",
     "dev:migration:run": "npm run dev:load-envs prisma migrate deploy",
     "dev:migration:generate": "npm run dev:load-envs prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
     "dev:seed": "npm run dev:load-envs prisma db seed"
   },
   "author": "",

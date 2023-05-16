@@ -11,7 +11,7 @@ import UserContext from "@/APIContext/UserContext";
 import AdminContext from "@/APIContext/AdminContext";
 import { toast } from "react-toastify";
 
-export default function loginAdminForm() {
+export default function LoginAdminForm() {
   const router = useRouter()
 
   const [disable, setDisable] = useState(false)

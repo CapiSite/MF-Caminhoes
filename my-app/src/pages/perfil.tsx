@@ -11,7 +11,7 @@ import AlertMessage from "@/Components/user_page/Alert_message";
 import Sidebar from "@/Components/Sidebar";
 import OptionContext from "@/APIContext/UserOption";
 
-export default function userArea() {
+export default function UserArea() {
   const [selection, setSelection] = useState<number>(0)
   const [error, setError] = useState<number>(0)
 
