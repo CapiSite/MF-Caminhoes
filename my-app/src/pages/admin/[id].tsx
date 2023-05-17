@@ -18,7 +18,9 @@ export default function ProductLocation() {
   const [error, setError] = useState<boolean>(false)
   const [info, setInfo] = useState<any>()
 
-  const {adminData} = useContext(AdminContext) as any
+  const { adminData } = useContext(AdminContext) as any
+
+  const [src, setSrc] = useState("")
 
   const handleCall = useCallback(async () => {
     if (router.query.id === undefined) {
@@ -28,33 +30,40 @@ export default function ProductLocation() {
     if (typeof (router.query.id) === "string") {
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
+        fetch(`http://localhost:5000/images/main/${infoReceived.main_image}`)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const imageUrl = URL.createObjectURL(blob);
+            setSrc(imageUrl);
+            setMainImage(imageUrl)
+          });
         setInfo(infoReceived)
-        setMainImage(`/main/${infoReceived.main_image}`)
       } catch (err: any) {
       }
     }
   }, [])
 
   useEffect(() => {
-    if(adminData){
+
+    if (adminData) {
       handleCall()
     }
   }, [])
 
   async function validateCartPost() {
-    try{  
+    try {
       await validateCart(info.id, adminData)
       router.push("/admin")
-    }catch(err){
+    } catch (err) {
 
     }
   }
 
   async function unvalidateCartPost() {
-    try{  
+    try {
       await deleteAnyCart(info.id, adminData)
       router.push("/admin")
-    }catch(err){
+    } catch (err) {
 
     }
   }
@@ -91,9 +100,9 @@ export default function ProductLocation() {
       <div className={style.container}>
         <div className={style.allImages}>
           <div className={style.images}>
-            <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={198} height={198} />
+            <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={198} height={198} />
             {info ?
-              info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
+              info.cart_images.map((o: any, i: any) => <Photos image={o.src} key={i} setMainImage={setMainImage} />)
               : null}
           </div>
           <Image src={mainImage} alt="Caminhão" width={500} height={500} />
@@ -116,8 +125,8 @@ export default function ProductLocation() {
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <div className={style.button}>
-              <button  onClick={() => validateCartPost()}>Aprovar</button>
-              <button  onClick={() => unvalidateCartPost()}>Reprovar</button>
+                <button onClick={() => validateCartPost()}>Aprovar</button>
+                <button onClick={() => unvalidateCartPost()}>Reprovar</button>
               </div>
             </>
             : null}

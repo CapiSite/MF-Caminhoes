@@ -17,24 +17,34 @@ import { toast } from "react-toastify"
 
 
 export default function ProductLocation() {
-  
+
   const [deleter, setDeleter] = useState<any>(false)
 
-  const {adminData} = useContext(AdminContext) as any
+  const { adminData } = useContext(AdminContext) as any
   const [error, setError] = useState<boolean>(false)
   const [info, setInfo] = useState<any>()
   const [mainImage, setMainImage] = useState("")
   const router = useRouter()
+  const [src, setSrc] = useState("")
+
+
   const handleCall = useCallback(async () => {
-        if (router.query.id === undefined) {
+    if (router.query.id === undefined) {
       setError(true)
     }
 
     if (typeof (router.query.id) === "string") {
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
+        fetch(`http://localhost:5000/images/main/${infoReceived.main_image}`)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const imageUrl = URL.createObjectURL(blob);
+            setMainImage(imageUrl)
+            setSrc(imageUrl);
+          });
         setInfo(infoReceived)
-        setMainImage(`/main/${infoReceived?.main_image}`)
+        
       } catch (err: any) {
         setError(true)
       }
@@ -42,15 +52,16 @@ export default function ProductLocation() {
   }, [router, useRouter])
 
 
+
   useEffect(() => {
     handleCall()
   }, [])
 
   async function unvalidateCartPost() {
-    try{  
+    try {
       await deleteAnyCart(info.id, adminData)
       router.push("/locacoes")
-    }catch(err){
+    } catch (err) {
       toast.warn("Aconteceu algum erro, tente mais tarde!")
     }
   }
@@ -88,13 +99,13 @@ export default function ProductLocation() {
 
       <div className={style.container}>
         <div className={style.allImages}>
-        <div className={style.images}>
-        <Image src={`/main/${info?.main_image}`} onClick={() => setMainImage(`/main/${info?.main_image}`)} alt="Caminhão" width={500} height={500} />
-          {info ?
-            info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
-            : null}
-        </div>
-        <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+          <div className={style.images}>
+            <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
+            {info ?
+              info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
+              : null}
+          </div>
+          <Image src={mainImage} alt="Caminhão" width={500} height={500} />
         </div>
         <div className={style.info}>
           {info ?
@@ -112,18 +123,18 @@ export default function ProductLocation() {
                 <p>Status: Novo</p>
                 <p>Observações: {info.description}</p>
               </div>
-              <p>R$: {parseFloat((info.price/100).toFixed(2)).toLocaleString('pt-BR', {currency: 'BRL', minimumFractionDigits: 2})}</p>
+              <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <Link href={`https://api.whatsapp.com/send?phone=5534992771000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!%20Quero%20saber%20a%20respeito%20da%20carreta:%20https://locaaqui.com/locacoes/${router.query.id}`} target="_blank"><button >Fazer uma proposta<BsWhatsapp /></button></Link>
-              {adminData ?<div className={style.delete}><button  onClick={() => setDeleter(true)}>Deletar carreta</button></div>:<></>}
+              {adminData ? <div className={style.delete}><button onClick={() => setDeleter(true)}>Deletar carreta</button></div> : <></>}
               {deleter &&
-        <div className={styleModal.modal}>
-          <h1>Deseja mesmo deletar essa carreta?</h1>
-          <p>Essa carreta será excluída!</p>
-          <div className={styleModal.buttons}>
-            <button onClick={() => setDeleter(false)}>Não</button>
-            <button onClick={() => unvalidateCartPost()}>Sim</button>
-          </div>
-        </div>}
+                <div className={styleModal.modal}>
+                  <h1>Deseja mesmo deletar essa carreta?</h1>
+                  <p>Essa carreta será excluída!</p>
+                  <div className={styleModal.buttons}>
+                    <button onClick={() => setDeleter(false)}>Não</button>
+                    <button onClick={() => unvalidateCartPost()}>Sim</button>
+                  </div>
+                </div>}
             </>
             : null}
         </div>

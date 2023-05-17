@@ -5,20 +5,17 @@ import { adminRouter } from './routes/admin.routes';
 import { usersRouter } from './routes/users.routes';
 import { cartsRouter } from './routes/carts.routes';
 import { typesRouter } from './routes/types.routes';
-import multer from 'multer';
-import bodyParser from 'body-parser';
+import { imagesRouter } from './routes/images.routes';
 
 loadEnv();
 
 const app = express();
-const uploadUser = multer()
 
 app
   .use(cors())
-  .use(bodyParser.urlencoded({extended: true}))
-  .use(bodyParser.json())
   .use(express.json())
   .get("/health", (_req, res) => res.send("OK!"))
+  .use("/images", imagesRouter)
   .use("/admin", adminRouter)
   .use("/users", usersRouter)
   .use("/carts", cartsRouter)

@@ -78,6 +78,17 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
 function CardUser({ info, deleteMyCartPost }: any) {
   const [deleter, setDeleter] = useState<any>(false)
 
+  const [src, setSrc] = useState("")
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/images/main/${info.main_image}`) 
+      .then((response) => response.blob()) 
+      .then((blob) => {
+        const imageUrl = URL.createObjectURL(blob);
+        setSrc(imageUrl); 
+      });
+  }, [])
+
   return (
     <>
       {deleter &&
@@ -91,7 +102,7 @@ function CardUser({ info, deleteMyCartPost }: any) {
 
         </div>}
       <div className={style.Mycard}>
-        <Image src={`/main/${info.main_image}`} alt="Caminhão" width={198} height={198} />
+        <Image src={src} alt="Caminhão" width={198} height={198} />
         <div>
           <h1>{info.title}</h1>
           <p>{info.sections} eixos</p>
@@ -108,6 +119,17 @@ function CardMobile({ info, deleteMyCartPost }: any) {
   const [deleter, setDeleter] = useState<any>(false)
   const [formOn, setFormOn] = useState<boolean>(false)
 
+  const [src, setSrc] = useState("")
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/images/main/${info.main_image}`) 
+      .then((response) => response.blob()) 
+      .then((blob) => {
+        const imageUrl = URL.createObjectURL(blob);
+        setSrc(imageUrl); 
+      });
+  }, [])
+
   return (
     <>
       {deleter &&
@@ -122,7 +144,7 @@ function CardMobile({ info, deleteMyCartPost }: any) {
         </div>}
 
       <div className={styleMobile.locationsCardPersonal}>
-        <Image src={`/main/${info.main_image}`} alt="Caminhão" width={198} height={198} />
+        <Image src={src} alt="Caminhão" width={198} height={198} />
         <h2>{info.title}</h2>
         <p>{info.sections} eixos</p>
         <p>R${parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
@@ -135,10 +157,21 @@ function CardMobile({ info, deleteMyCartPost }: any) {
 
 
 function CardUserRefused({ info }: any) {
+  const [src, setSrc] = useState("")
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/images/main/${info.main_image}`) 
+      .then((response) => response.blob()) 
+      .then((blob) => {
+        const imageUrl = URL.createObjectURL(blob);
+        setSrc(imageUrl); 
+      });
+  }, [])
+
   return (
     <>
       <div className={style.Mycard}>
-        <Image src={`/main/${info.main_image}`} alt="Caminhão" width={198} height={198} />
+        <Image src={src} alt="Caminhão" width={198} height={198} />
         <div>
           <h1>{info.title}</h1>
         </div>
@@ -149,10 +182,21 @@ function CardUserRefused({ info }: any) {
 
 
 function CardMobileRefused({ info }: any) {
+  const [src, setSrc] = useState("")
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/images/main/${info.main_image}`) 
+      .then((response) => response.blob()) 
+      .then((blob) => {
+        const imageUrl = URL.createObjectURL(blob);
+        setSrc(imageUrl); 
+      });
+  }, [])
+
   return (
     <>
       <div className={styleMobile.locationsCardPersonal}>
-        <Image src={`/main/${info.main_image}`} alt="Caminhão" width={198} height={198} />
+        <Image src={src} alt="Caminhão" width={198} height={198} />
         <h2>{info.title}</h2>
       </div>
     </>
