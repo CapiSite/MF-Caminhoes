@@ -1,5 +1,5 @@
-import { prismaDb } from "@/config"
-import { Userinfo } from "@/protocols"
+import { prismaDb } from "../config"
+import { Userinfo } from "../protocols"
 
 async function getUserByCpf(cpf: string) {
   try {

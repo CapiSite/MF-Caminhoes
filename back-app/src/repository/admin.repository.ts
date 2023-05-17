@@ -1,5 +1,5 @@
-import { prismaDb } from "@/config"
-import { AdminCreation } from "@/protocols"
+import { prismaDb } from "../config"
+import { AdminCreation } from "../protocols"
 
 async function getAdminByUsername(username: string) {
   try {

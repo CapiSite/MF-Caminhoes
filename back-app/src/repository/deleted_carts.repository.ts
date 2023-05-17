@@ -1,4 +1,4 @@
-import { prismaDb } from "@/config"
+import { prismaDb } from "../config"
 
 async function createDeleted(title: string, main_image: string,user_id: number) {
   return prismaDb.deleted_carts.create({

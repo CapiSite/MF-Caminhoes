@@ -1,5 +1,5 @@
 import express, { Express } from 'express'
-import { connectDb, disconnectDB, loadEnv } from '@/config'
+import { connectDb, disconnectDB, loadEnv } from './config'
 import cors from 'cors';
 import { adminRouter } from './routes/admin.routes';
 import { usersRouter } from './routes/users.routes';

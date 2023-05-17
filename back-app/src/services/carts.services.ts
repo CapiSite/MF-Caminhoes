@@ -1,12 +1,10 @@
-import { UnauthorizedError } from "@/errors"
-import { NotFoundError } from "@/errors/not-found-error"
-import { CartCreation, CartCreationDefinitive } from "@/protocols"
-import { cartsRepository } from "@/repository/carts.repository"
-import { deletedRepository } from "@/repository/deleted_carts.repository"
-import { typesRepository } from "@/repository/types.repository"
-import { usersRepository } from "@/repository/users.repository"
-import { func, string } from "joi"
-import { type } from "os"
+import { UnauthorizedError } from "../errors"
+import { NotFoundError } from "../errors/not-found-error"
+import { CartCreation, CartCreationDefinitive } from "../protocols"
+import { cartsRepository } from "../repository/carts.repository"
+import { deletedRepository } from "../repository/deleted_carts.repository"
+import { typesRepository } from "../repository/types.repository"
+import { usersRepository } from "../repository/users.repository"
 
 async function getAllCarts() {
   return await cartsRepository.getAllCarts()

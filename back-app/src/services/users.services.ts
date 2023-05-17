@@ -1,12 +1,12 @@
-import { ConflictError, UnauthorizedError } from "@/errors"
-import { UserCreation } from "@/protocols"
-import { sessionsRepository } from "@/repository/sessions.repository"
-import { addressRepository } from "@/repository/address.repository"
-import { usersRepository } from "@/repository/users.repository"
+import { ConflictError, UnauthorizedError } from "../errors"
+import { UserCreation } from "../protocols"
+import { sessionsRepository } from "../repository/sessions.repository"
+import { addressRepository } from "../repository/address.repository"
+import { usersRepository } from "../repository/users.repository"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { typesRepository } from "@/repository/types.repository"
-import { NotFoundError } from "@/errors/not-found-error"
+import { typesRepository } from "../repository/types.repository"
+import { NotFoundError } from "../errors/not-found-error"
 
 async function createUser(user: UserCreation) {
 

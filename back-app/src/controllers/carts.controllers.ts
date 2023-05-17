@@ -1,5 +1,5 @@
-import { AuthenticatedRequest, AuthenticatedRequestAdmin } from '@/protocols';
-import { cartsServices } from '@/services';
+import { AuthenticatedRequest, AuthenticatedRequestAdmin } from '../protocols';
+import { cartsServices } from '../services';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 

@@ -1,4 +1,4 @@
-import { typesRepository } from "@/repository/types.repository"
+import { typesRepository } from "../repository/types.repository"
 
 async function getTypes() {
   return await typesRepository.getCartTypes()

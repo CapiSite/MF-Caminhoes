@@ -1,4 +1,4 @@
-import { CartCreation, UserCreation } from "@/protocols";
+import { CartCreation } from "../protocols";
 import Joi from "joi";
 
 export const cartPost = Joi.object<CartCreation> ({

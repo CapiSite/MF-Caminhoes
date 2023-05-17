@@ -1,4 +1,4 @@
-import { ErrorCase } from "@/protocols";
+import { ErrorCase } from "../protocols";
 
 export function ConflictError(errors: string): ErrorCase {
   return{

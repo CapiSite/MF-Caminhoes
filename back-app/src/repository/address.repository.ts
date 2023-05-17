@@ -1,5 +1,5 @@
-import { prismaDb } from "@/config"
-import { UserAddress } from "@/protocols"
+import { prismaDb } from "../config"
+import { UserAddress } from "../protocols"
 
 async function createAddress(address: UserAddress) {
   try {

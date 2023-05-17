@@ -13,6 +13,7 @@ services:
   node:
     container_name: back-app
     build: ./back-app
+    restart: always
     ports:
       - 5000:5000
     depends_on:
@@ -26,21 +27,12 @@ services:
     ports: 
       - 3000:3000
     env_file:
-      - my-app/.env.local
-    volumes:
-      - next-volume:/var/www/html
-
-  nginx:
-    container_name: nginx
-    build: ./nginx
-    ports:
-      - 80:80
-    volumes:
-      - next-volume:/var/www/html
+      - my-app/.env.production
     depends_on:
-      - postgres
       - node
-      - web
+    volumes:
+      - next-volume:/src/usr/mc-caminhoes
+
 
 volumes:
   postgres-volume:

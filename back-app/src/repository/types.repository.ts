@@ -1,5 +1,4 @@
-import { prismaDb } from "@/config"
-import { exist } from "joi"
+import { prismaDb } from "../config"
 
 async function getCartTypes() {
   return prismaDb.cart_type.findMany({

@@ -1,6 +1,5 @@
-import { prismaDb } from "@/config"
-import { CartCreationDefinitive } from "@/protocols"
-import { PrismaClientInitializationError } from "@prisma/client/runtime"
+import { prismaDb } from "../config"
+import { CartCreationDefinitive } from "../protocols"
 
 async function getAllCarts() {
   //alterar depois para adicionar where valid:true

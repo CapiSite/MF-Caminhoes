@@ -1,4 +1,4 @@
-import { prismaDb } from "@/config"
+import { prismaDb } from "../config"
 
 async function getSessionByUserId(user_id: number) {
   try {

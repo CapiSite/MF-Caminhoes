@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { valid } from "joi";
 const prisma = new PrismaClient();
 
 async function main() {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { confirmSawAllDeletedCarts, createCart, deleteCart, deleteMyCart, editCart, getAllCarts, getMyCarts, getSpecificCart, getUnvalidCarts, validateCart } from "@/controllers";
-import { authenticateAdmin, authenticateToken, uploadMain, uploadSecondary, validateBody } from "@/middlewares";
-import { cartPost, cartUpdate } from "@/models/cart.models";
+import { confirmSawAllDeletedCarts, createCart, deleteCart, deleteMyCart, editCart, getAllCarts, getMyCarts, getSpecificCart, getUnvalidCarts, validateCart } from "../controllers";
+import { authenticateAdmin, authenticateToken, uploadMain, uploadSecondary, validateBody } from "../middlewares";
+import { cartPost, cartUpdate } from "../models/cart.models";
 import { Router } from "express";
 import httpStatus from "http-status";
 

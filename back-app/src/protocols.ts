@@ -1,6 +1,5 @@
 import { ValidationError } from "joi"
 import { Request } from "express";
-import { carts } from "@prisma/client";
 
 export type ErrorCase = {
   name: String,

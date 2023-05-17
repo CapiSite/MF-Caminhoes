@@ -1,5 +1,5 @@
-import { ConflictError, UnauthorizedError } from "@/errors"
-import { adminRepository } from "@/repository/admin.repository"
+import { ConflictError, UnauthorizedError } from "../errors"
+import { adminRepository } from "../repository/admin.repository"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 

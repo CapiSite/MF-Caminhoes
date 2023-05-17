@@ -1,6 +1,6 @@
-import { createAdmin, loginAdmin, logoutAdmin } from "@/controllers/admin.controllers";
-import { authenticateAdmin, validateBody } from "@/middlewares";
-import { adminPost } from "@/models/admin.models";
+import { createAdmin, loginAdmin, logoutAdmin } from "../controllers/admin.controllers";
+import { authenticateAdmin, validateBody } from "../middlewares";
+import { adminPost } from "../models/admin.models";
 import { Router } from "express";
 
 const adminRouter = Router()

@@ -1,4 +1,4 @@
-import { typesService } from "@/services"
+import { typesService } from "../services"
 import { Response, Request } from "express"
 import httpStatus from "http-status"
 

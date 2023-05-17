@@ -1,6 +1,6 @@
-import { prismaDb } from '@/config';
-import { UnauthorizedError } from '@/errors/unauthorized-error';
-import { AuthenticatedRequestAdmin } from '@/protocols';
+import { prismaDb } from '../config';
+import { UnauthorizedError } from '../errors/unauthorized-error';
+import { AuthenticatedRequestAdmin } from '../protocols';
 import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status';
 import jwt from 'jsonwebtoken';

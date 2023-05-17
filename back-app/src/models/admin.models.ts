@@ -1,4 +1,4 @@
-import { AdminCreation, UserCreation, UserLogin } from "@/protocols";
+import { AdminCreation } from "../protocols";
 import Joi from "joi";
 
 export const adminPost = Joi.object<AdminCreation> ({

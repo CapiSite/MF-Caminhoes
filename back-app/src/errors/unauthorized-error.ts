@@ -1,4 +1,4 @@
-import { ErrorCase } from "@/protocols";
+import { ErrorCase } from "../protocols";
 
 export function UnauthorizedError(errors: string): ErrorCase {
   return{

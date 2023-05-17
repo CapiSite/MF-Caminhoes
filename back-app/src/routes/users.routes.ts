@@ -1,9 +1,9 @@
-import { createUser, deleteUser, editUser, loginUser, logoutUser } from "@/controllers/users.controllers";
-import { authenticateToken, validateBody } from "@/middlewares";
-import { forgotPassword, userLogin, userPost, userUpdate } from "@/models/users.models";
-import { AuthenticatedRequest } from "@/protocols";
+import { createUser, deleteUser, editUser, loginUser, logoutUser } from "../controllers/users.controllers";
+import { authenticateToken, validateBody } from "../middlewares";
+import { forgotPassword, userLogin, userPost, userUpdate } from "../models/users.models";
+import { AuthenticatedRequest } from "../protocols";
 import { Router } from "express";
-import { Response, Request } from "express";
+import { Response } from "express";
 import httpStatus from "http-status";
 
 const usersRouter = Router()

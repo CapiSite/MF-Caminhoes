@@ -1,5 +1,5 @@
-import { AuthenticatedRequestAdmin } from '@/protocols';
-import { adminServices } from '@/services/admin.services';
+import { AuthenticatedRequestAdmin } from '../protocols';
+import { adminServices } from '../services/admin.services';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 

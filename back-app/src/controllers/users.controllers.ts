@@ -1,5 +1,5 @@
-import { AuthenticatedRequest } from '@/protocols';
-import { userServices } from '@/services';
+import { AuthenticatedRequest } from '../protocols';
+import { userServices } from '../services';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 

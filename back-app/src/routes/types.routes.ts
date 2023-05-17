@@ -1,4 +1,4 @@
-import { getBrands, getModels, getStates, getTypes, getWheels } from "@/controllers";
+import { getBrands, getModels, getStates, getTypes, getWheels } from "../controllers";
 import { Router } from "express";
 
 const typesRouter = Router()
