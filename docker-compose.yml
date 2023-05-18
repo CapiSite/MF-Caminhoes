@@ -20,6 +20,8 @@ services:
       - postgres
     env_file:
       - back-app/.env
+    volumes:
+      - back-volume:/src/usr/mc-caminhoes
 
   web:
     container_name: my-app
@@ -37,3 +39,4 @@ services:
 volumes:
   postgres-volume:
   next-volume:
+  back-volume:
