@@ -15,40 +15,44 @@ export default function ProductLocation() {
   const router = useRouter()
 
   const [mainImage, setMainImage] = useState("")
-  const [error, setError] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(true)
   const [info, setInfo] = useState<any>()
 
   const { adminData } = useContext(AdminContext) as any
 
-  const [src, setSrc] = useState("")
+  const [src, setSrc] = useState<null | string>(null)
 
   const handleCall = useCallback(async () => {
-    if (router.query.id === undefined) {
-      setError(true)
-    }
-
     if (typeof (router.query.id) === "string") {
+      setError(false)
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
-        fetch(`http://localhost:5000/images/main/${infoReceived.main_image}`)
+        
+        if(infoReceived.main_image){
+          fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${infoReceived.main_image}`)
           .then((response) => response.blob())
           .then((blob) => {
             const imageUrl = URL.createObjectURL(blob);
-            setSrc(imageUrl);
             setMainImage(imageUrl)
-          });
+            setSrc(imageUrl);
+          })
+          .catch((err) =>{
+            setError(true)
+          })
+        }
+
         setInfo(infoReceived)
       } catch (err: any) {
       }
     }
-  }, [])
+  }, [router])
 
   useEffect(() => {
 
     if (adminData) {
       handleCall()
     }
-  }, [])
+  }, [router])
 
   async function validateCartPost() {
     try {
@@ -100,7 +104,9 @@ export default function ProductLocation() {
       <div className={style.container}>
         <div className={style.allImages}>
           <div className={style.images}>
-            <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={198} height={198} />
+            {src ?
+              <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
+              : null}
             {info ?
               info.cart_images.map((o: any, i: any) => <Photos image={o.src} key={i} setMainImage={setMainImage} />)
               : null}

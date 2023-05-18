@@ -1,7 +1,5 @@
-import { getMainImage, getSecondaryImage } from "@/controllers/image.controllers";
-import { Request, Response } from "express";
+import { getMainImage, getSecondaryImage } from "../controllers/image.controllers";
 import { Router } from "express";
-import path from "path";
 
 const imagesRouter = Router()
 

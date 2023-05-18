@@ -8,7 +8,7 @@ services:
     env_file:
       - back-app/.env
     volumes:
-      - postgres-volume:/var/lib/postgresql/data
+      - postgres-deploy-volume:/var/lib/postgresql/data
 
   node:
     container_name: back-app
@@ -20,20 +20,23 @@ services:
       - postgres
     env_file:
       - back-app/.env
+    volumes:
+      - back-deploy-volume:/src/usr/mc-caminhoes
 
   web:
-    container_name: my-app
+    container_name: next
     build: ./my-app
     ports: 
       - 3000:3000
-    env_file:
-      - my-app/.env.production
     depends_on:
       - node
+    env_file:
+      - my-app/.env.local
     volumes:
-      - next-volume:/src/usr/mc-caminhoes
+      - next-deploy-volume:/src/usr/mc-caminhoes
 
 
 volumes:
-  postgres-volume:
-  next-volume:
+  postgres-deploy-volume:
+  next-deploy-volume:
+  back-deploy-volume:

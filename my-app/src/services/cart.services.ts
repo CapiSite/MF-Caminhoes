@@ -1,4 +1,3 @@
-import path from 'path';
 import instance from './api';
 
 export async function getAllCarts() {

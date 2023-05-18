@@ -5,7 +5,7 @@ import httpStatus from "http-status";
 
 export async function getMainImage(req: Request, res: Response) {
   const {src} = req.params
-  const imagePath = path.resolve(__dirname, "..", "..", "public", "main", src)
+  const imagePath = path.resolve(__dirname, "..", "public", "main", src)
 
   if(!imagePath){
     return res.sendStatus(httpStatus.CREATED)
@@ -16,7 +16,7 @@ export async function getMainImage(req: Request, res: Response) {
 
 export async function getSecondaryImage(req: Request, res: Response) {
   const {src} = req.params
-  const imagePath = path.resolve(__dirname, "..", "..", "public", "secondary", src)
+  const imagePath = path.resolve(__dirname, "..", "public", "secondary", src)
 
   if(!imagePath){
     return res.sendStatus(httpStatus.CREATED)

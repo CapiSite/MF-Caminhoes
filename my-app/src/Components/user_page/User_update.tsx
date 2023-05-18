@@ -1,16 +1,12 @@
 import UserContext from "@/APIContext/UserContext"
-import { cepValidation } from "@/services/cep"
 import { useRouter } from "next/router"
-import { ChangeEvent, FormEvent, useCallback, useContext, useEffect, useState } from "react"
+import { FormEvent, useCallback, useContext, useEffect, useState } from "react"
 import style from "@/styles/user_page/user_update.module.css";
-import { DebounceInput } from "react-debounce-input";
 import { ThreeDots } from "react-loader-spinner";
 import { getStates } from "@/services/types.services";
 import { roboto } from "@/styles/fonts";
 import { deleteUser, logoutUser, updateUser } from "@/services/user-services";
-import React, { Component } from 'react';
 import MaskedInput from 'react-text-mask'
-import { convertToObject } from "typescript";
 import { toast } from "react-toastify";
 import findId from "@/hooks/findSelectId";
 import handleCep from "@/hooks/handleCep";
