@@ -32,9 +32,13 @@ export default function Location() {
   const handleCall = useCallback(async () => {
     try {
       const cartsReceived = await getAllCarts()
-      setAllcarts(cartsReceived)
-      setCaminhoes(cartsReceived)
-      console.log(cartsReceived)
+      setAllcarts(cartsReceived.sort((a: any, b: any) => {
+        return Number(b.id) - Number(a.id)
+    }))
+      setCaminhoes(cartsReceived.sort((a: any, b: any) => {
+          return Number(b.id) - Number(a.id)
+      }))
+
       const brandsReceived = await getBrands()
       setBrands(brandsReceived)
 
@@ -163,7 +167,7 @@ export default function Location() {
         return b.title.localeCompare(a.title)
       }
       if (e === "Destaques") {
-        return Number(a.id) - Number(b.id)
+        return Number(b.id) - Number(a.id)
       }
     }))
 

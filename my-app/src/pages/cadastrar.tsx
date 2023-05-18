@@ -18,9 +18,9 @@ export default function Cadastro() {
   const router = useRouter()
 
   const [disable, setDisable] = useState(false)
-  const [informations, setInformations] = useState<any>({ email: "", password: "", password_confirmation: "", name: "", last_name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: 0 })
-  const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!", password_confirmation: "Campo Obrigatório!", name: "Campo Obrigatório!", last_name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" })
-  const [fieldError, setFieldError] = useState(() => ({ email: false, password: false, password_confirmation: false, name: false, last_name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "" }))
+  const [informations, setInformations] = useState<any>({ email: "", password: "", password_confirmation: "", name: "", last_name: "", cpf: "", phone: "", cep: "", address: "", number: "", complement: "", city: "", uf: 0, checkbox:false })
+  const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!", password_confirmation: "Campo Obrigatório!", name: "Campo Obrigatório!", last_name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!", checkbox: "Campo Obrigatório!"})
+  const [fieldError, setFieldError] = useState(() => ({ email: false, password: false, password_confirmation: false, name: false, last_name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: "", checkbox:false }))
   const [states, setStates] = useState<{ id: number, name: string }[]>([])
 
   const { userData } = useContext(UserContext) as { userData: string }
@@ -112,6 +112,12 @@ export default function Cadastro() {
             <input className={style.input} value={informations.city} onChange={(e) => setInformations({ ...informations, city: e.target.value })} disabled={true} type="text" placeholder="Cidade" />
             {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Cadastrar"}</button>
+            <div className={style.checkbox}>
+            <input name="checkbox" checked={informations.checkbox} onClick={()=>setInformations({...informations, checkbox: !informations.checkbox})} type="checkbox"/>
+            <label htmlFor="checkbox">Concordo com os <span onClick={()=>router.push("/privacidade")}>termos de uso e política de privacidade</span></label>
+            </div>
+            {fieldError.checkbox ? <p className={style.p}>{errorMessage.checkbox}</p> : <div className={style.space}></div>}
+
           </div>
         </form>
       </div>
@@ -122,9 +128,9 @@ export default function Cadastro() {
   async function SignUp(e: FormEvent) {
     e.preventDefault()
     setDisable(true)
-    const fields = ["name", "email", "password", "password_confirmation", "last_name", "cpf", "phone", "cep", "address", "number", "complement", "city", "uf"]
-    let newFieldError: any = { name: false, email: false, password: false, password_confirmation: false, last_name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: false };
-    let error = { email: "Campo Obrigatório!", password: "Campo Obrigatório!", password_confirmation: "Campo Obrigatório!", name: "Campo Obrigatório!", last_name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!" }
+    const fields = ["name", "email", "password", "password_confirmation", "last_name", "cpf", "phone", "cep", "address", "number", "complement", "city", "uf", "checkbox"]
+    let newFieldError: any = { name: false, email: false, password: false, password_confirmation: false, last_name: false, cpf: false, phone: false, cep: false, address: false, number: false, complement: false, city: false, uf: false, checkbox: false };
+    let error = { email: "Campo Obrigatório!", password: "Campo Obrigatório!", password_confirmation: "Campo Obrigatório!", name: "Campo Obrigatório!", last_name: "Campo Obrigatório!", cpf: "Campo Obrigatório!", phone: "Campo Obrigatório!", cep: "Campo Obrigatório!", address: "Campo Obrigatório!", number: "Campo Obrigatório!", complement: "Campo Obrigatório!", city: "Campo Obrigatório!", uf: "Campo Obrigatório!", checkbox: "Campo Obrigatório!" }
     for (let item of fields) {
       if (!informations[item]) {
         newFieldError = { ...newFieldError, [item]: true };
@@ -137,7 +143,10 @@ export default function Cadastro() {
         error = { ...error, [item]: "Quantia máxima de caracteres: 100" }
       }
     }
-    
+    if (!informations.checkbox){
+      newFieldError = { ...newFieldError, checkbox: true };
+      error = { ...error, checkbox: "Marque os termos de serviço!" }
+    }
     if(informations.email.includes(".") === false){
       newFieldError = { ...newFieldError, email: true };
       error = { ...error, email: "Email inválido!" }
@@ -164,12 +173,62 @@ export default function Cadastro() {
       newFieldError = { ...newFieldError, last_name: true };
       error = { ...error, last_name: "Sobrenome inválido!" }
     }
+    if (/\W|_/.test(informations.name) === true) {
+      newFieldError = { ...newFieldError, name: true };
+      error = { ...error, name: "Nome inválido!" }
+    }
+    if (/\W|_/.test(informations.last_name) === true) {
+      newFieldError = { ...newFieldError, last_name: true };
+      error = { ...error, last_name: "Sobrenome inválido!" }
+    }
     if(informations.cpf.length!==11){
     if(String(informations.cpf).trim().length!==11){
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
   }
+
+    const cpf = informations.cpf.replace(/[^\d]+/g,'');	
+    if(cpf === '') {
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }
+    }
+    // Elimina CPFs invalidos conhecidos	
+    if (cpf.length !== 11 || 
+      cpf === "00000000000" || 
+      cpf === "11111111111" || 
+      cpf === "22222222222" || 
+      cpf === "33333333333" || 
+      cpf === "44444444444" || 
+      cpf === "55555555555" || 
+      cpf === "66666666666" || 
+      cpf === "77777777777" || 
+      cpf === "88888888888" || 
+      cpf === "99999999999")
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }		
+    // Valida 1o digito	
+    let add = 0;	
+    for (let i=0; i < 9; i ++)		
+      add += parseInt(cpf.charAt(i)) * (10 - i);	
+      let rev = 11 - (add % 11);	
+      if (rev == 10 || rev == 11)		
+        rev = 0;	
+      if (rev != parseInt(cpf.charAt(9)))		
+        newFieldError = { ...newFieldError, cpf: true };
+        error = { ...error, cpf: "CPF inválido!" }	
+    // Valida 2o digito	
+    add = 0;	
+    for (let i = 0; i < 10; i ++)		
+      add += parseInt(cpf.charAt(i)) * (11 - i);	
+    rev = 11 - (add % 11);	
+    if (rev == 10 || rev == 11)	
+      rev = 0;	
+    if (rev != parseInt(cpf.charAt(10)))
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }
+   
+ 
     if(String(informations.phone).trim().length!==11){
     if(informations.phone.length!==11){
       newFieldError = { ...newFieldError, phone: true };

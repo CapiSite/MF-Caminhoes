@@ -36,6 +36,7 @@ export default function Login() {
         <Sidebar />
       </div>
       <div className={style.background}>
+      <div className={style.left}>
         <h1 className={style.h1}>Entre na sua conta</h1>
         <form className={style.form} onSubmit={(e) => login(e)}>
           <p className={style.p2}>Email:</p>
@@ -72,7 +73,14 @@ export default function Login() {
           <button type="submit">Enviar código</button>
         </form>}
       </div>
-
+      <div className={style.right}>
+        <div>
+        <h1 className={style.title}>Alugue o equipamento que você precisa em apenas alguns cliques!</h1>
+        <p>Faça sua escolha entre carros, motos, caminhões, tratores, escavadeiras, equipamentos de academia, ferramentas para construção civil e muito mais!</p>
+        <p>A locação de tudo o que você precisa em um só lugar!</p>
+        </div>
+      </div>
+      </div>
       <Footer />
     </>
   )

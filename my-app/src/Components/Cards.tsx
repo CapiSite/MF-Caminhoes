@@ -3,7 +3,7 @@ import style from "../styles/LocationsStyle.module.css"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-export default function Cards({ index, ct, image, id, title, sections, price, setCt }: any) {
+export default function Cards({ index, ct, image, id, title, sections, price }: any) {
   const router = useRouter()
 
   const [src, setSrc] = useState("")
@@ -15,7 +15,7 @@ export default function Cards({ index, ct, image, id, title, sections, price, se
         const imageUrl = URL.createObjectURL(blob);
         setSrc(imageUrl); 
       });
-  }, [])
+  }, [image])
 
   if (index < ct) {
     return (

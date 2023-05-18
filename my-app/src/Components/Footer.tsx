@@ -38,7 +38,7 @@ export default function Footer() {
           </Link>
         </div>
         <p className={style.address}>
-          Rua Bernardo Sayão, 181, Custódio Pereira UBERLANDIA/MINAS GERAIS
+          Rua Bernardo Sayão, 247, Custódio Pereira UBERLANDIA/MINAS GERAIS
           38405-234
         </p>
       </div>

@@ -79,12 +79,55 @@ export default function UserUpdate() {
       newFieldError = { ...newFieldError, name: true };
       error = { ...error, name: "Nome inválido!" }
     }
+    if (/\W|_/.test(informations.name) === true) {
+      newFieldError = { ...newFieldError, name: true };
+      error = { ...error, name: "Nome inválido!" }
+    }
     if(informations.cpf.length!==11){
     if (informations.cpf.length !== 11) {
       newFieldError = { ...newFieldError, cpf: true };
       error = { ...error, cpf: "CPF inválido!" }
     }
   }
+  const cpf = informations.cpf.replace(/[^\d]+/g,'');	
+    if(cpf === '') {
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }
+    }
+    // Elimina CPFs invalidos conhecidos	
+    if (cpf.length !== 11 || 
+      cpf === "00000000000" || 
+      cpf === "11111111111" || 
+      cpf === "22222222222" || 
+      cpf === "33333333333" || 
+      cpf === "44444444444" || 
+      cpf === "55555555555" || 
+      cpf === "66666666666" || 
+      cpf === "77777777777" || 
+      cpf === "88888888888" || 
+      cpf === "99999999999")
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }		
+    // Valida 1o digito	
+    let add = 0;	
+    for (let i=0; i < 9; i ++)		
+      add += parseInt(cpf.charAt(i)) * (10 - i);	
+      let rev = 11 - (add % 11);	
+      if (rev == 10 || rev == 11)		
+        rev = 0;	
+      if (rev != parseInt(cpf.charAt(9)))		
+        newFieldError = { ...newFieldError, cpf: true };
+        error = { ...error, cpf: "CPF inválido!" }	
+    // Valida 2o digito	
+    add = 0;	
+    for (let i = 0; i < 10; i ++)		
+      add += parseInt(cpf.charAt(i)) * (11 - i);	
+    rev = 11 - (add % 11);	
+    if (rev == 10 || rev == 11)	
+      rev = 0;	
+    if (rev != parseInt(cpf.charAt(10)))
+      newFieldError = { ...newFieldError, cpf: true };
+      error = { ...error, cpf: "CPF inválido!" }
     if(informations.phone.length!==11){
     if (informations.phone.length < 11) {
       newFieldError = { ...newFieldError, phone: true };

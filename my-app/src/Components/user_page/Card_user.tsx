@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "@/APIContext/UserContext";
 import styleModal from "@/styles/user_page/user_update.module.css";
 import OptionContext from "@/APIContext/UserOption";
+import { useRouter } from "next/router";
 
 export default function MyCartsSection({ info, change, type }: { info: any, change: {render: any, setRender: any,},  type: number }) {
   const { userData } = useContext(UserContext) as any
@@ -77,7 +78,7 @@ export default function MyCartsSection({ info, change, type }: { info: any, chan
 
 function CardUser({ info, deleteMyCartPost }: any) {
   const [deleter, setDeleter] = useState<any>(false)
-
+  const router = useRouter()
   const [src, setSrc] = useState("")
 
   useEffect(() => {
@@ -108,7 +109,10 @@ function CardUser({ info, deleteMyCartPost }: any) {
           <p>{info.sections} eixos</p>
         </div>
         <p>R${parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
+        <button onClick={()=> router.push(`/locacoes/${info.id}`)} disabled={info.valid?false:true} className={style.seeMore}>{info.valid?"Ver mais":"Em análise"}</button>
         <button onClick={() => setDeleter(true)} className={style.delete}>Deletar</button>
+        
+        
       </div>
     </>
   )
@@ -117,11 +121,11 @@ function CardUser({ info, deleteMyCartPost }: any) {
 
 function CardMobile({ info, deleteMyCartPost }: any) {
   const [deleter, setDeleter] = useState<any>(false)
-  const [formOn, setFormOn] = useState<boolean>(false)
-
+  const router = useRouter()
   const [src, setSrc] = useState("")
 
   useEffect(() => {
+    console.log(info)
     fetch(`http://localhost:5000/images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
@@ -148,7 +152,9 @@ function CardMobile({ info, deleteMyCartPost }: any) {
         <h2>{info.title}</h2>
         <p>{info.sections} eixos</p>
         <p>R${parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
+        <button onClick={()=> router.push(`/locacoes/${info.id}`)} disabled={info.valid?false:true} className={styleMobile.seeMore}>{info.valid?"Ver mais":"Em análise"}</button>
         <button onClick={() => setDeleter(true)} className={styleMobile.delete}>Deletar</button>
+        
       </div>
     </>
   )

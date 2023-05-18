@@ -142,12 +142,10 @@
 
 
 
-.delete {
-  background-color: var(--strong-red) ;
-}
+
 
 .delete:hover {
-  background-color: var(--light-red);
+  background-color: var(--strong-red);
 }
 
 .sidebar{
@@ -163,8 +161,26 @@
 
 .delete{
   position: absolute;
+  top:140px;
+  right: 30px;
+  background-color: var(--light-red) ;
+  color: var(--black);
+}
+.seeMore{
+  position: absolute;
+  background-color: var(--light-green);
   top:90px;
   right: 30px;
+}
+.seeMore:disabled{
+  background-color: var(--gray);
+}
+.seeMore:disabled:hover{
+  background-color: var(--gray);
+  cursor: default;
+}
+.seeMore:hover{
+  background-color: var(--strong-green);
 }
 @media (max-width: 800px) {
     .header {
@@ -177,6 +193,7 @@
     .cards {
       display: none;
   }
+
   .mobileCard{
     display: flex;
     flex-direction: column;

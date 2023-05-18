@@ -79,13 +79,24 @@
   cursor: pointer;
   background-color: var(--light-green);
 }
-
+.seeMore{
+  background-color: var(--light-green);
+}
+.seeMore:hover{
+  background-color: var(--strong-green);
+}
 .banner_mobile {
   display: none;
   width: 80vw;
   height: 80vw;
 }
-
+.seeMore:disabled{
+  background-color: var(--gray);
+}
+.seeMore:disabled:hover{
+  background-color: var(--gray);
+  cursor: default;
+}
 .sidebar {
   display: none;
 }
