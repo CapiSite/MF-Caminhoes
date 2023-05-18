@@ -5,6 +5,3 @@
 
 # local env files
 .env*
-
-/src/public/main/*
-/src/public/secondary/*
