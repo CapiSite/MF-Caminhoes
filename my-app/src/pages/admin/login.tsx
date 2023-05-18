@@ -51,7 +51,7 @@ export default function LoginAdminForm() {
       <div className={style.sidebar}>
         <Sidebar />
       </div>
-      <div className={style.background}>
+      <div className={style.admin}>
         <h1 className={style.h1}>Entre na sua conta</h1>
         <form className={style.form} onSubmit={(e) => loginPost(e)}>
           <p className={style.p2}>Email:</p>

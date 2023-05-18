@@ -48,7 +48,7 @@ export default function SignupAdmin() {
       <div className={style.sidebar}>
         <Sidebar />
       </div>
-      <div className={style.background}>
+      <div className={style.admin}>
         <h1 className={style.h1}>Cadastre como Administrador</h1>
         <form className={style.form} onSubmit={(e) => signupAdminPost(e)}>
           <p className={style.p2}>Email:</p>

@@ -103,6 +103,9 @@
             flex-direction: column;
             align-items: center;
         }
+        .address{
+            text-align: center;
+        }
     }
 
 @media (max-width:300px) {

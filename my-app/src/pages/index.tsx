@@ -39,7 +39,16 @@ export default function Home() {
       <div className={style.sidebar}>
         <Sidebar />
       </div>
-
+      <div className={style.model}>
+        <div className={style.modelLeft}>
+        <input placeholder="Nome"></input>
+        <input placeholder="Email"></input>
+        <button>Quero receber promoções, notícias e muito mais!</button>
+        </div>
+        <div className={style.modelRight}>
+          <h1>alçskfjdlksaçjfklsajflkjdslkajflks</h1>
+        </div>
+      </div>
       <main className={style.main}>
         <div className={style.center}>
           <Image className={style.banner} src={Banner} alt="Banner" />

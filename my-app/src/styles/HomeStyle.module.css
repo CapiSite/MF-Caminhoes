@@ -75,6 +75,46 @@
   margin-bottom: 10px;
 }
 
+.model{
+  position: fixed;
+  top: calc(50% - 250px);
+  left: calc(50% - 475px);
+  width: 1000px;
+  height: 500px;
+  background-color: var(--white-1) !important;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modelLeft{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.modelLeft input, .modelLeft button{
+  width: 250px;
+  height: 50px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  border: 1px solid var(--black);
+  font-size: 18px;
+}
+.modelLeft button{
+  background-color: var(--darkYellow);
+  font-weight: 500;
+}
+.modelLeft button:hover{
+  cursor: pointer;
+  background-color: var(--veryDarkYellow);
+  
+}
+.modelRight{
+  width: 50%;
+}
 .notFound button:hover{
   cursor: pointer;
   background-color: var(--light-green);

@@ -165,21 +165,39 @@ export default function Cadastro() {
       error = { ...error, name: "Nome muito curto!" }
     }
 
-    if (/[0-9]/.test(informations.name) === true) {
+    if (/[0-9]/.test(informations.name) === true ) {
       newFieldError = { ...newFieldError, name: true };
       error = { ...error, name: "Nome inválido!" }
     }
-    if (/[0-9]/.test(informations.last_name) === true) {
+    if (/[0-9]/.test(informations.last_name) === true ) {
       newFieldError = { ...newFieldError, last_name: true };
       error = { ...error, last_name: "Sobrenome inválido!" }
     }
-    if (/\W|_/.test(informations.name) === true) {
-      newFieldError = { ...newFieldError, name: true };
-      error = { ...error, name: "Nome inválido!" }
+    if(informations.name.includes(" ")){
+      const x = {...informations, name: informations.name.replace(" ", "")}
+      if (/\W|_/.test(x.name) === true) {
+        newFieldError = { ...newFieldError, name: true };
+        error = { ...error, name: "Nome inválido!" }
+      }
     }
-    if (/\W|_/.test(informations.last_name) === true) {
-      newFieldError = { ...newFieldError, last_name: true };
-      error = { ...error, last_name: "Sobrenome inválido!" }
+    if(informations.last_name.includes(" ")){
+      const x = {...informations, last_name: informations.last_name.replace(" ", "")}
+      if (/\W|_/.test(x.last_name) === true) {
+        newFieldError = { ...newFieldError, last_name: true };
+        error = { ...error, last_name: "Sobrenome inválido!" }
+      }
+    }
+    if(!informations.name.includes(" ")){
+      if (/\W|_/.test(informations.name) === true) {
+        newFieldError = { ...newFieldError, name: true };
+        error = { ...error, name: "Nome inválido!" }
+      }
+    }
+    if(!informations.last_name.includes(" ")){
+      if (/\W|_/.test(informations.last_name) === true) {
+        newFieldError = { ...newFieldError, last_name: true };
+        error = { ...error, last_name: "Sobrenome inválido!" }
+      }
     }
     if(informations.cpf.length!==11){
     if(String(informations.cpf).trim().length!==11){

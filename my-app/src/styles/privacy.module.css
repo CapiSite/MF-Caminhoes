@@ -4,12 +4,14 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    text-align: center;
 }
 .container{
     width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: start;
 }
 .background h1{
     font-size: 30px;
