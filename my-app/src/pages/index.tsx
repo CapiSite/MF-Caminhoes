@@ -2,11 +2,9 @@ import Image from "next/image";
 import Banner from "@/../public/banner2.jpg";
 import BannerMobile from "@/../public/banner-mobile.png";
 import style from "../styles/HomeStyle.module.css";
-import { useRouter } from "next/router";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import Sidebar from "@/Components/Sidebar";
-import Cards from "@/Components/Cards";
 import Carousel from "@/Components/Carousel";
 import { useCallback, useEffect, useState } from "react";
 import { getAllCarts } from "@/services/cart.services";
@@ -14,7 +12,6 @@ import { AxiosError } from "axios";
 
 export default function Home() {
   const [carrosel, setCarrosel] = useState([])
-  console.log(process.env.REACT_BACK)
 
   const handleCall = useCallback(async () => {
     try {
