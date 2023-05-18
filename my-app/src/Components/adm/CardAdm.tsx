@@ -8,7 +8,7 @@ export default function CardAdm({ info }: { info: any }) {
   const [src, setSrc] = useState("")
 
   useEffect(() => {
-    fetch(`http://localhost:5000/images/main/${info.main_image}`) 
+    fetch(`http://154.49.246.233:5000/images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);

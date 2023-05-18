@@ -5,7 +5,7 @@ export default function Photos({ image, setMainImage }: any) {
   const [src, setSrc] = useState("")
 
 
-  fetch(`http://localhost:5000/images/secondary/${image}`)
+  fetch(`http://154.49.246.233:5000/images/secondary/${image}`)
     .then((response) => response.blob())
     .then((blob) => {
       const imageUrl = URL.createObjectURL(blob);

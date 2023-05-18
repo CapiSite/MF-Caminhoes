@@ -36,7 +36,7 @@ export default function ProductLocation() {
     if (typeof (router.query.id) === "string") {
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
-        fetch(`http://localhost:5000/images/main/${infoReceived.main_image}`)
+        fetch(`http://154.49.246.233:5000/images/main/${infoReceived.main_image}`)
           .then((response) => response.blob())
           .then((blob) => {
             const imageUrl = URL.createObjectURL(blob);
