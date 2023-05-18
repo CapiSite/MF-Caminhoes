@@ -9,7 +9,7 @@ export default function Cards({ index, ct, image, id, title, sections, price }: 
   const [src, setSrc] = useState("")
 
   useEffect(() => {
-    fetch(`http://154.49.246.233:5000/images/main/${image}`) 
+    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}/images/main/${image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);

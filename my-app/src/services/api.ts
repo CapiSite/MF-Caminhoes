@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+console.log(process.env.REACT_BACK)
 const instance = axios.create({
-  baseURL: "http://154.49.246.233:5000"
+  baseURL: process.env.NEXT_PUBLIC_REACT_BACK
 });
 
 export default instance;

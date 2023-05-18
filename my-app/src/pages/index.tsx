@@ -14,6 +14,7 @@ import { AxiosError } from "axios";
 
 export default function Home() {
   const [carrosel, setCarrosel] = useState([])
+  console.log(process.env.REACT_BACK)
 
   const handleCall = useCallback(async () => {
     try {
