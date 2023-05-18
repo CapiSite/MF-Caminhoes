@@ -102,7 +102,7 @@ export default function ProductLocation() {
           <div className={style.images}>
             <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
             {info ?
-              info.cart_images.map((o: any, i: any) => <Photos image={`/secondary/${o.src}`} key={i} setMainImage={setMainImage} />)
+              info.cart_images.map((o: any, i: any) => <Photos image={o.src} key={i} setMainImage={setMainImage} />)
               : null}
           </div>
           <Image src={mainImage} alt="Caminhão" width={500} height={500} />

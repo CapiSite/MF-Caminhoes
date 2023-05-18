@@ -30,6 +30,8 @@ services:
       - 3000:3000
     depends_on:
       - node
+    env_file:
+      - my-app/.env.local
     volumes:
       - next-deploy-volume:/src/usr/mc-caminhoes
 
