@@ -82,7 +82,7 @@ function CardUser({ info, deleteMyCartPost }: any) {
   const [src, setSrc] = useState("")
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}/images/main/${info.main_image}`) 
+    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);
@@ -126,7 +126,7 @@ function CardMobile({ info, deleteMyCartPost }: any) {
 
   useEffect(() => {
     console.log(info)
-    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}/images/main/${info.main_image}`) 
+    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);
@@ -166,7 +166,7 @@ function CardUserRefused({ info }: any) {
   const [src, setSrc] = useState("")
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}/images/main/${info.main_image}`) 
+    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);
@@ -191,7 +191,7 @@ function CardMobileRefused({ info }: any) {
   const [src, setSrc] = useState("")
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}/images/main/${info.main_image}`) 
+    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);

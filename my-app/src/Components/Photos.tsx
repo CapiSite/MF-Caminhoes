@@ -5,7 +5,7 @@ export default function Photos({ image, setMainImage }: any) {
   const [src, setSrc] = useState("")
 
 
-  fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}/images/main/${image}`)
+  fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${image}`)
     .then((response) => response.blob())
     .then((blob) => {
       const imageUrl = URL.createObjectURL(blob);
