@@ -6,5 +6,5 @@
 # local env files
 .env*
 
-/public/main/*
-/public/secondary/*
+/src/public/main/*
+/src/public/secondary/*
