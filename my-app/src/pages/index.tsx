@@ -39,6 +39,7 @@ export default function Home() {
       </div>
       <div className={style.model}>
         <div className={style.modelLeft}>
+        <h1>Tenha acesso a promoções, notícias e ofertas especiais cadastrando seu email!</h1>
         <input placeholder="Nome"></input>
         <input placeholder="Email"></input>
         <button>Quero receber promoções, notícias e muito mais!</button>
