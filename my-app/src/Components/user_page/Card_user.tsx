@@ -125,7 +125,6 @@ function CardMobile({ info, deleteMyCartPost }: any) {
   const [src, setSrc] = useState("")
 
   useEffect(() => {
-    console.log(info)
     fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {

@@ -17,45 +17,47 @@ import { toast } from "react-toastify"
 
 
 export default function ProductLocation() {
-
   const [deleter, setDeleter] = useState<any>(false)
-
   const { adminData } = useContext(AdminContext) as any
-  const [error, setError] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(true)
   const [info, setInfo] = useState<any>()
-  const [mainImage, setMainImage] = useState("")
+  const [mainImage, setMainImage] = useState<string | null>(null)
   const router = useRouter()
-  const [src, setSrc] = useState("")
+  const [src, setSrc] = useState<string | null>(null)
 
 
   const handleCall = useCallback(async () => {
-    if (router.query.id === undefined) {
-      setError(true)
-    }
 
-    if (typeof (router.query.id) === "string") {
+    if (router.query.id) {
+      setError(false)
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
-        fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`)
-          .then((response) => response.blob())
-          .then((blob) => {
-            const imageUrl = URL.createObjectURL(blob);
-            setMainImage(imageUrl)
-            setSrc(imageUrl);
-          });
+
+        if (infoReceived.main_image) {
+          fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${infoReceived.main_image}`)
+            .then((response) => response.blob())
+            .then((blob) => {
+              const imageUrl = URL.createObjectURL(blob);
+              setMainImage(imageUrl)
+              setSrc(imageUrl);
+            })
+            .catch((err) => {
+              setError(true)
+            })
+        }
+
         setInfo(infoReceived)
-        
       } catch (err: any) {
         setError(true)
       }
     }
-  }, [router, useRouter])
+  }, [router])
 
 
 
   useEffect(() => {
     handleCall()
-  }, [])
+  }, [router])
 
   async function unvalidateCartPost() {
     try {
@@ -100,12 +102,20 @@ export default function ProductLocation() {
       <div className={style.container}>
         <div className={style.allImages}>
           <div className={style.images}>
-            <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
+            {src ?
+              <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
+              : null}
+
             {info ?
               info.cart_images.map((o: any, i: any) => <Photos image={o.src} key={i} setMainImage={setMainImage} />)
               : null}
           </div>
-          <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+
+          {mainImage ?
+            <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+            : null}
+
+
         </div>
         <div className={style.info}>
           {info ?
