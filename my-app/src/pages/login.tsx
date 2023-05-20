@@ -85,8 +85,29 @@ export default function Login() {
     </>
   )
 
+  function forgotPassword(){
+    if(!forgotEmail || !forgotEmail.includes("@") || !forgotEmail.includes(".")){
+      setMessageErro("Insira um email válido")
+      return
+    }
+    setMessageErro("")
+    //Send Email
+    setForgot(2)
+  }
+
+  function verifyCode(){
+    if(!code){
+      setMessageErro("Insira um código válido")
+      return
+    }
+    //verify with Code
+    setMessageErro("")
+    setForgot(3)
+  }
 
   function newPass(e: FormEvent) {
+    //update Password
+
     e.preventDefault()
     if(!newPassword.password || !newPassword.confirmPassword){
       setMessageErro("Preencha todos os campos")
@@ -96,30 +117,12 @@ export default function Login() {
       setMessageErro("As senhas devem ser iguais")
       return
     }
-    if(newPassword.password.length<6 || newPassword.confirmPassword.length<6){
+    if(newPassword.password.length < 6 || newPassword.confirmPassword.length<6){
       setMessageErro("A senha deve conter mais de 6 caracteres")
       return
     }
     setMessageErro("")
     setForgot(0)
-  }
-
-  function verifyCode(){
-    if(!code){
-      setMessageErro("Insira um código válido")
-      return
-    }
-    setMessageErro("")
-    setForgot(3)
-  }
-
-  function forgotPassword(){
-    if(!forgotEmail || !forgotEmail.includes("@") || !forgotEmail.includes(".")){
-      setMessageErro("Insira um email válido")
-      return
-    }
-    setMessageErro("")
-    setForgot(2)
   }
 
   async function login(e: FormEvent) {

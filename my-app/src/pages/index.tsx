@@ -1,6 +1,3 @@
-import Image from "next/image";
-import Banner from "@/../public/banner2.jpg";
-import BannerMobile from "@/../public/banner-mobile.png";
 import style from "../styles/HomeStyle.module.css";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
@@ -16,6 +13,8 @@ import { verifyToken } from "@/services/user-services";
 import { toast } from "react-toastify";
 import { addInfo } from "@/services/info.service";
 import AddedContext from "@/APIContext/addedContext";
+import CarouselMain from "@/Components/Carousel_images";
+import CarroselLine from "@/Components/Carousel_line";
 
 export default function Home() {
   const [carrosel, setCarrosel] = useState([])
@@ -110,21 +109,14 @@ export default function Home() {
 
       <main className={style.main}>
         <div className={style.center}>
-          <Image className={style.banner} src={Banner} alt="Banner" />
-          <Image
-            className={style.banner_mobile}
-            src={BannerMobile}
-            alt="Banner-Mobile"
-          />
+          <CarouselMain/>
+
           <div className={style.carousel}>
-
-            {carrosel.map((item, index) => (
-              <Carousel info={item} key={index} />
-            ))}
+            <CarroselLine items={carrosel}/>
           </div>
-
         </div>
       </main>
+
       <Footer />
     </div>
   );

@@ -3,7 +3,7 @@ import style from "../styles/HomeStyle.module.css"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-export default function Carousel({ info, adm }: any) {
+export default function CarroselItem({ info, adm }: any) {
   const router = useRouter()
   const [src, setSrc] = useState("")
 
@@ -16,9 +16,7 @@ export default function Carousel({ info, adm }: any) {
       });
   }, [])
 
-
   return (
-
     <div onClick={() => router.push(`/locacoes/${info.id}`)} className={style.locationsCard}>
       <Image src={src} alt="Caminhão" width={198} height={198} />
       <h2>{info?.title}</h2>

@@ -1,0 +1,19 @@
+.desktop {
+  margin-top: 30px;
+  display: flex;
+}
+
+.mobile {
+  margin-top: 30px;
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .mobile {
+    display: flex;
+  }
+  
+  .desktop {
+    display: none;
+  }
+}

@@ -1,0 +1,49 @@
+.father{
+  overflow-x: scroll;
+  display: flex;
+  position: relative;
+  width: 100%;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.father::-webkit-scrollbar{
+  display: none;
+}
+
+.next,
+.prev {
+  top: calc(50% - 20px);
+  position: absolute;
+  background: var(--black-1);
+  color: var(--white);
+  border-radius: 30px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 22px;
+  z-index: 2;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev {
+  left: 10px;
+  transform: scale(-1);
+}
+
+@media (max-width: 600px) {
+  .next, .prev {
+    display: none;
+  }
+  .father {
+    width: 1200px;
+  }
+}

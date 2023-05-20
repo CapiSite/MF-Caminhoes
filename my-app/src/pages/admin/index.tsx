@@ -1,6 +1,7 @@
 import AdminContext from "@/APIContext/AdminContext";
 import CardAdm from "@/Components/adm/CardAdm";
 import Carousel from "@/Components/Carousel";
+import CarroselLine from "@/Components/Carousel_line";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
@@ -57,10 +58,7 @@ export default function Adm() {
           ))}
         </div>
         <div className={style.mobileCard}>
-          {carts.map((item, index) => (
-            <Carousel info={item}
-              adm={true} key={index} />
-          ))}
+          <CarroselLine items={carts}/>
         </div>
         </>
         }

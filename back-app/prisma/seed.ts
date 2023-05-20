@@ -78,7 +78,7 @@ async function main() {
         {
           name: "Sider",
           valid: true,
-           undeletable: true
+          undeletable: true
         },
       ]
     })
