@@ -34,6 +34,7 @@ export default function ProductLocation() {
       setError(false)
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
+        console.log(infoReceived)
         if (infoReceived.main_image) {
           fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${infoReceived.main_image}`)
             .then((response) => response.blob())

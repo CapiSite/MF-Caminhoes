@@ -51,6 +51,7 @@ async function getSpecificCart(id: number) {
         cart_type: true,
         brands: true,
         cart_images: true,
+        users: true
       }
     })
   } catch (err) {

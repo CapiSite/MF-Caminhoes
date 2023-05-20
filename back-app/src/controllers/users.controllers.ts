@@ -22,6 +22,8 @@ export async function loginUser(req: Request, res: Response) {
 
   try {
     const userAndToken = await userServices.loginUser(email, password)
+    delete userAndToken.user.password
+
     return res.status(httpStatus.OK).send(userAndToken)
 
   } catch (error) {
@@ -37,6 +39,8 @@ export async function editUser(req: AuthenticatedRequest, res: Response) {
 
   try {
     const updatedInfo = await userServices.editUser(body, req.user_id)
+    delete updatedInfo.password
+
     return res.status(httpStatus.CREATED).send(updatedInfo)
   } catch (error) {
     if (error.name === "ConflictError") {
@@ -53,6 +57,7 @@ export async function forgotPassword(req: Request, res: Response) {
 
   try {
     const updatedInfo = await userServices.forgotPassword(body.email, body.password)
+    delete updatedInfo.password
     return res.status(httpStatus.CREATED).send(updatedInfo)
   } catch (error) {
     if (error.name === "NotFoundError") {
@@ -65,6 +70,7 @@ export async function logoutUser(req: AuthenticatedRequest, res: Response) {
 
   try {
     const updatedInfo = await userServices.logoutUser(req.user_id)
+
     return res.status(httpStatus.CREATED).send(updatedInfo)
   } catch (error) {
     if (error.name === "ConflictError") {

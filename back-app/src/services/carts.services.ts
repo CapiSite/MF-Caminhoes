@@ -18,6 +18,10 @@ async function getSpecificCart(id: number) {
   const cart =  await cartsRepository.getSpecificCart(id)
   if(!cart) throw NotFoundError("Carreta não encontrada")
 
+  delete cart.users.password
+  delete cart.users.id
+  delete cart.users.cpf
+
   return cart
 }
 
