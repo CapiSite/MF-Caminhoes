@@ -104,7 +104,7 @@
 }
 .modelLeft input, .modelLeft button{
   width: 250px;
-  height: 50px;
+  height: 45px;
   border-radius: 5px;
   margin-bottom: 20px;
   border: 1px solid var(--black);
@@ -400,12 +400,12 @@
     text-align: center;
     font-weight: bold;
     margin-top: 30px;
-    margin-bottom: 0px;
+    margin-bottom: 20px;
   }
   .modelLeft input, .modelLeft button{
     width: 250px;
     max-width: 80%;
-    height: 50px;
+    height: 45px;
     border-radius: 5px;
     margin-bottom: 10px;
     border: 1px solid var(--black);

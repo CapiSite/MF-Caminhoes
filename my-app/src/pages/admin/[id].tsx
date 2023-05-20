@@ -52,6 +52,9 @@ export default function ProductLocation() {
     if (adminData) {
       handleCall()
     }
+    else{
+      router.push("/")
+    }
   }, [router])
 
   async function validateCartPost() {

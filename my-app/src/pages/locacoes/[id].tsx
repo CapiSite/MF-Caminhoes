@@ -21,6 +21,8 @@ export default function ProductLocation() {
   const { adminData } = useContext(AdminContext) as any
   const [error, setError] = useState<boolean>(true)
   const [info, setInfo] = useState<any>()
+  const [userModalInfo, setModalUserInfo] = useState(false)
+  const [userInfo, setUserInfo] = useState({})
   const [mainImage, setMainImage] = useState<string | null>(null)
   const router = useRouter()
   const [src, setSrc] = useState<string | null>(null)
@@ -32,7 +34,7 @@ export default function ProductLocation() {
       setError(false)
       try {
         const infoReceived = await getSpecificCart(parseInt(router.query.id as string))
-
+        console.log(infoReceived)
         if (infoReceived.main_image) {
           fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${infoReceived.main_image}`)
             .then((response) => response.blob())
@@ -135,7 +137,10 @@ export default function ProductLocation() {
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <Link href={`https://api.whatsapp.com/send?phone=5534992771000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!%20Quero%20saber%20a%20respeito%20da%20carreta:%20https://locaaqui.com/locacoes/${router.query.id}`} target="_blank"><button >Fazer uma proposta<BsWhatsapp /></button></Link>
-              {adminData ? <div className={style.delete}><button onClick={() => setDeleter(true)}>Deletar carreta</button></div> : <></>}
+              {adminData ? <div className={style.delete}><button onClick={() => setDeleter(true)}>Deletar carreta</button></div> 
+              
+              : <></>}
+              {adminData && <div className={style.modalUserInfo}><button onClick={() => setModalUserInfo(true)}>Ver usuário</button></div>}
               {deleter &&
                 <div className={styleModal.modal}>
                   <h1>Deseja mesmo deletar essa carreta?</h1>

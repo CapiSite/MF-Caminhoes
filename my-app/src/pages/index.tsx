@@ -60,6 +60,7 @@ export default function Home() {
         <h1>Tenha acesso a promoções, notícias e ofertas especiais cadastrando seu email!</h1>
         <input placeholder="Nome"></input>
         <input placeholder="Email"></input>
+        <input placeholder="Telefone"></input>
         <button>Quero receber promoções, notícias e muito mais!</button>
         </div>
         <div className={style.modelRight}>

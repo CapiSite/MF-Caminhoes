@@ -28,6 +28,7 @@
   margin-bottom:20px;
   width: 14vw;
   min-height: 14vw;
+  
 }
 
 .images img:hover{
@@ -58,7 +59,13 @@ margin-top: 60px;
 margin-left: 30px;
 width: 400px;
 }
-
+.modalUserInfo{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
 .info h1{
   font-size: 30px;
   font-weight: bold;
@@ -132,6 +139,10 @@ width: 400px;
   .images::-webkit-scrollbar-thumb {
     background-color: var(--yellow);    /* color of the scroll thumb */
     border: 3px solid var(--black);  /* creates padding around scroll thumb */
+  }
+  .images img{
+    max-height: 14vw;
+    
   }
 }
 

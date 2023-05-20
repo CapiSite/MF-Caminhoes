@@ -28,6 +28,9 @@ export default function Adm() {
     if(adminData){
       handleCall()
     }
+    else{
+      router.push("/")
+    }
   }, [])
 
   return (
