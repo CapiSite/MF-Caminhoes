@@ -6,19 +6,36 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import Sidebar from "@/Components/Sidebar";
 import Carousel from "@/Components/Carousel";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { getAllCarts } from "@/services/cart.services";
 import { AxiosError } from "axios";
 import { AiOutlineClose } from "react-icons/ai";
+import UserContext from "@/APIContext/UserContext";
+import AdminContext from "@/APIContext/AdminContext";
+import { verifyToken } from "@/services/user-services";
 
 export default function Home() {
   const [carrosel, setCarrosel] = useState([])
   const [model, setModel] = useState<boolean>(true)
+  const { userData, setUserData } = useContext(UserContext) as any;
+  const { adminData } = useContext(AdminContext) as any
+  const [userName, setUserName] = useState<any>();
+  const [adminOn, setAdminOn] = useState<any>(false)
+  const [userInfo, setUserinfo] = useState<boolean>(false);
+
+
   const handleCall = useCallback(async () => {
     try {
       const cartsReceived = await getAllCarts()
       setCarrosel(cartsReceived)
-
+      if(userData){
+        await verifyToken(userData.token);
+        setUserName(userData.user.name);
+        setUserinfo(true)
+      }
+      if(adminData) {
+        setAdminOn(true)
+      }
     } catch (err) {
       const error = err as AxiosError
     }
@@ -38,7 +55,7 @@ export default function Home() {
       <div className={style.sidebar}>
         <Sidebar />
       </div>
-      {model && <div className={style.model}>
+      {model && !adminOn && !userInfo && <div className={style.model}>
         <div className={style.modelLeft}>
         <h1>Tenha acesso a promoções, notícias e ofertas especiais cadastrando seu email!</h1>
         <input placeholder="Nome"></input>
