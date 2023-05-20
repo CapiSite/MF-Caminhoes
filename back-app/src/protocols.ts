@@ -96,3 +96,9 @@ export type CartCreationDefinitive = {
   status: string,
   sections: number
 }
+
+export type UserInfo = {
+  name: string,
+  phone: string,
+  email: string
+}

@@ -6,6 +6,7 @@ import { usersRouter } from './routes/users.routes';
 import { cartsRouter } from './routes/carts.routes';
 import { typesRouter } from './routes/types.routes';
 import { imagesRouter } from './routes/images.routes';
+import { infoRouter } from './routes/info.routes';
 
 loadEnv();
 
@@ -19,7 +20,8 @@ app
   .use("/admin", adminRouter)
   .use("/users", usersRouter)
   .use("/carts", cartsRouter)
-  .use("/types", typesRouter )
+  .use("/types", typesRouter)
+  .use("/info", infoRouter)
 
 export async function init(): Promise<Express> {
   connectDb()

@@ -102,6 +102,13 @@
   font-weight: bold;
   margin-bottom: 50px;
 }
+.modelLeft form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .modelLeft input, .modelLeft button{
   width: 250px;
   height: 45px;

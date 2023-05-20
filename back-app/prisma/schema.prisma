@@ -30,6 +30,7 @@ model brands {
   id    Int      @id @default(autoincrement())
   name  String   @unique(map: "uniqe")
   valid Boolean? @default(false)
+  undeletable Boolean? @default(false)
   carts carts[]
 }
 
@@ -37,6 +38,7 @@ model cart_model {
   id    Int      @id @default(autoincrement())
   name  String   @unique(map: "uniquen")
   valid Boolean? @default(false)
+  undeletable Boolean? @default(false)
   carts carts[]
 }
 
@@ -44,6 +46,7 @@ model cart_type {
   id    Int      @id @default(autoincrement())
   name  String   @unique(map: "uniquene")
   valid Boolean? @default(false)
+  undeletable Boolean? @default(false)
   carts carts[]
 }
 
@@ -112,6 +115,7 @@ model wheel {
   id    Int      @id @default(autoincrement())
   name  String   @unique(map: "uniquenes")
   valid Boolean? @default(false)
+  undeletable Boolean? @default(false)
   carts carts[]
 }
 
@@ -128,4 +132,11 @@ model deleted_carts {
   main_image String
   user_id    Int
   users      users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model visitant_info {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String
+  phone String @db.Char(11)
 }

@@ -9,11 +9,13 @@ async function main() {
       data: [
         {
           name: "Disco",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Raiada",
-          valid: true
+          valid: true,
+          undeletable: true
         }
       ]
     })
@@ -26,23 +28,28 @@ async function main() {
       data: [
         {
           name: "LS",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Bitrezão",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Vanderleia",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Bitrem",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Rodotrem",
-          valid: true
+          valid: true,
+          undeletable: true
         },
       ]
     })
@@ -55,19 +62,23 @@ async function main() {
       data: [
         {
           name: "Basculante",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Graneleiro",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Baú",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Sider",
-          valid: true
+          valid: true,
+           undeletable: true
         },
       ]
     })
@@ -80,19 +91,23 @@ async function main() {
       data: [
         {
           name: "Facchini",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Ramon",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Noma",
-          valid: true
+          valid: true,
+          undeletable: true
         },
         {
           name: "Sider",
-          valid: true
+          valid: true,
+          undeletable: true
         },
       ]
     })

@@ -1,3 +1,4 @@
+import { carts } from "@prisma/client"
 import { prismaDb } from "../config"
 import { CartCreationDefinitive } from "../protocols"
 
@@ -12,7 +13,7 @@ async function getAllCarts() {
         brands: true,
         cart_images: true
       },
-      where:{
+      where: {
         valid: true
       }
     })
@@ -30,7 +31,7 @@ async function getUnvalidCarts() {
         brands: true,
         cart_images: true
       },
-      where:{
+      where: {
         valid: false
       }
     })
@@ -76,11 +77,11 @@ async function getMyCarts(user_id: number) {
 
 async function createCart(cart: CartCreationDefinitive, user_id: number) {
   try {
-    const cartCreation = {...cart}
+    const cartCreation = { ...cart }
     delete cartCreation.secondary_images
 
     const cartReceived = await prismaDb.carts.create({
-      data: {...cartCreation, user_id}
+      data: { ...cartCreation, user_id }
     })
 
 
@@ -102,27 +103,27 @@ async function createCart(cart: CartCreationDefinitive, user_id: number) {
 async function updateCart(cart: CartCreationDefinitive, id: number, user_id: number) {
   try {
 
-    if(cart.secondary_images){
+    if (cart.secondary_images) {
       await prismaDb.cart_images.deleteMany({
-        where:{
+        where: {
           cart_id: id
         }
       })
 
-      const info = cart.secondary_images.map((e) =>{ return {src: e, cart_id: id}})
+      const info = cart.secondary_images.map((e) => { return { src: e, cart_id: id } })
 
       await prismaDb.cart_images.createMany({
         data: info
       })
     }
-    
+
     delete cart.secondary_images
 
     return prismaDb.carts.update({
       where: {
         id
       },
-      data:{...cart, user_id}
+      data: { ...cart, user_id }
     })
   } catch (err) {
   }
@@ -140,37 +141,37 @@ async function validateCart(cart_id: number) {
     })
 
     await prismaDb.cart_model.update({
-      where:{
+      where: {
         id: cart.model_id
       },
-      data:{
+      data: {
         valid: true
       }
     })
 
     await prismaDb.cart_type.update({
-      where:{
+      where: {
         id: cart.type_id
       },
-      data:{
+      data: {
         valid: true
       }
     })
 
     await prismaDb.brands.update({
-      where:{
+      where: {
         id: cart.brand_id
       },
-      data:{
+      data: {
         valid: true
       }
     })
 
     await prismaDb.wheel.update({
-      where:{
+      where: {
         id: cart.wheel_id
       },
-      data:{
+      data: {
         valid: true
       }
     })
@@ -183,12 +184,61 @@ async function validateCart(cart_id: number) {
 
 async function deleteCart(id: number) {
   try {
-    return prismaDb.carts.delete({
+    const deleted = await prismaDb.carts.delete({
       where: {
         id
       }
     })
+
+    const how_many_1 = await prismaDb.carts.findMany({
+      where: {
+        type_id: deleted.type_id
+      }
+    })
+    const how_many_2 = await prismaDb.carts.findMany({
+      where: {
+        model_id: deleted.model_id
+      }
+    })
+    const how_many_3 = await prismaDb.carts.findMany({
+      where: {
+        brand_id: deleted.brand_id
+      }
+    })
+    const how_many_4 = await prismaDb.carts.findMany({
+      where: {
+        wheel_id: deleted.wheel_id
+      }
+    })
+
+    await deleteType(how_many_1, 'cart_type', deleted, 'type_id' )
+    await deleteType(how_many_2, 'cart_model', deleted, 'model_id')
+    await deleteType(how_many_3, 'brands', deleted, 'brand_id')
+    await deleteType(how_many_4, 'wheel', deleted, 'wheel_id')
+
+    return deleted
+    
   } catch (err) {
+  }
+}
+
+async function deleteType(list: carts[], type: string, deleted: carts, deletedField: string) {
+
+  if(list.length === 0) {
+    const model = await prismaDb[type].findFirst({
+      where: {
+        id: deleted[deletedField],
+        undeletable: false
+      }
+      
+    })
+    if(model) {
+      await prismaDb[type].delete({
+        where: {
+          id: deleted[deletedField]
+        }
+      })
+    }
   }
 }
 
