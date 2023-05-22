@@ -113,10 +113,10 @@ export default function Cadastro() {
             {fieldError.city ? <p className={style.p}>{errorMessage.city}</p> : <div className={style.space}></div>}
             <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Cadastrar"}</button>
             <div className={style.checkbox}>
-            <input name="checkbox" checked={informations.checkbox} onClick={()=>setInformations({...informations, checkbox: !informations.checkbox})} type="checkbox"/>
-            <label htmlFor="checkbox">Concordo com os <span onClick={()=>router.push("/privacidade")}>termos de uso e política de privacidade</span></label>
+              <input name="checkbox" checked={informations.checkbox} onClick={()=>setInformations({...informations, checkbox: !informations.checkbox})} type="checkbox"/>
+              <label htmlFor="checkbox" onClick={()=>setInformations({...informations, checkbox: !informations.checkbox})}><span>Concordo com os </span><span onClick={()=>router.push("/privacidade")}>termos de uso e política de privacidade</span></label>
             </div>
-            {fieldError.checkbox ? <p className={style.p}>{errorMessage.checkbox}</p> : <div className={style.space}></div>}
+            {fieldError.checkbox && <p className={style.p}>{errorMessage.checkbox}</p> }
 
           </div>
         </form>
