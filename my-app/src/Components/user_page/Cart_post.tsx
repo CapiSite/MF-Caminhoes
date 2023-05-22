@@ -327,7 +327,7 @@ export default function CartPost() {
           <div className={style.second}>
             <label className={style.label} onClick={()=> mainImage.current.click()}>Insira a imagem principal</label>
             <input className={style.input} ref={mainImage}  disabled={disable} type="file" name="main" onChange={(e) => {if(e.target.files) { setMain(e.target.files[0])}}}/>
-            {fieldError.main ? <p className={style.p}>{errorMessage.main}</p>:<div className={style.space}></div>}
+            {fieldError.main && <p className={style.p}>{errorMessage.main}</p>}
             {main && <span className={style.span}>Imagem colocada!</span>}
             <label className={style.label} onClick={()=> secondaryImage.current.click()}>Insira as próximas imagens</label>
             <input className={style.input} ref={secondaryImage} disabled={disable} type="file" name="secondary" onChange={(e) => {if(e.target.files) { 
