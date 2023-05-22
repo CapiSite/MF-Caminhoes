@@ -93,6 +93,27 @@
 .second {
   width: 35%;
 }
+.span{
+  font-size: 18px;
+  color: var(--strong-green);
+  font-weight: bold;
+}
+.input[type="file"] {
+  display: none;
+}
+.label {
+  padding: 20px 10px;
+  width: 200px;
+  background-color: #333;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
 
 @media (max-width: 1100px) {
   .father {

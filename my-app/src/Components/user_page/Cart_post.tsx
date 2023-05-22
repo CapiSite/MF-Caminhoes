@@ -1,5 +1,5 @@
 import { getBrands, getModels, getTypes, getWheels } from "@/services/types.services"
-import { FormEvent, useCallback, useContext, useEffect, useState } from "react"
+import { FormEvent, useCallback, useContext, useEffect, useRef, useState } from "react"
 import style from '@/styles/user_page/cart_rental.module.css'
 import { roboto } from "@/styles/fonts"
 import { postCart, postCartPhotosMain, postCartPhotosSecondary } from "@/services/cart.services"
@@ -18,7 +18,8 @@ export default function CartPost() {
   const [types, setTypes] = useState<{ id: number, name: string }[]>([])
   const [models, setModels] = useState<{ id: number, name: string }[]>([])
   const [wheels, setWheels] = useState<{ id: number, name: string }[]>([])
-
+  const mainImage = useRef(null)
+  const secondaryImage = useRef(null)
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
   const [color, setColor] = useState<string>("")
@@ -54,14 +55,14 @@ export default function CartPost() {
 
       const wheels = await getWheels()
       setWheels(wheels)
-
+      console.log(secondary)
     } catch (err: any) { }
-  }, [])
+  }, [secondary, setSecondary])
 
 
   useEffect(() => {
     handleCall()
-  }, [])
+  }, [secondary, setSecondary])
 
   async function handlePost(e: FormEvent) {
     e.preventDefault()
@@ -324,13 +325,15 @@ export default function CartPost() {
             {fieldError.description ? <p className={style.p}>{errorMessage.description}</p>:<div className={style.space}></div>}
           </div>
           <div className={style.second}>
-            <input disabled={disable} type="file" name="main" onChange={(e) => {if(e.target.files) { setMain(e.target.files[0])}}}/>
-            {fieldError.main ? <p className={style.p}>{errorMessage.main}</p>:<div className={style.space}></div>}
-            <input disabled={disable} type="file" name="secondary" onChange={(e) => {if(e.target.files) { 
-              const temp  = secondary as any
-              temp.push(e.target.files[e.target.files.length-1])
-              setSecondary(temp)
+            <label className={style.label} onClick={()=> mainImage.current.click()}>Insira a imagem principal</label>
+            <input className={style.input} ref={mainImage}  disabled={disable} type="file" name="main" onChange={(e) => {if(e.target.files) { setMain(e.target.files[0])}}}/>
+            {fieldError.main && <p className={style.p}>{errorMessage.main}</p>}
+            {main && <span className={style.span}>Imagem colocada!</span>}
+            <label className={style.label} onClick={()=> secondaryImage.current.click()}>Insira as próximas imagens</label>
+            <input className={style.input} ref={secondaryImage} disabled={disable} type="file" name="secondary" onChange={(e) => {if(e.target.files) { 
+              setSecondary(secondary => [...secondary, e.target.files[e.target.files.length-1]])
             }}}/>
+            {secondary.length !== 0 && <span className={style.span}>Imagens colocadas: {secondary.length}</span>}
             {fieldError.secondary ? <p className={style.p}>{errorMessage.secondary}</p>:<div className={style.space}></div>}
           </div>
         </section>
