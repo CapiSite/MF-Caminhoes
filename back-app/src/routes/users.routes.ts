@@ -1,4 +1,4 @@
-import { createUser, deleteUser, editUser, loginUser, logoutUser } from "../controllers/users.controllers";
+import { createUser, deleteUser, editUser, forgotPasswordUser, loginUser, logoutUser } from "../controllers/users.controllers";
 import { authenticateToken, validateBody } from "../middlewares";
 import { forgotPassword, userLogin, userPost, userUpdate } from "../models/users.models";
 import { AuthenticatedRequest } from "../protocols";
@@ -13,7 +13,7 @@ usersRouter
   .post("/signup", validateBody(userPost), createUser)
   .post("/login", validateBody(userLogin),  loginUser)
   .post("/logout", authenticateToken, logoutUser)
-  .post("/password", validateBody(forgotPassword))
+  .post("/password", validateBody(forgotPassword), forgotPasswordUser)
   .put("/", authenticateToken, validateBody(userUpdate) , editUser)
   .delete("/", authenticateToken, deleteUser)
 

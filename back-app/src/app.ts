@@ -7,6 +7,7 @@ import { cartsRouter } from './routes/carts.routes';
 import { typesRouter } from './routes/types.routes';
 import { imagesRouter } from './routes/images.routes';
 import { infoRouter } from './routes/info.routes';
+import { emailsRouter } from './routes/email.routes';
 
 loadEnv();
 
@@ -22,6 +23,7 @@ app
   .use("/carts", cartsRouter)
   .use("/types", typesRouter)
   .use("/info", infoRouter)
+  .use("/email", emailsRouter)
 
 export async function init(): Promise<Express> {
   connectDb()

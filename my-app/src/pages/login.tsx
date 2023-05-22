@@ -7,11 +7,10 @@ import { ThreeDots } from "react-loader-spinner";
 import { useRouter } from "next/router";
 import ActiveLink from "@/hooks/a";
 import UserContext from "@/APIContext/UserContext";
-import { loginUser } from "@/services/user-services";
-import { AiOutlineClose } from "react-icons/ai";
+import { forgotPasswordPost, loginUser } from "@/services/user-services";
 import AdminContext from "@/APIContext/AdminContext";
-import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { sendCode, sendEmail } from "@/services/email.service";
 
 export default function Login() {
   const router = useRouter()
@@ -85,29 +84,41 @@ export default function Login() {
     </>
   )
 
-  function forgotPassword(){
+  async function forgotPassword(){
     if(!forgotEmail || !forgotEmail.includes("@") || !forgotEmail.includes(".")){
       setMessageErro("Insira um email válido")
       return
     }
-    setMessageErro("")
-    //Send Email
-    setForgot(2)
+    try{
+
+      await sendEmail({email: forgotEmail})
+      setMessageErro("")
+      setForgot(2)
+    }catch(err : any){
+      console.log(err)
+      if (err?.response?.status === 404) {
+        toast.warn(err.response.data.message)
+      }
+    }
   }
 
-  function verifyCode(){
+  async function verifyCode(){
     if(!code){
       setMessageErro("Insira um código válido")
       return
     }
-    //verify with Code
-    setMessageErro("")
-    setForgot(3)
+    try{
+      await sendCode({email: forgotEmail, code})
+      setMessageErro("")
+      setForgot(3)
+    }catch(err : any){
+      if (err?.response?.status === 404) {
+        toast.warn(err.response.data.message)
+      }
+    }
   }
 
-  function newPass(e: FormEvent) {
-    //update Password
-
+  async function newPass(e: FormEvent) {
     e.preventDefault()
     if(!newPassword.password || !newPassword.confirmPassword){
       setMessageErro("Preencha todos os campos")
@@ -121,8 +132,17 @@ export default function Login() {
       setMessageErro("A senha deve conter mais de 6 caracteres")
       return
     }
-    setMessageErro("")
-    setForgot(0)
+
+    try{
+      await forgotPasswordPost({email: forgotEmail, password: newPassword.password})
+      setMessageErro("")
+      setForgot(0)
+      toast.success("Senha alterada com sucesso!")
+    }catch(err : any){
+      if (err?.response?.status === 404) {
+        toast.warn(err.response.data.message)
+      }
+    }
   }
 
   async function login(e: FormEvent) {

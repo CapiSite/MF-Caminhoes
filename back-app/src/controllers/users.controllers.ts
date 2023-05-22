@@ -52,7 +52,7 @@ export async function editUser(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-export async function forgotPassword(req: Request, res: Response) {
+export async function forgotPasswordUser(req: Request, res: Response) {
   const body = req.body
 
   try {

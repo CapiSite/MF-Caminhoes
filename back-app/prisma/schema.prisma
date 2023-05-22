@@ -27,27 +27,27 @@ model admin {
 }
 
 model brands {
-  id    Int      @id @default(autoincrement())
-  name  String   @unique(map: "uniqe")
-  valid Boolean? @default(false)
+  id          Int      @id @default(autoincrement())
+  name        String   @unique(map: "uniqe")
+  valid       Boolean? @default(false)
   undeletable Boolean? @default(false)
-  carts carts[]
+  carts       carts[]
 }
 
 model cart_model {
-  id    Int      @id @default(autoincrement())
-  name  String   @unique(map: "uniquen")
-  valid Boolean? @default(false)
+  id          Int      @id @default(autoincrement())
+  name        String   @unique(map: "uniquen")
+  valid       Boolean? @default(false)
   undeletable Boolean? @default(false)
-  carts carts[]
+  carts       carts[]
 }
 
 model cart_type {
-  id    Int      @id @default(autoincrement())
-  name  String   @unique(map: "uniquene")
-  valid Boolean? @default(false)
+  id          Int      @id @default(autoincrement())
+  name        String   @unique(map: "uniquene")
+  valid       Boolean? @default(false)
   undeletable Boolean? @default(false)
-  carts carts[]
+  carts       carts[]
 }
 
 model carts {
@@ -98,25 +98,26 @@ model states {
 }
 
 model users {
-  id            Int             @id @default(autoincrement())
-  cpf           String          @unique @db.Char(11)
-  name          String
-  email         String          @unique
-  password      String
-  phone         String          @db.Char(11)
-  address_id    Int
-  carts         carts[]
-  deleted_carts deleted_carts[]
-  sessions      sessions[]
-  address       address         @relation(fields: [address_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                Int                 @id @default(autoincrement())
+  cpf               String              @unique @db.Char(11)
+  name              String
+  email             String              @unique
+  password          String
+  phone             String              @db.Char(11)
+  address_id        Int
+  carts             carts[]
+  deleted_carts     deleted_carts[]
+  password_recovery password_recovery[]
+  sessions          sessions[]
+  address           address             @relation(fields: [address_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model wheel {
-  id    Int      @id @default(autoincrement())
-  name  String   @unique(map: "uniquenes")
-  valid Boolean? @default(false)
+  id          Int      @id @default(autoincrement())
+  name        String   @unique(map: "uniquenes")
+  valid       Boolean? @default(false)
   undeletable Boolean? @default(false)
-  carts carts[]
+  carts       carts[]
 }
 
 model cart_images {
@@ -139,4 +140,11 @@ model visitant_info {
   name  String
   email String
   phone String @db.Char(11)
+}
+
+model password_recovery {
+  id      Int    @id @default(autoincrement())
+  code    String
+  user_id Int
+  users   users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
