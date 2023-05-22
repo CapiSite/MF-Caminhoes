@@ -33,3 +33,8 @@ export async function deleteUser(token: string) {
   const response = await instance.delete("/users/", {headers: {Authorization: `Bearer ${token}`}})
   return response.data
 }
+
+export async function forgotPasswordPost(body: {email: string, password: string}) {
+  const response = await instance.post("/users/password", body)
+  return response.data
+}

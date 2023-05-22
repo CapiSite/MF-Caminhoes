@@ -10,7 +10,6 @@ import { signupUser } from "@/services/user-services";
 import { getStates } from "@/services/types.services";
 
 import MaskedInput from "react-text-mask";
-import findId from "@/hooks/findSelectId";
 import handleCep from "@/hooks/handleCep";
 import { toast } from "react-toastify";
 
