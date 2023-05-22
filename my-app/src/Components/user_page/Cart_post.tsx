@@ -10,6 +10,8 @@ import MaskedInput from "react-text-mask"
 import CurrencyInput from "react-currency-input-field"
 import styleModal from "@/styles/user_page/user_update.module.css";
 import { useRouter } from "next/router"
+import OptionContext from "@/APIContext/UserOption"
+
 
 export default function CartPost() {
   const [brands, setBrands] = useState<{ id: number, name: string }[] >([])
@@ -35,6 +37,7 @@ export default function CartPost() {
   const [errorMessage, setErrorMessage] = useState({ title: "Campo Obrigatório!", description: "Campo Obrigatório!", color: "Campo Obrigatório!", size: "Campo Obrigatório!", price: "Campo Obrigatório!", brandsSelected: "Campo Obrigatório!", typesSelected: "Campo Obrigatório!", modelsSelected: "Campo Obrigatório!", wheelsSelected: "Campo Obrigatório!", year: "Campo Obrigatório!", status: "Campo Obrigatório!", main: "Insira uma imagem!", secondary: "Insira uma imagem!", section: "Campo Obrigatório!" })
   const [disable, setDisable] = useState(false)
 
+  const { setOptionData }= useContext(OptionContext) as any
   const { userData } = useContext(UserContext) as any
 
   const router = useRouter()
@@ -268,7 +271,7 @@ export default function CartPost() {
           <h1>Carreta enviada para análise</h1>
           <p>Sua carreta foi enviada para análise, você pode ver ela na sessão Minhas Carretas, caso ela seja reprovada, você será avisado por lá.</p>
           <div>
-            <button className={styleModal.ok} onClick={() => setDisable(false)}>Ok</button>
+            <button className={styleModal.ok} onClick={() => {setDisable(false), setOptionData(1)}}>Ok</button>
           </div>
 
         </div>}
