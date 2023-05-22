@@ -18,8 +18,8 @@ export default function CartPost() {
   const [types, setTypes] = useState<{ id: number, name: string }[]>([])
   const [models, setModels] = useState<{ id: number, name: string }[]>([])
   const [wheels, setWheels] = useState<{ id: number, name: string }[]>([])
-  const mainImage = useRef(null)
-  const secondaryImage = useRef(null)
+  const mainImage = useRef<any>(null)
+  const secondaryImage = useRef<any>(null)
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
   const [color, setColor] = useState<string>("")
@@ -31,7 +31,7 @@ export default function CartPost() {
   const [wheelsSelected, setWheelsSelected] = useState<string | number>("")
   const [section, setSection] = useState<number>()
   const [main, setMain] = useState<any>()
-  const [secondary, setSecondary] = useState<[]>([])
+  const [secondary, setSecondary] = useState<any[]>([])
   const [year, setYear] = useState<number>()
   const [status, setStatus] = useState<string>("")
   const [fieldError, setFieldError] = useState(() => ({ title: false, description: false, color: false, size: false, price: false, brandsSelected: false, typesSelected: false, modelsSelected: false, wheelsSelected: false, year: false, status: false, main: false, secondary: false, section: false }))
@@ -330,7 +330,7 @@ export default function CartPost() {
             {fieldError.main && <p className={style.p}>{errorMessage.main}</p>}
             {main && <span className={style.span}>Imagem colocada!</span>}
             <label className={style.label} onClick={()=> secondaryImage.current.click()}>Insira as próximas imagens</label>
-            <input className={style.input} ref={secondaryImage} disabled={disable} type="file" name="secondary" onChange={(e) => {if(e.target.files) { 
+            <input className={style.input} ref={secondaryImage} disabled={disable} type="file" name="secondary" onChange={(e:any) => {if(e.target.files) { 
               setSecondary(secondary => [...secondary, e.target.files[e.target.files.length-1]])
             }}}/>
             {secondary.length !== 0 && <span className={style.span}>Imagens colocadas: {secondary.length}</span>}
