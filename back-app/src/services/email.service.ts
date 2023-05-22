@@ -1,6 +1,6 @@
-import { NotFoundError } from "@/errors/not-found-error"
-import { codeRepository } from "@/repository/email.repository"
-import { usersRepository } from "@/repository/users.repository"
+import { NotFoundError } from "../errors/not-found-error"
+import { codeRepository } from "../repository/email.repository"
+import { usersRepository } from "../repository/users.repository"
 import sgMail from "@sendgrid/mail"
 
 
@@ -22,7 +22,6 @@ async function sendEmail(email: string) {
   sgMail
     .send(msg)
     .then(() => {
-      console.log('Email sent')
     })
     .catch((error) => {
       throw NotFoundError("E-mail inválido")

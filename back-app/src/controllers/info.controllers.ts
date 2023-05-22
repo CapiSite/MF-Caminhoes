@@ -1,4 +1,4 @@
-import { infoService } from "@/services/info.service";
+import { infoService } from "../services/info.service";
 import { Request, Response } from "express"
 import httpStatus from "http-status";
 

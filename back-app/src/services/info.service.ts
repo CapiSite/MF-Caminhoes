@@ -1,7 +1,7 @@
-import { ConflictError } from "@/errors";
-import { NotFoundError } from "@/errors/not-found-error";
-import { UserInfo } from "@/protocols";
-import { userInfoRepository } from "@/repository/info.repository";
+import { ConflictError } from "../errors";
+import { NotFoundError } from "../errors/not-found-error";
+import { UserInfo } from "../protocols";
+import { userInfoRepository } from "../repository/info.repository";
 
 async function createInfo(body: UserInfo) {
   const email = await userInfoRepository.getByEmail(body.email)

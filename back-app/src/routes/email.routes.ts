@@ -1,8 +1,7 @@
-import { sendEmail, verifyCode } from "@/controllers/email.controllers";
-import { getMainImage, getSecondaryImage } from "../controllers/image.controllers";
+import { sendEmail, verifyCode } from "../controllers/email.controllers";
 import { Router } from "express";
-import { validateBody } from "@/middlewares";
-import { codePost, emailPost } from "@/models/email.models";
+import { validateBody } from "../middlewares";
+import { codePost, emailPost } from "../models/email.models";
 
 const emailsRouter = Router()
 
