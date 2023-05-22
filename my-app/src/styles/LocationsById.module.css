@@ -66,6 +66,36 @@ width: 400px;
   justify-content: center;
   margin-top: 5px;
 }
+
+.modalUser{
+  background-color: var(--gray-light);
+  position: fixed;
+  top:calc(50% - 100px);
+  left: calc(50% - 160px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--black);
+  height: fit-content;
+  padding: 10px 5px ;
+  z-index: 1;
+}
+.modalUser p{
+  margin: 5px 0px;
+  font-size: 20px;
+
+}
+.modalUser h1{
+  margin-bottom: 15px;
+}
+.modalButton{
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
 .info h1{
   font-size: 30px;
   font-weight: bold;
