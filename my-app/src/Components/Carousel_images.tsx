@@ -5,15 +5,15 @@ import style from '@/styles/Carousel_Images.module.css';
 export default function CarroselMain() {
 
   const images = [
-    '/Banner 1.jpg',
-    '/Banner 2.jpg',
-    '/Banner 3.jpg'
+    '/Banner 1 light.jpg',
+    '/Banner 2 light.jpg',
+    '/Banner 3 light.jpg'
   ]
 
   const imagesMobile = [
-    '/Banner1 mob.jpg',
-    '/Banner 2 mob.jpg',
-    '/Banner 3 mob.jpg'
+    '/Banner 1 mob light.jpg',
+    '/Banner 2 mob light.jpg',
+    '/Banner 3 mob light.jpg'
   ]
 
   return (

@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   align-self: flex-start;
+  height: calc(100vh - 350px);
 }
 
 .father h1 {
@@ -32,4 +33,10 @@
   font-weight: 400;
   font-size: 20px;
   color: var(--white);
+}
+
+@media (max-width:800px) {
+  .father{
+    margin-top: 100px;
+  }
 }
