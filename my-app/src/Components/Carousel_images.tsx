@@ -21,7 +21,7 @@ export default function CarroselMain() {
       <div className={style.desktop}>
         <Carousel showThumbs={false} autoPlay infiniteLoop={true} interval={3000}>
           {images.map((product, index) => (
-            <div>
+            <div key={index}>
               <img src={images[index]} />
             </div>
           ))}
@@ -30,7 +30,7 @@ export default function CarroselMain() {
       <div className={style.mobile}>
         <Carousel showThumbs={false} autoPlay infiniteLoop={true} interval={3000}>
           {images.map((product, index) => (
-            <div>
+            <div key={index}>
               <img src={imagesMobile[index]} />
             </div>
           ))}

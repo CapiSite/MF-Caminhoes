@@ -53,8 +53,8 @@ export default function Adm() {
       </div>
       <div className={style.background}>
         <h1>Lista de usuarios do pop-up</h1>
-        {users.map((a) =>
-          <div>
+        {users.map((a, index) =>
+          <div key={index}>
             <span>{a.name}</span>
             <span>{a.email}</span>
             <span>{a.phone}</span>

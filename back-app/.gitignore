@@ -5,3 +5,10 @@
 
 # local env files
 .env*
+
+/src/public/main/*.jpg
+/src/public/secondary/*.jpg
+/src/public/main/*.png
+/src/public/secondary/*.png
+/src/public/main/*.jpeg
+/src/public/secondary/*.jpeg
