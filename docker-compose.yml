@@ -21,7 +21,7 @@ services:
     env_file:
       - back-app/.env
     volumes:
-      - back-deploy-volume:/src/usr/mc-caminhoes
+      - back-deploy-volume:/src/usr/mc-caminhoes/dist/src/public
 
   web:
     container_name: next
@@ -32,11 +32,7 @@ services:
       - node
     env_file:
       - my-app/.env.local
-    volumes:
-      - next-deploy-volume:/src/usr/mc-caminhoes
-
 
 volumes:
   postgres-deploy-volume:
-  next-deploy-volume:
   back-deploy-volume:
