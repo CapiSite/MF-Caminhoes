@@ -26,10 +26,12 @@ export default function Header() {
 
   const handleCallUser = useCallback(async () => {
     try {
-      if(userData){
-        await verifyToken(userData.token);
-        setUserName(userData.user.name);
-        setUserinfo(true)
+      if(userData.token){
+        const user = await verifyToken(userData.token);
+        if(user){
+          setUserName(userData.user.name);
+          setUserinfo(true)
+        }
       }
       if(adminData) {
         setAdminOn(true)
