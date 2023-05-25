@@ -10,7 +10,6 @@ export default function CarroselLine({ items }: { items: any[] }) {
   const [width, setWidth] = useState(0)
 
   useEffect(() =>{
-    console.log(component.current?.scrollWidth, component.current?.offsetWidth)
     setWidth(component.current?.scrollWidth - component.current?.scrollWidth)
   })
 

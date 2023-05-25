@@ -4,7 +4,7 @@ import useLocalStorage from '../hooks/localstorage';
 const AdminContext = createContext({}) ;
 
 export function AdminProvider({ children }: any) {
-  const [adminData, setAdminData] = useLocalStorage('adminData', {});
+  const [adminData, setAdminData] = useLocalStorage('adminData', false);
   
   return (
     <AdminContext.Provider value={{ adminData, setAdminData }}>

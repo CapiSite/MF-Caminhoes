@@ -95,7 +95,6 @@ export default function Login() {
       setMessageErro("")
       setForgot(2)
     }catch(err : any){
-      console.log(err)
       if (err?.response?.status === 404) {
         toast.warn(err.response.data.message)
       }
