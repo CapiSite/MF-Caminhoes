@@ -55,7 +55,6 @@ export default function CartPost() {
 
       const wheels = await getWheels()
       setWheels(wheels)
-      console.log(secondary)
     } catch (err: any) { }
   }, [secondary, setSecondary])
 
@@ -177,7 +176,6 @@ export default function CartPost() {
     if(size.includes(".")){
       size.replace(".","")
     }
-    console.log(size)
     if(Number(size)<=100||Number(size)>5000){
       newFieldError.size = true
       error.size = "Digite um tamanho maior que 1 e menor que 50"

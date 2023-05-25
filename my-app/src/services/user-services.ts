@@ -17,7 +17,6 @@ export async function updateUser(body:any, token: string) {
 
 export async function verifyToken(token: string) {
   if(token.length > 1){
-    console.log(token)
     const response = await instance.get("/users/verify", {headers: {Authorization: `Bearer ${token}`}})
     return response.data
   }

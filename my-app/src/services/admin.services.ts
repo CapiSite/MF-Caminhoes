@@ -6,7 +6,6 @@ export async function loginAdmin(body: any) {
 }
 
 export async function signupAdmin(body: any, secret: string) {
-  console.log(body)
   const response = await instance.post("/admin/signup", body, {headers: {Secret: secret}})
   return response.data
 }

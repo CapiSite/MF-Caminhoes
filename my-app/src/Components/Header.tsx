@@ -25,6 +25,7 @@ export default function Header() {
   const { setOptionData } = useContext(OptionContext) as any
 
   const handleCallUser = useCallback(async () => {
+    console.log(adminData)
     try {
       if(userData.token){
         const user = await verifyToken(userData.token);
@@ -76,7 +77,7 @@ export default function Header() {
           </button>
         </div>
         <div>
-          {userInfo || adminOn ? (
+          {userInfo || adminOn? (
             <div
               className={style.userImage}
               onClick={() => {
