@@ -1,6 +1,5 @@
 import CarrouselItem from "@/Components/Carousel";
-import { motion,  useMotionValue } from "framer-motion"
-import { animate } from "framer-motion"
+import { animate, motion, useMotionValue } from "framer-motion"
 import style from "@/styles/Carousel_line.module.css"
 import { useEffect, useRef, useState } from "react";
 
@@ -14,17 +13,17 @@ export default function CarroselLine({ items }: { items: any[] }) {
   })
 
   return (
-    <div ref={component} className={style.father}>
-      <motion.div dragConstraints={{right: 0, left: -width}} className={style.father} style={{x}} transition={{ duration: 0.6}}>
+    <div className={style.father}>
+      <motion.div ref={component} className={style.father}  transition={{ duration: 1}}>
         {items.map((product, index) => (
           <CarrouselItem info={product} key={index} />
         ))}
       </motion.div>
 
-      <div className={style.next} onClick={() => { if(x.get() - 218 > width) animate(x,x.get() -  218, { duration: 0.5 }) }}>
+      <div className={style.next} onClick={() => component.current.scrollLeft += 220}>
         {"‣"}
       </div>
-      <div className={style.prev} onClick={() => { if(x.get() +  218 <= 0) {animate(x, x.get() + 218, { duration: 0.5 })}}}>
+      <div className={style.prev} onClick={ () => component.current.scrollLeft -= 220}>
         {"‣"}
       </div>
     </div>

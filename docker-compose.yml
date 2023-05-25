@@ -27,7 +27,7 @@ services:
     container_name: next
     build: ./my-app
     ports: 
-      - 3000:3000
+      - 80:3000
     depends_on:
       - node
     env_file:
