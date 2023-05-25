@@ -39,7 +39,7 @@ export default function Header() {
       toast.warn(err.response.data.message)
       setUserData(null);
     }
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     handleCallUser();
