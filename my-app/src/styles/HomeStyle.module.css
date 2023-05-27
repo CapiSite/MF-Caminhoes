@@ -396,6 +396,13 @@
     overflow-y: scroll;
     
   }
+.backModel{
+  width: 100vw;
+  height: 100%;
+  z-index: 3;
+  position: absolute;
+}
+
   .modelLeft{
     width: 100%;
     display: flex;

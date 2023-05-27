@@ -35,7 +35,7 @@ export default function UserArea() {
       </div>
       <div className={style.father}>
 
-        <NavOptions subsets={["Loque minha Carreta", "Minhas Carretas", "Meu perfil"]} key={0}/>
+        <NavOptions subsets={["Cadastre seu veículo", "Meus veículos", "Meu perfil"]} key={0}/>
 
         {error === 1 ?
           <AlertMessage key={1} /> :

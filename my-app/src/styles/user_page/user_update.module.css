@@ -247,6 +247,13 @@
   .background{
     margin-top: 100px;
   }
+  .address4{
+    margin-top: 40px;
+    font-weight: 700 !important;
+  }
+  .personal{
+    font-weight: 700 !important;
+  }
 }
 
 @media (max-width: 500px) {

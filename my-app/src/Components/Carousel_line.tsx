@@ -3,7 +3,7 @@ import { animate, motion, useMotionValue } from "framer-motion"
 import style from "@/styles/Carousel_line.module.css"
 import { useEffect, useRef, useState } from "react";
 
-export default function CarroselLine({ items }: { items: any[] }) {
+export default function CarroselLine({ items, index }: { items: any[], index:number }) {
   const component = useRef() as any;
   const x = useMotionValue(0)
   const [width, setWidth] = useState(0)
@@ -13,8 +13,8 @@ export default function CarroselLine({ items }: { items: any[] }) {
   })
 
   return (
-    <div className={style.father}>
-      <motion.div ref={component} className={style.father}  transition={{ duration: 1}}>
+    <div className={index===1?style.other:style.father}>
+      <motion.div ref={component} className={index===1?style.other:style.father}  transition={{ duration: 1}}>
         {items.map((product, index) => (
           <CarrouselItem info={product} key={index} />
         ))}

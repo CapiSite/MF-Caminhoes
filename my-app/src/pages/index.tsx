@@ -65,6 +65,7 @@ export default function Home() {
     try {
       await addInfo({ name, email, phone })
       setAddedData(null)
+      setModel(false)
     } catch (err: any) {
       if (err?.response?.status === 400) {
         toast.warn('Verifique os dados inseridos')
@@ -77,13 +78,9 @@ export default function Home() {
 
   return (
     <div>
-      <div className={style.header}>
-        <Header />
-      </div>
-      <div className={style.sidebar}>
-        <Sidebar />
-      </div>
+      
       {model && !adminOn && !userInfo && addedInfo &&
+      <div className={style.backModel}>
         <div className={style.model}>
 
           <div className={style.modelLeft}>
@@ -105,14 +102,20 @@ export default function Home() {
             <AiOutlineClose onClick={() => setModel(false)} />
           </div>
         </div>
+        </div>
       }
-
+      <div className={style.header}>
+        <Header />
+      </div>
+      <div className={style.sidebar}>
+        <Sidebar />
+      </div>
       <main className={style.main}>
         <div className={style.center}>
           <CarouselMain/>
 
           <div className={style.carousel}>
-            <CarroselLine items={carrosel}/>
+            <CarroselLine index={0} items={carrosel}/>
           </div>
         </div>
       </main>
