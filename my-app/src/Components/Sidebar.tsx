@@ -83,7 +83,7 @@ export default function Sidebar({changeToUser} : any) {
             }
             <div>
               <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
-              <button onClick={() => router.push("/perfil")} className={style.options}>Loque sua carreta</button>
+              <button onClick={() => router.push("/perfil")} className={style.options}>Cadastre seu veículo</button>
             </div>
           {!userInfo?<div>
               <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>

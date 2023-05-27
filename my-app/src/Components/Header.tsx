@@ -73,7 +73,7 @@ export default function Header() {
             }}
             className={style.options}
           >
-            Loque sua carreta
+            Cadastre seu veículo
           </button>
         </div>
         <div>

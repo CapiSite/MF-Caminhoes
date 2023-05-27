@@ -193,7 +193,9 @@
     .cards {
       display: none;
   }
-
+  .title h1{
+    text-align: center;
+  }
   .mobileCard{
     display: flex;
     flex-direction: column;

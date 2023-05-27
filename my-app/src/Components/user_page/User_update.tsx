@@ -209,7 +209,7 @@ export default function UserUpdate() {
         <form className={style.form} onSubmit={(e) => updateUserPost(e)}>
 
           <div>
-            <h1>Informações Pessoais</h1>
+            <h1 className={style.personal}>Informações Pessoais</h1>
             <p className={style.p2}>Nome:</p>
             <input disabled={disable} className={style.input} value={informations.name} onChange={(e) => setInformations({ ...informations, name: e.target.value })} type="text" placeholder="Nome" />
             {fieldError.name ? <p className={style.p}>{errorMessage.name}</p> : <div className={style.space}></div>}
@@ -228,7 +228,7 @@ export default function UserUpdate() {
           </div>
 
           <div>
-            <h1>Endereço</h1>
+            <h1 className={style.address4}>Endereço</h1>
             <p className={style.p2}>CEP:</p>
             <MaskedInput type="cep" className={style.input} defaultValue={""} mask={[/[0-9]/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]} value={informations.cep}
               onChange={(e) => {
