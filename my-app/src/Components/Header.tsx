@@ -39,7 +39,7 @@ export default function Header() {
       }
 
     } catch (err: any) {
-      toast.warn(err.response.data.message)
+      toast.warn(err?.response?.data?.message)
       setUserData(null);
     }
   }, [userData]);
@@ -123,19 +123,6 @@ export default function Header() {
           </button>
         </Link>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-
     </>
   );
 }

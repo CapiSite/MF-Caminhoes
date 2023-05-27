@@ -15,6 +15,7 @@ import { addInfo } from "@/services/info.service";
 import AddedContext from "@/APIContext/addedContext";
 import CarouselMain from "@/Components/Carousel_images";
 import CarroselLine from "@/Components/Carousel_line";
+import MaskedInput from "react-text-mask";
 
 export default function Home() {
   const [carrosel, setCarrosel] = useState([])
@@ -78,30 +79,31 @@ export default function Home() {
 
   return (
     <div>
-      
       {model && !adminOn && !userInfo && addedInfo &&
-      <div className={style.backModel}>
-        <div className={style.model}>
+        <div className={style.backModel}>
+          <div className={style.model}>
 
-          <div className={style.modelLeft}>
-            <h1>Tenha acesso a promoções, notícias e ofertas especiais cadastrando seu email!</h1>
+            <div className={style.modelLeft}>
+              <h1>Tenha acesso a promoções, notícias e ofertas especiais cadastrando seu email!</h1>
 
-            <form onSubmit={(e) => addInfoPost(e)}>
-              <input placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)}></input>
-              <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-              <input placeholder="Telefone" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
-              <button type="submit">Quero receber promoções, notícias e muito mais!</button>
-            </form>
+              <form onSubmit={(e) => addInfoPost(e)}>
+                <input placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)}></input>
+                <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                <MaskedInput defaultValue={""} mask={['(', /[0-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                  value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^\d]/g, ""))} placeholder="Telefone" />
+                <input placeholder="Telefone" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
+                <button type="submit">Quero receber promoções, notícias e muito mais!</button>
+              </form>
+            </div>
+
+            <div className={style.modelRight}>
+              <h1>Alugue o veículo ou máquina que você precisa em apenas alguns cliques!</h1>
+              <p>Cadastre seu email para ter acesso aos melhores descontos, promoções, ofertas especiais e muito mais!</p>
+              <p>Com seu email cadastrado, entraremos em contato com você levando as melhores noticias, descontos, promoções e ofertas do seu interesse!
+              </p>
+              <AiOutlineClose onClick={() => setModel(false)} />
+            </div>
           </div>
-
-          <div className={style.modelRight}>
-            <h1>Alugue o veículo ou máquina que você precisa em apenas alguns cliques!</h1>
-            <p>Cadastre seu email para ter acesso aos melhores descontos, promoções, ofertas especiais e muito mais!</p>
-            <p>Com seu email cadastrado, entraremos em contato com você levando as melhores noticias, descontos, promoções e ofertas do seu interesse!
-            </p>
-            <AiOutlineClose onClick={() => setModel(false)} />
-          </div>
-        </div>
         </div>
       }
       <div className={style.header}>
@@ -112,10 +114,10 @@ export default function Home() {
       </div>
       <main className={style.main}>
         <div className={style.center}>
-          <CarouselMain/>
+          <CarouselMain />
 
           <div className={style.carousel}>
-            <CarroselLine index={0} items={carrosel}/>
+            <CarroselLine index={0} items={carrosel} />
           </div>
         </div>
       </main>
