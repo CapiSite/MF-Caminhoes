@@ -12,11 +12,11 @@ export default function Brand({ item, setFilter, filter, filtrar }: any) {
       <section className={style.section}>
         <h2>Marca</h2>
         {on ?
-          <motion.section onClick={() => setOn(!on)}>
+          <motion.section animate={{rotateZ: 90}} onClick={() => setOn(!on)}>
             <IoMdArrowRoundBack />
           </motion.section>
           :
-          <motion.section animate={{rotateZ:180}} onClick={() => setOn(!on)}>
+          <motion.section initial={{rotateZ: 270}}  onClick={() => setOn(!on)}>
             <IoMdArrowRoundBack />
           </motion.section>
         }
