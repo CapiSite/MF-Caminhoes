@@ -100,14 +100,10 @@ export default function Location() {
 
                   <button onClick={() => filterP()}>Filtrar</button>
                 </div>
-                <h1>Tipo</h1>
-                {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-                <h1>Modelo</h1>
-                {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-                <h1>Marca</h1>
-                {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-                <h1>Roda</h1>
-                {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+                {types ? <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={types} key={1} /> : null}
+                {models ? <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={models} key={2} /> : null}
+                {brands ? <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={brands} key={3} /> : null}
+                {wheels ? <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={wheels} key={4} /> : null}
               </motion.div>
             }
           </AnimatePresence>
@@ -132,22 +128,19 @@ export default function Location() {
 
                 <button onClick={() => filterP()}>Filtrar</button>
               </div>
-              <h1>Tipo</h1>
-              {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-              <h1>Modelo</h1>
-              {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-              <h1>Marca</h1>
-              {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-              <h1>Roda</h1>
-              {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+
+              {types ? <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={types} key={1} /> : null}
+              {models ? <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={models} key={2} /> : null}
+              {brands ? <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={brands} key={3} /> : null}
+              {wheels ? <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={wheels} key={4} /> : null}
             </motion.div>
           }
         </AnimatePresence>
 
         <AnimatePresence>
           {
-            !filterOn && 
-            <motion.section animate={{y:0}} initial={{y: -200}} exit={{y:-200}} transition={{duration: 1}} className={style.goBack} onClick={() => setFilterOn(true)}>
+            !filterOn &&
+            <motion.section animate={{ y: 0 }} initial={{ y: -200 }} exit={{ y: -200 }} transition={{ duration: 1 }} className={style.goBack} onClick={() => setFilterOn(true)}>
               <AiOutlineFilter />
             </motion.section>
           }

@@ -1,3 +1,25 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.section section {
+  font-size: 20px;
+  margin-top: 14px;
+  margin-left: 10px;
+}
+
+.section section:hover {
+  color: var(--veryDarkYellow);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+}
+
 .p1{
-    font-weight: 600;
+  font-weight: 600;
 }
