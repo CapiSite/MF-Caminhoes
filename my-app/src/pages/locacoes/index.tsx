@@ -14,6 +14,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react"
 import CurrencyInput from "react-currency-input-field";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { AiOutlineFilter } from "react-icons/ai";
 
 
 export default function Location() {
@@ -28,6 +30,7 @@ export default function Location() {
   const [models, setModels] = useState<string[]>([])
   const [brands, setBrands] = useState<string[]>([])
   const [wheels, setWheels] = useState<string[]>([])
+  const [filterOn, setFilterOn] = useState<boolean>(false)
 
 
   const handleCall = useCallback(async () => {
@@ -72,23 +75,22 @@ export default function Location() {
       <div className={style.sidebar}>
         <Sidebar />
       </div>
+
       <div className={style.container}>
 
         <div className={style.mobileFilter}>
-          <AnimatePresence>
-            <motion.button animate={{ y: 0 }} initial={{ y: -200 }} transition={{ duration: 0.8 }}
-              onClick={() => setMobileFilter(!mobileFilter)}>
-              <Image src="/filter.png" alt="Filtrar" width={20} height={20} onClick={() => setMobileFilter(!mobileFilter)} />
-              <h3>
-                Filtrar
-              </h3>
-            </motion.button>
-          </AnimatePresence>
+          <motion.button animate={{ y: 0 }} initial={{ y: -200 }} transition={{ duration: 0.8 }}
+            onClick={() => setMobileFilter(!mobileFilter)}>
+            <Image src="/filter.png" alt="Filtrar" width={20} height={20} onClick={() => setMobileFilter(!mobileFilter)} />
+            <h3>
+              Filtrar
+            </h3>
+          </motion.button>
 
           <AnimatePresence>
             {mobileFilter &&
 
-              <motion.div animate={{ y: 0, marginBottom: 0 }} exit={{y:-600, marginBottom:-300}} initial={{ y: -600, marginBottom:-300 }} transition={{ duration: 1}} className={style.filterMobile}>
+              <motion.div animate={{ y: 0, marginBottom: 0 }} exit={{ y: -600, marginBottom: -300 }} initial={{ y: -600, marginBottom: -300 }} transition={{ duration: 1 }} className={style.filterMobile}>
                 <h1>Preço</h1>
                 <div className={style.rangeMobile}>
                   <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)}
@@ -111,26 +113,45 @@ export default function Location() {
           </AnimatePresence>
         </div>
 
-        <div className={style.filter}>
-          <h1>Filtros</h1>
-          <h1>Preço</h1>
-          <div className={style.range}>
-            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)}
-              onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 10000,00" />
-            <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)}
-              onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 1000000,00" />
+        <AnimatePresence>
+          {
+            filterOn &&
+            <motion.div className={style.filter} animate={{ x: 0, marginRight: 0 }} initial={{ x: -300, marginRight: -300 }} exit={{ x: -300, marginRight: -300 }} transition={{ duration: 1 }}>
+              <div>
+                <h1>Filtros</h1>
+                <section onClick={() => setFilterOn(false)}>
+                  <IoMdArrowRoundBack />
+                </section>
+              </div>
+              <h1>Preço</h1>
+              <div className={style.range}>
+                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)}
+                  onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 10000,00" />
+                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)}
+                  onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 1000000,00" />
 
-            <button onClick={() => filterP()}>Filtrar</button>
-          </div>
-          <h1>Tipo</h1>
-          {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-          <h1>Modelo</h1>
-          {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-          <h1>Marca</h1>
-          {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-          <h1>Roda</h1>
-          {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-        </div>
+                <button onClick={() => filterP()}>Filtrar</button>
+              </div>
+              <h1>Tipo</h1>
+              {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+              <h1>Modelo</h1>
+              {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+              <h1>Marca</h1>
+              {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+              <h1>Roda</h1>
+              {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+            </motion.div>
+          }
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {
+            !filterOn && 
+            <motion.section animate={{y:0}} initial={{y: -200}} exit={{y:-200}} transition={{duration: 1}} className={style.goBack} onClick={() => setFilterOn(true)}>
+              <AiOutlineFilter />
+            </motion.section>
+          }
+        </AnimatePresence>
 
 
         <div className={style.body}>
@@ -153,10 +174,9 @@ export default function Location() {
             {ct <= carts.length ? <div className={style.more}>
               <button onClick={() => setCt(ct + 8)}>Ver mais</button>
             </div> : <></>}
-
-
           </div>
         </div>
+
       </div>
       <Footer />
     </>

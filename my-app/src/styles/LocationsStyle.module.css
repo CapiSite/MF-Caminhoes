@@ -16,7 +16,31 @@
 
 .filter p {
   margin-bottom: 5px;
+}
 
+.filter p:hover {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.filter>div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.filter>div section {
+  width: 22px;
+  height: 22px;
+  font-size: 22px;
+  cursor: pointer;
+  margin-top: 13px;
+}
+
+.filter>div section:hover {
+  color: var(--darkYellow);
+  transition: 0.3;
 }
 
 .filter h6 {
@@ -48,7 +72,6 @@
 .range button:hover {
   background-color: var(--darkYellow);
   cursor: pointer;
-
 }
 
 .container {
@@ -65,15 +88,27 @@
 
 .filter h1:first-child {
   font-size: 30px;
-  margin-top: 40px;
   font-weight: 700;
-  margin-right: 60px;
 }
 
 .filter input::-webkit-outer-spin-button,
 .filter input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.goBack {
+  width: 22px;
+  height: 22px;
+  font-size: 32px;
+  cursor: pointer;
+  margin-top: 13px;
+  margin-left: 10px;
+}
+
+.goBack:hover{
+  color: var(--darkYellow);
+  transition: 0.3;
 }
 
 .locations {
@@ -215,6 +250,10 @@
     display: none;
   }
 
+  .goBack {
+    display: none;
+  }
+
   .sidebar {
     display: flex;
   }
@@ -237,7 +276,7 @@
   }
 
   .mobileFilter>button {
-    background-color: var(--gray);
+    background-color: var(--gray-1);
     border: 0px;
     margin-top: 30px;
     width: 150px;
@@ -254,7 +293,7 @@
   }
 
   .mobileFilter>button:hover{
-    background-color: var(--gray-1);
+    background-color: var(--gray);
   }
 
   .filterMobile {
@@ -267,6 +306,7 @@
     border-radius: 10px;
     height: 300px;
     overflow-y: scroll;
+    padding-bottom: 20px;
   }
 
   .filterMobile h1 {
@@ -277,6 +317,12 @@
 
   .filterMobile p {
     cursor: pointer;
+
+  }
+
+  .filterMobile p:hover{
+    font-size: 18px;
+    
   }
 
   .filterMobile button {
