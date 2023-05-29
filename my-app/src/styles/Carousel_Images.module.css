@@ -1,10 +1,15 @@
 .desktop {
-  margin-top: 30px;
   display: flex;
+  width: 100vw;
+  max-height: 600px;
+}
+
+.desktop img {
+  max-height: 600px;
+  object-fit: cover;
 }
 
 .mobile {
-  margin-top: 30px;
   display: none;
 }
 

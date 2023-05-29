@@ -1,5 +1,5 @@
 import { getBrands, getModels, getTypes, getWheels } from "@/services/types.services"
-import { FormEvent, useCallback, useContext, useEffect, useRef, useState } from "react"
+import { FormEvent, startTransition, useCallback, useContext, useEffect, useRef, useState } from "react"
 import style from '@/styles/user_page/cart_rental.module.css'
 import { roboto } from "@/styles/fonts"
 import { postCart, postCartPhotosMain, postCartPhotosSecondary } from "@/services/cart.services"
@@ -33,7 +33,7 @@ export default function CartPost() {
   const [main, setMain] = useState<any>()
   const [secondary, setSecondary] = useState<any[]>([])
   const [year, setYear] = useState<number>()
-  const [status, setStatus] = useState<string>("")
+  const [status, setStatus] = useState<number | null>(null)
   const [fieldError, setFieldError] = useState(() => ({ title: false, description: false, color: false, size: false, price: false, brandsSelected: false, typesSelected: false, modelsSelected: false, wheelsSelected: false, year: false, status: false, main: false, secondary: false, section: false }))
   const [errorMessage, setErrorMessage] = useState({ title: "Campo Obrigatório!", description: "Campo Obrigatório!", color: "Campo Obrigatório!", size: "Campo Obrigatório!", price: "Campo Obrigatório!", brandsSelected: "Campo Obrigatório!", typesSelected: "Campo Obrigatório!", modelsSelected: "Campo Obrigatório!", wheelsSelected: "Campo Obrigatório!", year: "Campo Obrigatório!", status: "Campo Obrigatório!", main: "Insira uma imagem!", secondary: "Insira uma imagem!", section: "Campo Obrigatório!" })
   const [disable, setDisable] = useState(false)
@@ -154,13 +154,13 @@ export default function CartPost() {
       newFieldError.color = true
       error.color = "Digite no maximo 20 caracteres"
     }
-    if(status.length>50){
+    if(typeof(status) !=="number"){
       newFieldError.status = true
-      error.status = "Digite no maximo 50 caracteres"
+      error.status = "Digite número de dias válido"
     }
-    if(status.length<3){
+    if(typeof(status) ==="number" && status< 40){
       newFieldError.status = true
-      error.status = "Digite 3 ou mais caracteres"
+      error.status = "Tempo Mínimo 'de 40 dias"
     }
     
 
@@ -243,7 +243,7 @@ export default function CartPost() {
         secondary_images: secondaryImages.secondary,
         sections: Number(section),
         year : Number(year),
-        status: status
+        status: String(status)
 
       },userData.token)
 
@@ -256,7 +256,7 @@ export default function CartPost() {
       setMain({})
       setSecondary([])
       setYear(0)
-      setStatus("")
+      setStatus(null)
 
       setFieldError({ title: false, description: false, color: false, size: false, price: false, brandsSelected: false, typesSelected: false, modelsSelected: false, wheelsSelected: false, year: false, status: false, main: false, secondary: false, section: false })
     }catch(err){
@@ -307,8 +307,9 @@ export default function CartPost() {
               onChange={(e) => setSection(Number(e.target.value.replace(/[^\d]/g, "")))} placeholder="Quantos Eixos" disabled={disable} />
             {fieldError.section ? <p className={style.p}>{errorMessage.section}</p>:<div className={style.space}></div>}
             
-            <h2>Status</h2>
-            <input disabled={disable} placeholder="Status" type="text" onChange={(e) => setStatus(e.target.value)} value={status} />
+            <h2>Tempo Mínimo de Locação</h2>
+            <input disabled={disable} placeholder="(em dias)" type="text" 
+            onChange={(e) => { if(!isNaN(Number(e.target.value))){setStatus(Number(e.target.value))}} } value={status ? status : ""} />
             {fieldError.status ? <p className={style.p}>{errorMessage.status}</p>:<div className={style.space}></div>}
 
             <CartInput disable={disable} type={brands} alter={setBrandsSelected} value={brandsSelected} label="Marca"/>
@@ -327,7 +328,7 @@ export default function CartPost() {
             <input className={style.input} ref={mainImage}  disabled={disable} type="file" name="main" onChange={(e) => {if(e.target.files) { setMain(e.target.files[0])}}}/>
             {fieldError.main && <p className={style.p}>{errorMessage.main}</p>}
             {main && <span className={style.span}>Imagem colocada!</span>}
-            <label className={style.label} onClick={()=> secondaryImage.current.click()}>Insira as próximas imagens</label>
+            <label className={style.label} onClick={()=> secondaryImage.current.click()}>Insira as imagens secundárias</label>
             <input className={style.input} ref={secondaryImage} disabled={disable} type="file" name="secondary" onChange={(e:any) => {if(e.target.files) { 
               setSecondary(secondary => [...secondary, e.target.files[e.target.files.length-1]])
             }}}/>

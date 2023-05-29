@@ -1,311 +1,376 @@
-.filter{
-    width: 300px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    padding-left: 20px;
+.filter {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding-left: 20px;
 }
 
-.filter h1{
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    margin-top: 30px;
+.filter h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 30px;
 }
-.filter p{
-    margin-bottom: 5px;
-    
-}
-.filter h6{
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-.filter p:hover, .filter h6:hover{	
-cursor: pointer;
-}
-.range{
-    display: flex;
-    flex-direction: column;
-}
-.range button{
-    background-color: var(--veryDarkYellow);
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 110px;
-    height: 35px;
-    font-size: 15px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-.range button:hover{
-    background-color: var(--darkYellow);
-    cursor: pointer;
+
+.filter p {
+  margin-bottom: 5px;
 
 }
-.container{
-    display: flex;
+
+.filter h6 {
+  margin-bottom: 5px;
+  font-weight: bold;
 }
-.filter input{
-    width: 110px;
-    margin-top: 10px;
-    height: 30px;
-    border-radius: 3px;
-    border: 1px solid black;
+
+.filter p:hover,
+.filter h6:hover {
+  cursor: pointer;
 }
-.filter h1:first-child{
-    font-size: 30px;
-    margin-top: 40px;
-    font-weight: 700;
-    margin-right: 60px;
+
+.range {
+  display: flex;
+  flex-direction: column;
 }
+
+.range button {
+  background-color: var(--veryDarkYellow);
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 110px;
+  height: 35px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.range button:hover {
+  background-color: var(--darkYellow);
+  cursor: pointer;
+
+}
+
+.container {
+  display: flex;
+}
+
+.filter input {
+  width: 110px;
+  margin-top: 10px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+.filter h1:first-child {
+  font-size: 30px;
+  margin-top: 40px;
+  font-weight: 700;
+  margin-right: 60px;
+}
+
 .filter input::-webkit-outer-spin-button,
 .filter input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.locations{
+
+.locations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.locations h1 {
+  font-size: 30px;
+  margin-top: 40px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-left: 40px;
+}
+
+.locationsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% + 300px);
+}
+
+.locationsCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 20px;
+  width: 200px;
+  margin-bottom: 20px;
+  border: 1px solid var(--white);
+}
+
+.div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 60vw;
+}
+
+.div select {
+  width: 130px;
+  height: 30px;
+  margin-top: 14px;
+  margin-right: 50px;
+  font-size: 11px;
+  background-color: var(--gray);
+  border: 0px;
+}
+
+.locationsCard p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.locationsCard p:nth-child(4) {
+  font-weight: bold;
+}
+
+.locationsCard h2 {
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.locationsCard button {
+  background-color: var(--veryDarkYellow);
+  border: 0px;
+  border-radius: 3px;
+  height: 40px;
+  width: 100px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.more button {
+  width: 200px;
+  height: 40px;
+  margin-top: 20px;
+  background-color: var(--veryDarkYellow);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: bold;
+  color: var(--black);
+}
+
+.more button:hover {
+  background-color: var(--darkYellow);
+  cursor: pointer;
+}
+
+.more {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.locationsCard button:hover {
+  cursor: pointer;
+  background-color: var(--darkYellow);
+
+}
+
+.locationsCard:hover {
+  cursor: pointer;
+  border: 1px solid var(--black);
+}
+
+.sidebar {
+  display: none;
+}
+
+.mobileFilter {
+  display: none;
+}
+
+.noCars {
+  font-size: 25px;
+}
+
+@media (max-width: 800px) {
+  .locationsCard {
+    width: 60%;
+    min-width: 200px;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .sidebar {
+    display: flex;
+  }
+
+  .filter {
+    display: none;
+  }
+
+  .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    max-width: 1000px;
-}
-.body{
+    z-index: -4;
+  }
+
+  .mobileFilter {
+    display: flex;
     width: 100%;
-    display: flex;
-    justify-content: center;
-}
-.locations h1{
-    font-size: 30px;
-    margin-top: 40px;
-    font-weight: 700;
-    margin-bottom: 30px;
-    margin-left: 40px;
-}
-.locationsContainer{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    height: calc(100% + 300px);
-}
-.locationsCard{
-    display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    text-align: center;
-    margin-right: 20px;
-    width: 200px;
-    margin-bottom: 20px;
-    border: 1px solid var(--white); 
-}
-.div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 60vw;
-}
-.div select{
-    width: 130px;
-    height: 30px;
-    margin-top: 14px;
-    margin-right: 50px;
-    font-size: 11px;
+  }
+
+  .mobileFilter>button {
     background-color: var(--gray);
     border: 0px;
-}
-.locationsCard p{
-    font-size: 20px;
-    margin-bottom: 30px;
-}
-.locationsCard p:nth-child(4){
+    margin-top: 30px;
+    width: 150px;
+    height: 40px;
     font-weight: bold;
-}
-
-.locationsCard h2{
-    font-size: 16px;
-    margin-top: 10px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-.locationsCard button{
-    background-color: var(--veryDarkYellow);
-    border:0px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 3px;
-    height: 40px;
-    width: 100px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.more button{
-    width: 200px;
-    height: 40px;
-    margin-top: 20px;
-    background-color: var(--veryDarkYellow);
-    border: 1px solid black;
-    border-radius: 5px;
-    font-weight: bold;
-    color: var(--black);
-}
-
-.more button:hover{
-    background-color: var(--darkYellow);
     cursor: pointer;
-}
+    margin-bottom: 2px;
+    z-index: 1;
+  }
 
-.more{
-    width: 100%;
+  .mobileFilter>button:hover{
+    background-color: var(--gray-1);
+  }
+
+  .filterMobile {
+    background-color: var(--gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 100%;
+    border-radius: 10px;
+    height: 300px;
+    overflow-y: scroll;
+  }
+
+  .filterMobile h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0px;
+  }
+
+  .filterMobile p {
+    cursor: pointer;
+  }
+
+  .filterMobile button {
+    cursor: pointer;
+  }
+
+
+  .rangeMobile {
     display: flex;
     justify-content: center;
-}
-.locationsCard button:hover{
-    cursor: pointer;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .rangeMobile input {
+    border: 1px solid black;
+    height: 30px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
+
+  .rangeMobile p {
+    margin-bottom: 6px;
+  }
+
+  .rangeMobile button {
     background-color: var(--darkYellow);
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
 
-}
-.locationsCard:hover{
-    cursor: pointer;
-    border: 1px solid var(--black); 
-}
+  .rangeMobile button:hover {
+    background-color: var(--veryDarkYellow);
+  }
 
-.sidebar{
-    display: none;
-}
+  .locationsContainer {
 
-.mobileFilter{
-    display: none;
-}
+    align-items: center;
+  }
 
-.noCars{
-    font-size: 25px;
-}
-@media (max-width: 800px) {
-    .locationsCard{
-        width: 60%;
-        min-width: 200px;
-    }
-    .header {
-      display: none;
-    }
-  
-    .sidebar {
-      display: flex;
-    }
-    .filter{
-        display: none;
-      }
-    .container{
-        display: flex;
-        flex-direction: column;
-    }
-    .mobileFilter{
-        display: flex;
-        width: 100%;
-        align-items: center;
-        flex-direction: column;
-        
-    }
-    .mobileFilter>button{
-        background-color: var(--gray);
-        border: 0px;
-        margin-top: 30px;
-        width: 150px;
-        height: 40px;
-        font-weight: bold;
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .filterMobile{
-        background-color: var(--gray);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 300px;
-        height: 100%;
-        border-radius: 10px;
-        height: 300px;
-        overflow-y: scroll;
-    }
+  .filterMobile p {
+    margin-bottom: 5px;
+  }
 
-    .filterMobile h1{
-        font-size: 18px;
-        font-weight: bold;
-        margin: 20px 0px;
-    }
-    .rangeMobile{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    .rangeMobile input{
-        border: 1px solid black;
-        height: 30px;
-        border-radius: 10px;
-        margin-bottom: 5px;
-    }
-    .rangeMobile p{
-        margin-bottom: 6px;
-    }
-    .rangeMobile button{
-        background-color: var(--darkYellow);
-        border: 1px solid black;
-        border-radius: 10px;
-        width: 150px;
-        height: 40px;
-        font-size: 15px;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-    .locationsContainer{
+  .filterMobile h6 {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
 
-        align-items: center;
-    }
-    .filterMobile p{
-        margin-bottom: 5px;
-    }
-    .filterMobile h6{
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    .noCars{
-        margin: 200px 0px;
-    }
+  .noCars {
+    margin: 200px 0px;
+  }
 
 }
 
 
 
 @media (max-width:300px) {
-    .filterMobile{
-        max-width: 95vw;
-    }
-    
-    
+  .filterMobile {
+    max-width: 95vw;
+  }
+
+
 }
 
-@media (max-width:500px){
-    .div select, .div h1{
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-left: 0px;
-        margin-bottom: 0px;
-    }
-    .div h1{
-        margin: 20px 0px;
-        
-    }
-    .div{
-        justify-content: space-around;
-        align-items: center;
-        flex-direction: column;
-        height: 200px;
-    }
-    .locationsCard{
-        margin-right: 0px;
-    }
+@media (max-width:500px) {
+
+  .div select,
+  .div h1 {
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+
+  .div h1 {
+    margin: 20px 0px;
+
+  }
+
+  .div {
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 200px;
+  }
+
+  .locationsCard {
+    margin-right: 0px;
+  }
 
 }

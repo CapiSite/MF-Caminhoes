@@ -2,7 +2,6 @@ import style from "../styles/HomeStyle.module.css";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import Sidebar from "@/Components/Sidebar";
-import Carousel from "@/Components/Carousel";
 import { FormEvent, useCallback, useContext, useEffect, useState } from "react";
 import { getAllCarts } from "@/services/cart.services";
 import { AxiosError } from "axios";

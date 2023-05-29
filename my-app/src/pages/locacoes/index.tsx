@@ -6,10 +6,11 @@ import Wheel from "@/Components/Filter/Wheel";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import Sidebar from "@/Components/Sidebar";
-import { getAllCarts, getUnvalidCarts } from "@/services/cart.services";
+import { getAllCarts } from "@/services/cart.services";
 import { getBrands, getModels, getTypes, getWheels } from "@/services/types.services";
 import style from "@/styles/LocationsStyle.module.css";
 import { AxiosError } from "axios";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react"
 import CurrencyInput from "react-currency-input-field";
@@ -34,9 +35,9 @@ export default function Location() {
       const cartsReceived = await getAllCarts()
       setAllcarts(cartsReceived.sort((a: any, b: any) => {
         return Number(b.id) - Number(a.id)
-    }))
+      }))
       setCaminhoes(cartsReceived.sort((a: any, b: any) => {
-          return Number(b.id) - Number(a.id)
+        return Number(b.id) - Number(a.id)
       }))
 
       const brandsReceived = await getBrands()
@@ -74,28 +75,40 @@ export default function Location() {
       <div className={style.container}>
 
         <div className={style.mobileFilter}>
-          <button onClick={() => setMobileFilter(!mobileFilter)}><Image src="/filter.png" alt="Filtrar" width={20} height={20} onClick={() => setMobileFilter(!mobileFilter)} />Filtrar</button>
-          {mobileFilter &&
-            <div className={style.filterMobile}>
-              <h1>Preço</h1>
-              <div className={style.rangeMobile}>
-                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)}
-                  onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 10000,00" />
-                <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)}
-                  onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 1000000,00" />
+          <AnimatePresence>
+            <motion.button animate={{ y: 0 }} initial={{ y: -200 }} transition={{ duration: 0.8 }}
+              onClick={() => setMobileFilter(!mobileFilter)}>
+              <Image src="/filter.png" alt="Filtrar" width={20} height={20} onClick={() => setMobileFilter(!mobileFilter)} />
+              <h3>
+                Filtrar
+              </h3>
+            </motion.button>
+          </AnimatePresence>
 
-                <button onClick={() => filterP()}>Filtrar</button>
-              </div>
-              <h1>Tipo</h1>
-              {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-              <h1>Modelo</h1>
-              {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-              <h1>Marca</h1>
-              {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-              <h1>Roda</h1>
-              {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
-            </div>
-          }
+          <AnimatePresence>
+            {mobileFilter &&
+
+              <motion.div animate={{ y: 0, marginBottom: 0 }} exit={{y:-600, marginBottom:-300}} initial={{ y: -600, marginBottom:-300 }} transition={{ duration: 1}} className={style.filterMobile}>
+                <h1>Preço</h1>
+                <div className={style.rangeMobile}>
+                  <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.min)}
+                    onChange={(e) => setFilterPrice({ ...filterPrice, min: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 10000,00" />
+                  <CurrencyInput intlConfig={{ locale: 'pt-BR', currency: 'BRL' }} value={Number(filterPrice.max)}
+                    onChange={(e) => setFilterPrice({ ...filterPrice, max: Number(e.target.value.replace(/[^\d]/g, "")) })} placeholder="R$ 1000000,00" />
+
+                  <button onClick={() => filterP()}>Filtrar</button>
+                </div>
+                <h1>Tipo</h1>
+                {types ? types.map((o, i) => { return <Type setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+                <h1>Modelo</h1>
+                {models ? models.map((o, i) => { return <Model setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+                <h1>Marca</h1>
+                {brands ? brands.map((o, i) => { return <Brand setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+                <h1>Roda</h1>
+                {wheels ? wheels.map((o, i) => { return <Wheel setFilter={setFilter} filtrar={filtrar} filter={filter} item={o} key={i} /> }) : null}
+              </motion.div>
+            }
+          </AnimatePresence>
         </div>
 
         <div className={style.filter}>

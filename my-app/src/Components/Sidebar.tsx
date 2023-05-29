@@ -6,7 +6,6 @@ import { VscThreeBars } from "react-icons/vsc";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion"
-import { initialize } from "next/dist/server/lib/render-server";
 import Link from "next/link";
 import { BsWhatsapp } from "react-icons/bs";
 import UserContext from "@/APIContext/UserContext";

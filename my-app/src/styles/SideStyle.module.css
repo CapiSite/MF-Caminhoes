@@ -6,6 +6,7 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+  z-index: 100;
 }
 
 .header svg {

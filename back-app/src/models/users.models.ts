@@ -10,7 +10,7 @@ export const userPost = Joi.object<UserCreation> ({
   address: {
     cep: Joi.string().length(8).required(),
     address: Joi.string().required(),
-    complement: Joi.string().required(),
+    complement: Joi.string().allow(null, ''),
     number: Joi.string().required(),
     city: Joi.string().required(),
     state_id: Joi.number().required()
@@ -24,7 +24,7 @@ export const userUpdate = Joi.object<UserCreation> ({
   address: {
     cep: Joi.string().length(8).required(),
     address: Joi.string().required(),
-    complement: Joi.string().required(),
+    complement: Joi.string().allow(null, ''),
     number: Joi.string().required(),
     city: Joi.string().required(),
     state_id: Joi.number().required()

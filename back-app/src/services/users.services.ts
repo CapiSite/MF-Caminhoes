@@ -19,6 +19,10 @@ async function createUser(user: UserCreation) {
   const state = await typesRepository.getStateById(user.address.state_id)
   if(!state) throw ConflictError("Estado inválido")
 
+  if(!user.address.complement || user.address.complement.length === 0) {
+    user.address.complement = ""
+  }
+
   const address = await addressRepository.createAddress(user.address)
 
   const encryptedPassword = bcrypt.hashSync(user.password, 12)
@@ -62,6 +66,10 @@ async function editUser(user: UserCreation, id: number) {
 
   const userCpf = await usersRepository.getUserByCpf(user.cpf)
   if(userCpf && userCpf?.id  !== id) throw ConflictError("Cpf inválido")
+
+  if(!user.address.complement || user.address.complement.length === 0) {
+    user.address.complement = ""
+  }
 
   const newAddress = await addressRepository.updateAddress(user.address, userExist.address_id, userExist.id)
 
