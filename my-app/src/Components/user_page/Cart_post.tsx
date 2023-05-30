@@ -134,9 +134,9 @@ export default function CartPost() {
       newFieldError.title = true
       error.title = "Digite 4 ou mais caracteres"
     }
-    if(title.length>40){
+    if(title.length>60){
       newFieldError.title = true
-      error.title = "Digite no maximo 40 caracteres"
+      error.title = "Digite no maximo 60 caracteres"
     }
     if(description.length<20){
       newFieldError.description = true
@@ -158,9 +158,9 @@ export default function CartPost() {
       newFieldError.status = true
       error.status = "Digite número de dias válido"
     }
-    if(typeof(status) ==="number" && status< 40){
+    if(typeof(status) ==="number" && status < 1){
       newFieldError.status = true
-      error.status = "Tempo Mínimo 'de 40 dias"
+      error.status = "Tempo Mínimo 'de 1 dias"
     }
     
 

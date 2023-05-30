@@ -57,24 +57,22 @@ export default function Header() {
             className={style.logo}
             src={Logo}
             width={190}
-            height={61}
+            height={80}
             alt="Logo"
           />
           <button
             onClick={() => router.push("/locacoes")}
             className={style.options}
           >
-            Locar
+            Alugar
           </button>
-          <button
-            onClick={() => {
-              setOptionData(0);
-              router.push("/perfil");
-            }}
-            className={style.options}
-          >
-            Cadastre seu veículo
-          </button>
+          {userInfo || adminOn ?<button
+                onClick={() => router.push("/login")}
+                className={style.options}
+              >
+                Anuncie Aqui
+              </button>:<></>}
+          
         </div>
         <div>
           {userInfo || adminOn? (
@@ -97,15 +95,9 @@ export default function Header() {
             <>
               <button
                 onClick={() => router.push("/login")}
-                className={style.options}
-              >
-                Entrar
-              </button>
-              <button
-                onClick={() => router.push("/cadastrar")}
                 className={style.register}
               >
-                Cadastre-se
+                Anuncie Aqui
               </button>
             </>
           )}

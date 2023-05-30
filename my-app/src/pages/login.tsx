@@ -45,7 +45,7 @@ export default function Login() {
           <input disabled={disable} className={style.input} value={informations.password} onChange={(e) => setInformations({ ...informations, password: e.target.value })} type="password" placeholder="Senha" />
           {fieldError.password ? <p className={style.p}>{errorMessage.password}</p>:<div className={style.space}></div>}
           <button disabled={disable} className={style.button} type="submit">{disable ? <ThreeDots color="white" /> : "Entrar"}</button>
-          {ActiveLink({ children: "Não possui uma conta? Cadastre-se!", href: "/cadastrar" })}
+          {ActiveLink({ children: "Ainda não tem cadastro? Clique aqui!", href: "/cadastrar" })}
           <p className={style.forgot} onClick={()=> setForgot(1)}>Esqueceu a senha?</p>
         </form>
         

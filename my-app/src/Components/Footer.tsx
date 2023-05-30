@@ -17,11 +17,11 @@ export default function Footer() {
           className={style.logo}
           src={Logo}
           width={267}
-          height={88}
+          height={120}
           alt="Logo"
         />
         <div className={style.informations}>
-          <h1>MF Locações</h1>
+          <h1>Loca Aqui</h1>
           <p className={style.contact}>Contatos:</p>
           <div className={style.numbers}>
             <Link
@@ -40,7 +40,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className={style.address}>
-            Rua Bernardo Sayão, 247, Custódio Pereira UBERLANDIA/MINAS GERAIS
+            Rua Bernardo Sayão, 181, Custódio Pereira UBERLANDIA/MG
             38405-234
           </p>
         </div>

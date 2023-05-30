@@ -1,7 +1,7 @@
 import Image from "next/image"
 import style from "../styles/SideStyle.module.css"
 import { useRouter } from "next/router"
-import Logo from "../../public/LogoLocacaoSemFundo.png"
+import Logo from "../../public/LogoLocacao.png"
 import { VscThreeBars } from "react-icons/vsc";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -59,7 +59,7 @@ export default function Sidebar({changeToUser} : any) {
           <div onClick={() => setDisabled(false)}>
             <VscThreeBars />
           </div>
-          <Image onClick={() => router.push("/")} className={style.logo} src={Logo} width={267} height={88} alt='Logo' />
+          <Image onClick={() => router.push("/")} className={style.logo} src={Logo} width={180} height={88} alt='Logo' />
         </div>
       </header>
 
@@ -82,11 +82,16 @@ export default function Sidebar({changeToUser} : any) {
             }
             <div>
               <button onClick={() => router.push("/locacoes")} className={style.options}>Locar</button>
-              <button onClick={() => router.push("/perfil")} className={style.options}>Cadastre seu veículo</button>
             </div>
+            {userInfo ? <button
+                onClick={() => router.push("/login")}
+                className={style.options}
+              >
+                Anuncie Aqui
+              </button>:<></>}
           {!userInfo?<div>
-              <button onClick={() => router.push("/login")} className={style.options}>Entrar</button>
-              <button onClick={() => router.push("/cadastrar")} className={style.register}>Cadastre-se</button>
+
+              <button onClick={() => router.push("/cadastrar")} className={style.register}>Anuncie aqui</button>
             </div>:<></>}
             {userInfo?
             <footer className={style.img}>

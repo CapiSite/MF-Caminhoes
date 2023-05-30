@@ -20,7 +20,6 @@ export default function CarroselItem({ info, adm }: any) {
     <div onClick={() => router.push(`/locacoes/${info.id}`)} className={style.locationsCard}>
       <Image src={src} alt="Caminhão" width={198} height={198} />
       <h2>{info?.title}</h2>
-      <p>{info?.sections} eixos</p>
       <p>R${parseFloat((info?.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
       <button>{adm ? "Ver mais" : "Locar"}</button>
     </div>
