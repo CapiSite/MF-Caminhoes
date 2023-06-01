@@ -3,12 +3,20 @@
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .section section {
   font-size: 20px;
-  margin-top: 14px;
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  justify-content: center;
+}
+.section h2{
+
+  margin: 0px;
 }
 
 .section section:hover {
@@ -22,4 +30,10 @@
 
 .p1{
   font-weight: 600;
+}
+
+@media (min-width:800px) {
+  .section{
+    margin-bottom: 20px;
+  }
 }

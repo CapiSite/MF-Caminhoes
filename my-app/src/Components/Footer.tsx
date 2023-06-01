@@ -17,7 +17,7 @@ export default function Footer() {
           className={style.logo}
           src={Logo}
           width={267}
-          height={120}
+          height={105}
           alt="Logo"
         />
         <div className={style.informations}>

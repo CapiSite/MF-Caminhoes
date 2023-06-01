@@ -13,7 +13,9 @@
   margin-bottom: 20px;
   margin-top: 30px;
 }
-
+.rangeMobile button{
+  margin-bottom: 10px;
+}
 .filter p {
   margin-bottom: 5px;
 }
@@ -239,7 +241,9 @@
 .noCars {
   font-size: 25px;
 }
-
+.range button{
+  margin-bottom: 20px;
+}
 @media (max-width: 800px) {
   .locationsCard {
     width: 60%;

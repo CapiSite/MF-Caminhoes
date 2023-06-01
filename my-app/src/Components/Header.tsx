@@ -56,7 +56,7 @@ export default function Header() {
             onClick={() => router.push("/")}
             className={style.logo}
             src={Logo}
-            width={190}
+            width={220}
             height={80}
             alt="Logo"
           />
