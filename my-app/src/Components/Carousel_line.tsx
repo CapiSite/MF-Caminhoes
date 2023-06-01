@@ -1,5 +1,5 @@
 import CarrouselItem from "@/Components/Carousel";
-import { animate, motion, useMotionValue } from "framer-motion"
+import { motion, useMotionValue } from "framer-motion"
 import style from "@/styles/Carousel_line.module.css"
 import { useEffect, useRef, useState } from "react";
 

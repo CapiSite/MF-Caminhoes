@@ -21,7 +21,7 @@ export default function CarroselMain() {
     <>
       <div className={style.desktop}>
         
-        <Carousel showThumbs={false} autoPlay infiniteLoop={true} interval={10000}>
+        <Carousel showThumbs={false} showArrows={false} showStatus={false} autoPlay infiniteLoop={true} interval={10000}>
           {images.map((product, index) => (
             <div onClick={(()=> router.push("/perfil"))} key={index}>
               <img src={images[index]} />
@@ -30,7 +30,7 @@ export default function CarroselMain() {
         </Carousel>
       </div>
       <div className={style.mobile}>
-        <Carousel showThumbs={false} autoPlay infiniteLoop={true} interval={10000}>
+        <Carousel showThumbs={false} showArrows={false} showStatus={false} autoPlay infiniteLoop={true} interval={10000}>
           {images.map((product, index) => (
             <div onClick={(()=> router.push("/perfil"))} key={index}>
               <img src={imagesMobile[index]} />
