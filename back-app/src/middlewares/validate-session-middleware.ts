@@ -24,7 +24,7 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
     if (!session || !session.active) return unauthorizedError(res);
 
     jwt.verify(session.token, process.env.JWT_SECRET, async (error, decoded) =>{
-      if(error) {
+      if(error && session.token) {
         await prismaDb.sessions.delete({
           where:{
             id: session.id

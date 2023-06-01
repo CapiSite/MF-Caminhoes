@@ -67,7 +67,7 @@ export default function Header() {
             Alugar
           </button>
           {userInfo || adminOn ?<button
-                onClick={() => router.push("/login")}
+                onClick={() => router.push("/perfil")}
                 className={style.options}
               >
                 Anuncie Aqui
