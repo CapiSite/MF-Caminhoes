@@ -36,7 +36,9 @@ export default function Home() {
   const handleCall = useCallback(async () => {
     try {
       const cartsReceived = await getAllCarts()
-      setCarrosel(cartsReceived)
+      setCarrosel(cartsReceived.sort((a: any, b: any) => {
+        return Number(b.id) - Number(a.id)
+      }))
       if (userData) {
         await verifyToken(userData.token);
         setUserName(userData.user.name);
