@@ -348,7 +348,7 @@ export default function CartPost() {
             {secondary.length > 0 ?
               secondary.map((e, index) => {
                 return (
-                  <div>
+                  <div key={index}>
                     <ImCancelCircle onClick={()=> setSecondary(secondary.filter((e,thisIndex) => thisIndex !== index) )}/>
                     <img src={e ? URL.createObjectURL(e as Blob) : ""} key={index} />
                   </div>                
