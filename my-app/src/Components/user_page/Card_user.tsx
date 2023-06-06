@@ -103,7 +103,7 @@ function CardUser({ info, deleteMyCartPost }: any) {
 
         </div>}
       <div className={style.Mycard}>
-        <Image src={src} alt="Caminhão" width={198} height={198} />
+        <Image src={src} onError={() => setSrc("/men. erro.png")} alt="Imagem não encontrada" width={198} height={198} />
         <div>
           <h1>{info.title}</h1>
           <p>{info.sections} eixos</p>
@@ -147,7 +147,7 @@ function CardMobile({ info, deleteMyCartPost }: any) {
         </div>}
 
       <div className={styleMobile.locationsCardPersonal}>
-        <Image src={src} alt="Caminhão" width={198} height={198} />
+        <Image src={src} onError={() => setSrc("/men. erro.png")} alt="Imagem não encontrada" width={198} height={198} />
         <h2>{info.title}</h2>
         <p>{info.sections} eixos</p>
         <p>R${parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
@@ -176,7 +176,7 @@ function CardUserRefused({ info }: any) {
   return (
     <>
       <div className={style.Mycard}>
-        <Image src={src} alt="Caminhão" width={198} height={198} />
+        <Image src={src} onError={() => setSrc("/men. erro.png")} alt="Imagem não encontrada" width={198} height={198} />
         <div>
           <h1>{info.title}</h1>
         </div>
@@ -201,7 +201,7 @@ function CardMobileRefused({ info }: any) {
   return (
     <>
       <div className={styleMobile.locationsCardPersonal}>
-        <Image src={src} alt="Caminhão" width={198} height={198} />
+        <Image src={src} onError={() => setSrc("/men. erro.png")} alt="Imagem não encontrada" width={198} height={198} />
         <h2>{info.title}</h2>
       </div>
     </>

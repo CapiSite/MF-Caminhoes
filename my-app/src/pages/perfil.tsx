@@ -28,10 +28,10 @@ export default function UserArea() {
   return (
     <>
       <div className={style.header}>
-        <Header/>
+        <Header annunce={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar/>
+        <Sidebar annunce={true}/>
       </div>
       <div className={style.father}>
 

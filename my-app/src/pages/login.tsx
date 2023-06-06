@@ -2,7 +2,7 @@ import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import style from "../styles/LoginStyle.module.css";
 import Sidebar from "@/Components/Sidebar";
-import { FormEvent, useState, useContext, } from "react"
+import { FormEvent, useState, useContext, useEffect, } from "react"
 import { ThreeDots } from "react-loader-spinner";
 import { useRouter } from "next/router";
 import ActiveLink from "@/hooks/a";
@@ -11,6 +11,7 @@ import { forgotPasswordPost, loginUser } from "@/services/user-services";
 import AdminContext from "@/APIContext/AdminContext";
 import { toast } from "react-toastify";
 import { sendCode, sendEmail } from "@/services/email.service";
+import { userInfo } from "os";
 
 export default function Login() {
   const router = useRouter()
@@ -22,17 +23,19 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState({ email: "Campo Obrigatório!", password: "Campo Obrigatório!" })
   const [fieldError, setFieldError] = useState(() => ({ email: false, password: false }))
   const [messageError, setMessageErro] = useState("")
-  const { setUserData } = useContext(UserContext) as any
+  const { userData,setUserData } = useContext(UserContext) as any
   const { setAdminData } = useContext(AdminContext) as any
   const [forgot, setForgot] = useState<number>(0)
-
+  useEffect(()=>{
+    if(userData) router.push("/")
+  })
   return (
     <>
       <div className={style.header}>
-        <Header />
+        <Header login={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar login={true}/>
       </div>
       <div className={style.background}>
       <div className={style.left}>

@@ -70,10 +70,10 @@ export default function Location() {
   return (
     <>
       <div className={style.header}>
-        <Header />
+        <Header locations={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar locations={true}/>
       </div>
 
       <div className={style.container}>

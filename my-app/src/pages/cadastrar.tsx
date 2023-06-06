@@ -41,10 +41,10 @@ export default function Cadastro() {
   return (
     <>
       <div className={style.header}>
-        <Header />
+        <Header login={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar login={true}/>
       </div>
       <div className={style.background}>
         <h1 className={style.h1}>Crie sua conta!</h1>

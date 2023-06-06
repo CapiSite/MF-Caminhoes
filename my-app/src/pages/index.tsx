@@ -36,7 +36,9 @@ export default function Home() {
   const handleCall = useCallback(async () => {
     try {
       const cartsReceived = await getAllCarts()
-      setCarrosel(cartsReceived)
+      setCarrosel(cartsReceived.sort((a: any, b: any) => {
+        return Number(b.id) - Number(a.id)
+      }))
       if (userData) {
         await verifyToken(userData.token);
         setUserName(userData.user.name);
@@ -106,10 +108,10 @@ export default function Home() {
         </div>
       }
       <div className={style.header}>
-        <Header />
+        <Header home={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar home={true}/>
       </div>
       <main className={style.main}>
         <div className={style.center}>

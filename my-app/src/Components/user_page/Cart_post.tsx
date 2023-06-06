@@ -140,9 +140,9 @@ export default function CartPost() {
       newFieldError.description = true
       error.description = "Digite 20 ou mais caracteres"
     }
-    if (description.length > 300) {
+    if (description.length > 1000) {
       newFieldError.description = true
-      error.description = "Digite no maximo 300 caracteres"
+      error.description = "Digite no maximo 1000 caracteres"
     }
     if (color.length < 3) {
       newFieldError.color = true

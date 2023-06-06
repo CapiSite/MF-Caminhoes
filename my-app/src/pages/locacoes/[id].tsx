@@ -45,6 +45,8 @@ export default function ProductLocation() {
               setError(true)
             })
         }
+        infoReceived.description = infoReceived.description.split("\n").filter((e: string) => e !== "")
+
         setInfo(infoReceived)
       } catch (err: any) {
         setError(true)
@@ -66,7 +68,18 @@ export default function ProductLocation() {
       toast.warn("Aconteceu algum erro, tente mais tarde!")
     }
   }
-
+  function share(){
+    console.log(navigator.share)
+    if (navigator.share !== undefined) {
+      navigator.share({
+        title: 'O título da sua página',
+        text: 'Um texto de resumo',
+        url: 'https://seusite.com/sua_url',
+      })
+      .then(() => console.log('Successful share'))
+      .catch((error) => console.log('Error sharing', error));
+    }
+  }
 
   if (error) {
     return (
@@ -75,7 +88,7 @@ export default function ProductLocation() {
           <Header />
         </div>
         <div className={style.sidebar}>
-          <Sidebar />
+          <Sidebar locations={true} />
         </div>
 
         <div className={`${styleError.father} ${roboto.className}`}>
@@ -92,17 +105,17 @@ export default function ProductLocation() {
   return (
     <>
       <div className={style.header}>
-        <Header />
+        <Header locations={true} />
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar locations={true} />
       </div>
 
       <div className={style.container}>
         <div className={style.allImages}>
           <div className={style.images}>
             {src ?
-              <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
+              <Image src={src} onClick={() => setMainImage(src)} onError={() => setSrc("/men. erro.png")} alt="imagem não encontrada" width={500} height={500} />
               : null}
 
             {info ?
@@ -111,30 +124,35 @@ export default function ProductLocation() {
           </div>
 
           {mainImage ?
-            <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+            <Image src={mainImage}  onError={() => setMainImage("/men. erro.png")} alt="imagem não encontrada" width={500} height={500} />
             : null}
 
 
         </div>
         <div className={style.info}>
+          
           {info ?
             <>
               <h1>{info.title}</h1>
               <div className={style.specifications}>
-                <p>Detalhes do Veículo:</p>
-                <p>Tipo: {info.cart_type.name}</p>
-                <p>Marca: {info.brands.name}</p>
-                <p>Modelo: {info.cart_model.name}</p>
-                <p>Tipo de Roda: {info.wheel.name}</p>
-                <p>Cor: {info.color}</p>
-                <p>Ano: 2021</p>
-                <p>Eixos: {info.sections}</p>
-                <p>Status: Novo</p>
-                <p>Observações: {info.description}</p>
+                
+                <div><p>Detalhes do veículo:</p></div>
+                <div><p>Tipo: {info.cart_type.name}</p></div>
+                <div><p>Marca: {info.brands.name}</p></div>
+                <div><p>Modelo: {info.cart_model.name}</p></div>
+                <div><p>Tipo de Roda: {info.wheel.name}</p></div>
+                <div><p>Cor: {info.color}</p></div>
+                <div><p>Ano: 2021</p></div>
+                <div><p>Eixos: {info.sections}</p></div>
+                <div><p>Status: Novo</p></div>
+                <div><p>Observações:</p></div>
+                {info.description.map((e: string) =>{
+                  return <p> {e}</p>
+                })}
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <Link href={`https://api.whatsapp.com/send?phone=5534992771000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!%20Quero%20saber%20a%20respeito%20da%20carreta:%20http://locaaqui.com/locacoes/${router.query.id}`} target="_blank"><button >Entre em contato!<BsWhatsapp /></button></Link>
-              {adminData && <div className={style.delete}><button onClick={() => setDeleter(!deleter)}>Deletar carreta</button></div> }
+              {adminData && <div className={style.delete}><button onClick={() => setDeleter(!deleter)}>Deletar carreta</button></div>}
               {adminData && <div className={style.modalUserInfo}><button onClick={() => setModalUserInfo(!modalUserInfo)}>Ver usuário</button></div>}
               {deleter &&
                 <div className={styleModal.modal}>
@@ -145,7 +163,7 @@ export default function ProductLocation() {
                     <button onClick={() => unvalidateCartPost()}>Sim</button>
                   </div>
                 </div>}
-                {modalUserInfo &&
+              {modalUserInfo &&
                 <div className={style.modalUser}>
                   <h1>Informações do usuário</h1>
                   <p>{info.users.email}</p>

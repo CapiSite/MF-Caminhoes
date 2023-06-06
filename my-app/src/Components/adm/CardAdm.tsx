@@ -18,7 +18,7 @@ export default function CardAdm({ info }: { info: any }) {
 
   return (
     <div onClick={() => router.push(`/admin/${info.id}`)} className={style.card}>
-      <Image src={src} alt="Caminhão" width={198} height={198} />
+      <Image src={src} onError={() => setSrc("/men. erro.png")} alt="Imagem não encontrada" width={198} height={198} />
       <div>
         <h1>{info.title}</h1>
         <p>{info.sections} eixos</p>

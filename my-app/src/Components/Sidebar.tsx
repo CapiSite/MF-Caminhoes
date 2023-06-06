@@ -10,13 +10,15 @@ import Link from "next/link";
 import { BsWhatsapp } from "react-icons/bs";
 import UserContext from "@/APIContext/UserContext";
 import { verifyToken } from "@/services/user-services";
+import OptionContext from "@/APIContext/UserOption";
 
-export default function Sidebar({ changeToUser }: any) {
+export default function Sidebar({ changeToUser, home, locations, login, annunce }: any) {
   const [disabled, setDisabled] = useState(true);
   const { userData, setUserData } = useContext(UserContext) as any;
   const [userInfo, setUserinfo] = useState<boolean>(false);
   const [userName, setUserName] = useState<any>();
   const { scrollYProgress } = useScroll();
+  const { optionData, setOptionData }= useContext(OptionContext) as any
 
   const router = useRouter();
 
@@ -44,7 +46,7 @@ export default function Sidebar({ changeToUser }: any) {
   }, []);
 
   useEffect(() => {
-    console.log(scrollYProgress);
+    console.log(optionData);
 
     if (userData) {
       handleCallUser();
@@ -115,27 +117,43 @@ export default function Sidebar({ changeToUser }: any) {
             )}
             <div>
               <button
-                onClick={() => router.push("/locacoes")}
-                className={style.options}
+                onClick={() => {setDisabled(true);router.push("/")}}
+                className={`${style.options} ${home&&style.buttonColor}`}
               >
-                Locar
+                Home
+              </button>
+              <button
+                onClick={() => {setDisabled(true);router.push("/locacoes")}}
+                className={`${style.options} ${locations&&style.buttonColor}`}
+              >
+                Alugar
               </button>
             </div>
             {userInfo ? (
+              <div>
+                
               <button
-                onClick={() => router.push("/login")}
-                className={style.options}
+                onClick={() => {setDisabled(true);setOptionData(0);router.push("/perfil")}}
+                className={`${style.options} ${annunce&&(optionData===0||optionData===1)?style.buttonColor:null}`}
               >
-                Anuncie Aqui
+                Quero anunciar
               </button>
+              <button
+                onClick={() => {setDisabled(true);setOptionData(2);router.push("/perfil")}}
+                className={`${style.options} ${annunce&&optionData===2?style.buttonColor:null}`}
+              >
+                Meu perfil
+              </button>
+              </div>  
+              
             ) : (
               <></>
             )}
             {!userInfo ? (
               <div>
                 <button
-                  onClick={() => router.push("/cadastrar")}
-                  className={style.register}
+                  onClick={() => {setDisabled(true);router.push("/login")}}
+                  className={`${style.options} ${login&&style.buttonColor}`}
                 >
                   Anuncie aqui
                 </button>

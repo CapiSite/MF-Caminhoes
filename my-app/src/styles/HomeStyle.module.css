@@ -1,7 +1,6 @@
 .main {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   min-height: calc(100vh - 450px);
 }
@@ -254,8 +253,8 @@
 @media (max-width:900px) {
   .model{
     top: calc(50% - 250px);
-    left: calc(50% - 350px);
-    width: 700px;
+    left: calc(50% - 375px);
+    width: 750px;
   }
   
 }
@@ -269,10 +268,6 @@
   .myDeleteCarts button{
 
     margin-bottom: 0px;
-
-  }
-
-  .model{
 
   }
   .locationsCardPersonal{
@@ -393,11 +388,10 @@
     top: calc(50% - 250px);
     left: calc(50% - 40vw);
     width: 80vw;
-    height: 70vh;
     border-radius: 5px;
     flex-direction: column;
     overflow-y: scroll;
-    
+    padding: 0px 10px;
   }
 .backModel{
   width: 100vw;
@@ -412,7 +406,41 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+    margin-top: calc(25vh - 20vw);
   }
+  @media (max-width:500px) {
+    .modelLeft{
+      margin-top: 140px;
+    }
+  }
+  @media (max-width:410px) {
+    .modelLeft{
+      margin-top: 160px;
+    }
+  }
+  @media (max-width:389px) {
+    .modelLeft button{
+      height: 80px !important;
+    }
+    .modelLeft{
+      margin-top: 200px;
+    }
+  }
+  @media (max-width:350px) {
+    .modelLeft{
+      margin-top: 270px;
+    }
+  }
+  @media (max-width:310px) {
+    .modelLeft{
+      margin-top: 300px;
+    }
+    .modelLeft button{
+      height: 90px !important;
+    }
+  }
+
+  
   .modelLeft h1{
     width: 75vw;
     font-size: 20px;

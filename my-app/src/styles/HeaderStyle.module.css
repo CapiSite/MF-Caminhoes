@@ -17,7 +17,6 @@
 
 .options {
   color: var(--white);
-  font-family: 'Droid Sans', sans-serif;
   font-weight: 700;
   font-size: 20px;
   margin-right: 20px;
@@ -28,7 +27,9 @@
   justify-content: center;
   align-items: center;
 }
-
+.buttonColor{
+  color: var(--darkYellow);
+}
 .userImage {
   color: var(--white);
   display: flex;

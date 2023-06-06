@@ -40,6 +40,7 @@ export default function ProductLocation() {
             setError(true)
           })
         }
+        infoReceived.description = infoReceived.description.split("\n").filter((e: string) => e !== "")
 
         setInfo(infoReceived)
       } catch (err: any) {
@@ -108,29 +109,32 @@ export default function ProductLocation() {
         <div className={style.allImages}>
           <div className={style.images}>
             {src ?
-              <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
+              <Image src={src} onClick={() => setMainImage(src)} onError={() => setSrc("/men. erro.png")} alt="Imagem não encontrada" width={500} height={500} />
               : null}
             {info ?
               info.cart_images.map((o: any, i: any) => <Photos image={o.src} key={i} setMainImage={setMainImage} />)
               : null}
           </div>
-          <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+          <Image src={mainImage} onError={() => setMainImage("/men. erro.png")} alt="Imagem não encontrada" width={500} height={500} />
         </div>
         <div className={style.info}>
           {info ?
             <>
               <h1>{info.title}</h1>
               <div className={style.specifications}>
-                <p>Detalhes do Veículo:</p>
-                <p>Tipo: {info.cart_type.name}</p>
-                <p>Marca: {info.brands.name}</p>
-                <p>Modelo: {info.cart_model.name}</p>
-                <p>Tipo de Roda: {info.wheel.name}</p>
-                <p>Cor: {info.color}</p>
-                <p>Ano: 2021</p>
-                <p>Eixos: {info.sections}</p>
-                <p>Status: Novo</p>
-                <p>Observações: {info.description}</p>
+              <div><p>Detalhes do veículo:</p></div>
+                <div><p>Tipo: {info.cart_type.name}</p></div>
+                <div><p>Marca: {info.brands.name}</p></div>
+                <div><p>Modelo: {info.cart_model.name}</p></div>
+                <div><p>Tipo de Roda: {info.wheel.name}</p></div>
+                <div><p>Cor: {info.color}</p></div>
+                <div><p>Ano: 2021</p></div>
+                <div><p>Eixos: {info.sections}</p></div>
+                <div><p>Status: Novo</p></div>
+                <div><p>Observações:</p></div>
+                {info.description.map((e: string) =>{
+                  return <p> {e}</p>
+                })}
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <div className={style.button}>

@@ -16,7 +16,7 @@ export default function Photos({ image, setMainImage }: any) {
 
   return (
     <>
-      <Image onClick={() => setMainImage(src)} src={src} alt="Caminhao" width={198} height={198} />
+      <Image onClick={() => setMainImage(src)} onError={() => setSrc("/men. erro.png")} src={src} alt="Imagem não encontrada" width={198} height={198} />
     </>
   )
 }
