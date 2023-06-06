@@ -12,9 +12,9 @@ export default function CarroselMain() {
   ]
 
   const imagesMobile = [
-    '/Banner 1 mob light.jpg',
-    '/Banner 2 mob light.jpg',
-    '/Banner 3 mob light.jpg'
+    '/Banner 1 light.jpg',
+    '/Banner 2 light.jpg',
+    '/Banner 3 light.jpg'
   ]
 
   return (

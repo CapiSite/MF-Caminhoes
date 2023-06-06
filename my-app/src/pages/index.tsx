@@ -106,10 +106,10 @@ export default function Home() {
         </div>
       }
       <div className={style.header}>
-        <Header />
+        <Header home={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar home={true}/>
       </div>
       <main className={style.main}>
         <div className={style.center}>

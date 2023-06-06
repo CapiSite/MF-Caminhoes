@@ -13,7 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 
 
-export default function Header() {
+export default function Header({home, locations, annunce}:any) {
   const router = useRouter();
 
   const [userInfo, setUserinfo] = useState<boolean>(false);
@@ -22,10 +22,9 @@ export default function Header() {
 
   const { userData, setUserData } = useContext(UserContext) as any;
   const { adminData } = useContext(AdminContext) as any
-  const { setOptionData } = useContext(OptionContext) as any
+  const { optionData,setOptionData } = useContext(OptionContext) as any
 
   const handleCallUser = useCallback(async () => {
-    console.log(adminData)
     try {
       if(userData.token){
         const user = await verifyToken(userData.token);
@@ -61,17 +60,29 @@ export default function Header() {
             alt="Logo"
           />
           <button
+                onClick={() => {router.push("/")}}
+                className={`${style.options} ${home&&style.buttonColor}`}
+              >
+                Home
+              </button>
+          <button
             onClick={() => router.push("/locacoes")}
-            className={style.options}
+            className={`${style.options} ${locations&&style.buttonColor}`}
           >
             Alugar
           </button>
-          {userInfo || adminOn ?<button
-                onClick={() => router.push("/perfil")}
-                className={style.options}
+          {userInfo || adminOn ?<><button
+                onClick={() => {setOptionData(0);router.push("/perfil")}}
+                className={`${style.options} ${annunce&&(optionData===0||optionData===1)?style.buttonColor:null}`}
               >
-                Anuncie Aqui
-              </button>:<></>}
+                Anuncie aqui
+              </button>
+              <button
+              onClick={() => {setOptionData(2);router.push("/perfil")}}
+              className={`${style.options} ${annunce&&optionData===2?style.buttonColor:null}`}
+            >
+              Meu perfil
+            </button></>:<></>}
           
         </div>
         <div>

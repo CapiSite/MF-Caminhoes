@@ -78,6 +78,7 @@
 
 .container {
   display: flex;
+  min-height: calc(100vh - 250px);
 }
 
 .filter input {
@@ -246,9 +247,6 @@
   font-size: 25px;
 }
 .range
-
-
-
 button{
   margin-bottom: 20px;
 }

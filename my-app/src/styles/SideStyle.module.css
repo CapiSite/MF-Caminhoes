@@ -44,7 +44,6 @@
 }
 
 .aside div{
-  padding: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -67,20 +66,21 @@
 }
 
 .options {
-  color: var(--black);
+  color: var(--white);
   font-family: 'Droid Sans', sans-serif;
   font-weight: 700;
   font-size: 20px;
-  background-color: var(--darkYellow);
+  background-color: var(--black-1);
   border-radius: 4px;
   border: none;
-  margin-bottom: 10px;
   padding: 5px 10px;
+  margin-top: 20px;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
 }
-
-.options:hover {
-  background-color: var(--veryDarkYellow);
+.buttonColor{
+  color: var(--darkYellow);
 }
 
 .register {
@@ -133,6 +133,7 @@
   flex-direction: row !important;
   font-weight: 500;
   font-size:19px;
+  margin-bottom: 20px;
 }
 
 .userImage img{

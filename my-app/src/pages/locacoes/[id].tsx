@@ -75,7 +75,7 @@ export default function ProductLocation() {
           <Header />
         </div>
         <div className={style.sidebar}>
-          <Sidebar />
+          <Sidebar locations={true}/>
         </div>
 
         <div className={`${styleError.father} ${roboto.className}`}>
@@ -92,10 +92,10 @@ export default function ProductLocation() {
   return (
     <>
       <div className={style.header}>
-        <Header />
+        <Header locations={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar locations={true}/>
       </div>
 
       <div className={style.container}>

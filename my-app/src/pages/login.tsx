@@ -29,10 +29,10 @@ export default function Login() {
   return (
     <>
       <div className={style.header}>
-        <Header />
+        <Header login={true}/>
       </div>
       <div className={style.sidebar}>
-        <Sidebar />
+        <Sidebar login={true}/>
       </div>
       <div className={style.background}>
       <div className={style.left}>
