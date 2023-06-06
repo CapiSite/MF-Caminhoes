@@ -10,7 +10,7 @@ import MaskedInput from "react-text-mask"
 import CurrencyInput from "react-currency-input-field"
 import styleModal from "@/styles/user_page/user_update.module.css";
 import OptionContext from "@/APIContext/UserOption"
-
+import { ImCancelCircle } from "react-icons/im";
 
 export default function CartPost() {
   const [brands, setBrands] = useState<{ id: number, name: string }[]>([])
@@ -353,7 +353,12 @@ export default function CartPost() {
             {fieldError.secondary ? <p className={style.p}>{errorMessage.secondary}</p> : <div className={style.space}></div>}
             {secondary.length > 0 ?
               secondary.map((e, index) => {
-                return <img src={e ? URL.createObjectURL(e as Blob) : ""} key={index} />
+                return (
+                  <div>
+                    <ImCancelCircle onClick={()=> setSecondary(secondary.filter((e,thisIndex) => thisIndex !== index) )}/>
+                    <img src={e ? URL.createObjectURL(e as Blob) : ""} key={index} />
+                  </div>                
+                )
               })
               :
               <img src={""}/>
