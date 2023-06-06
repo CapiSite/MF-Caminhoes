@@ -25,6 +25,7 @@ export default function ProductLocation() {
   const [mainImage, setMainImage] = useState<string | null>(null)
   const router = useRouter()
   const [src, setSrc] = useState<string | null>(null)
+  const [render, setRender] = useState<boolean>(false)
 
 
   const handleCall = useCallback(async () => {
@@ -40,9 +41,11 @@ export default function ProductLocation() {
               const imageUrl = URL.createObjectURL(blob);
               setMainImage(imageUrl)
               setSrc(imageUrl);
+              setRender(true)
             })
-            .catch((err) => {
+            .catch(() => {
               setError(true)
+              setRender(true)
             })
         }
         infoReceived.description = infoReceived.description.split("\n").filter((e: string) => e !== "")
@@ -50,6 +53,7 @@ export default function ProductLocation() {
         setInfo(infoReceived)
       } catch (err: any) {
         setError(true)
+        setRender(true)
       }
     }
   }, [router])
@@ -80,6 +84,24 @@ export default function ProductLocation() {
       .catch((error) => console.log('Error sharing', error));
     }
   }
+
+  if (!render) {
+    return (
+      <>
+        <div className={style.header}>
+          <Header />
+        </div>
+        <div className={style.sidebar}>
+          <Sidebar />
+        </div>
+
+        <div className={`${styleError.father} ${roboto.className}`}>
+        </div>
+        <Footer />
+      </>
+    )
+  }
+
 
   if (error) {
     return (

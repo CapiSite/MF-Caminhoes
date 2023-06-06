@@ -36,9 +36,11 @@ export default function ProductLocation() {
               const imageUrl = URL.createObjectURL(blob);
               setMainImage(imageUrl)
               setSrc(imageUrl);
+              setRender(true)
             })
             .catch((err) => {
               setError(true)
+              setRender(true)
             })
         }
         infoReceived.description = infoReceived.description.split("\n").filter((e: string) => e !== "")
@@ -46,6 +48,7 @@ export default function ProductLocation() {
         setInfo(infoReceived)
       } catch (err: any) {
         setError(true)
+        setRender(true)
       }
     }
   }, [router])
@@ -54,7 +57,6 @@ export default function ProductLocation() {
 
     if (adminData) {
       handleCall()
-      setRender(true)
     }
     else {
       router.push("/")

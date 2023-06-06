@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function Photos({ image, setMainImage }: any) {
   const [src, setSrc] = useState("")
+  const [render, setRender] = useState<boolean>(false)
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/secondary/${image}`)
@@ -10,9 +11,18 @@ export default function Photos({ image, setMainImage }: any) {
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);
         setSrc(imageUrl);
+        setRender(true)
+      })
+      .catch(() =>{
+        setRender(true)
       })
   }, [])
 
+  if (!render) {
+    return (
+      <img src=""/>
+    )
+  }
 
   return (
     <>

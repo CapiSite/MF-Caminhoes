@@ -10,13 +10,19 @@ export default function Cards({ index, ct, image, id, title, price }: any) {
   const [render, setRender] = useState<boolean>(false)
 
   useEffect(() => {
-    setRender(true)
     fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);
         setSrc(imageUrl); 
-      });
+        setRender(true)
+
+      })
+      .catch( () =>{
+        setRender(true)
+      })
+
+
   }, [image])
 
   if (!render) {
