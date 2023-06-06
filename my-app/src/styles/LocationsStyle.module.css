@@ -241,7 +241,11 @@
 .noCars {
   font-size: 25px;
 }
-.range button{
+.range
+
+
+
+button{
   margin-bottom: 20px;
 }
 @media (max-width: 800px) {
