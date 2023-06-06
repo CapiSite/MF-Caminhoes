@@ -168,8 +168,8 @@ export default function ProductLocation() {
                 <div><p>Eixos: {info.sections}</p></div>
                 <div><p>Status: Novo</p></div>
                 <div><p>Observações:</p></div>
-                {info.description.map((e: string) =>{
-                  return <p> {e}</p>
+                {info.description.map((e: string, index: number) =>{
+                  return <p key={index}> {e}</p>
                 })}
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
