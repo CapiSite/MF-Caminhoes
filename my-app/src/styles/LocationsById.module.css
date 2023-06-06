@@ -66,7 +66,16 @@ width: 400px;
   justify-content: center;
   margin-top: 5px;
 }
-
+@media (max-width:1125px) {
+  .info{
+    width: 350px;
+    }
+}
+@media (max-width:990px) {
+  .info{
+    width: 320px;
+    }
+}
 .modalUser{
   background-color: var(--gray-light);
   position: fixed;
@@ -100,22 +109,61 @@ width: 400px;
   font-size: 30px;
   font-weight: bold;
 }
-.specifications p:first-child{
-  margin-top: 50px;
+.specifications div:nth-child(odd){
+  height: 40px;
+  background-color: var(--strong-gray);
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  font-size: 18px;
+}
+.specifications div:nth-child(even){
+  height: 40px;
+  background-color: var(--gray-light);
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  font-size: 18px;
+}
+.specifications div:first-child{
+  height: 45px;
+  background-color: var(--darkYellow);
+  margin-top: 40px;
+  display: flex;
+  padding: 0px 20px;
   font-weight: 700;
   font-size: 20px;
 }
+.specifications div:nth-child(10){
+  height: 45px;
+  background-color: var(--darkYellow);
+  display: flex;
+  padding: 0px 20px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.specifications > p{
+  flex-wrap: wrap;
+  width: 400px;
+  max-width: 100%;
+  padding: 10px 20px;
+  background-color: var(--strong-gray); 
+  text-align: center;
+}
+
 .specifications{
   text-align: justify;
+  width: 400px;
+  max-width: 100%;
 }
 .specifications p{
-  margin-top: 10px;
   word-wrap: break-word;
 }
 .info button{
   background-color: rgb(10, 231, 10);
   border: 0px;
-  border-radius: 20px;
+  border-radius: 5px;
   width: 200px;
   height: 40px;
   font-weight: bold;
@@ -124,7 +172,7 @@ width: 400px;
   justify-content: center;
 }
 .info a{
-  margin-top: 50px;
+  margin-top: 30px;
   width: 100%;
   height: 40px;
   display: flex;

@@ -121,16 +121,17 @@ export default function ProductLocation() {
             <>
               <h1>{info.title}</h1>
               <div className={style.specifications}>
-                <p>Detalhes do Veículo:</p>
-                <p>Tipo: {info.cart_type.name}</p>
-                <p>Marca: {info.brands.name}</p>
-                <p>Modelo: {info.cart_model.name}</p>
-                <p>Tipo de Roda: {info.wheel.name}</p>
-                <p>Cor: {info.color}</p>
-                <p>Ano: 2021</p>
-                <p>Eixos: {info.sections}</p>
-                <p>Status: Novo</p>
-                <p>Observações: {info.description}</p>
+              <div><p>Detalhes do veículo:</p></div>
+                <div><p>Tipo: {info.cart_type.name}</p></div>
+                <div><p>Marca: {info.brands.name}</p></div>
+                <div><p>Modelo: {info.cart_model.name}</p></div>
+                <div><p>Tipo de Roda: {info.wheel.name}</p></div>
+                <div><p>Cor: {info.color}</p></div>
+                <div><p>Ano: 2021</p></div>
+                <div><p>Eixos: {info.sections}</p></div>
+                <div><p>Status: Novo</p></div>
+                <div><p>Observações:</p></div>
+                <p>{info.description}</p>
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <div className={style.button}>
