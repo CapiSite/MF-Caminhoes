@@ -14,6 +14,7 @@ export default function Adm() {
   const router = useRouter()
 
   const [carts, setCarts] = useState<[]>([])
+  const [render, setRender] = useState<boolean>(false)
 
   const {adminData} = useContext(AdminContext) as any
   
@@ -21,18 +22,35 @@ export default function Adm() {
     try {
       const cartsReceived = await getUnvalidCarts(adminData)
       setCarts(cartsReceived)
-
     } catch (err: any) { }
   }, [])
 
   useEffect(() =>{
     if(adminData){
       handleCall()
+      setRender(true)
     }
     else{
       router.push("/")
     }
   }, [])
+
+  if (!render) {
+    return (
+      <>
+        <div className={style.header}>
+          <Header />
+        </div>
+        <div className={style.sidebar}>
+          <Sidebar />
+        </div>
+
+        <div className={style.container}>
+        </div>
+        <Footer />
+      </>
+    )
+  }
 
   return (
     <>

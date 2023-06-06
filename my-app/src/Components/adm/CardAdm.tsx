@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 export default function CardAdm({ info }: { info: any }) {
   const router = useRouter()
   const [src, setSrc] = useState("")
+  const [render, setRender] = useState<boolean>()
 
   useEffect(() => {
+    setRender(render)
     fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
@@ -15,6 +17,14 @@ export default function CardAdm({ info }: { info: any }) {
         setSrc(imageUrl); 
       });
   }, [])
+
+  if (!render) {
+    return (
+      <div className={style.locationsCard}>
+        <img src=""/>
+      </div>
+    )
+  }
 
   return (
     <div onClick={() => router.push(`/admin/${info.id}`)} className={style.card}>

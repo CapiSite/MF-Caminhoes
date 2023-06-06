@@ -265,12 +265,6 @@ export default function CartPost() {
     }
   }
 
-  function handleImageShowSecondary(e: any) {
-    if (e.target.files) {
-      setSecondary(secondary => [...secondary, e.target.files[e.target.files.length - 1]])
-    }
-  }
-
   return (
     <div className={`${style.father} ${roboto.className}`}>
       {disable &&

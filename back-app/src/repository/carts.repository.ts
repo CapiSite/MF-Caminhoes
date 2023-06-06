@@ -3,7 +3,6 @@ import { prismaDb } from "../config"
 import { CartCreationDefinitive } from "../protocols"
 
 async function getAllCarts() {
-  //alterar depois para adicionar where valid:true
   try {
     return prismaDb.carts.findMany({
       include: {

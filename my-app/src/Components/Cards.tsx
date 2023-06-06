@@ -3,12 +3,14 @@ import style from "../styles/LocationsStyle.module.css"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-export default function Cards({ index, ct, image, id, title, sections, price }: any) {
+export default function Cards({ index, ct, image, id, title, price }: any) {
   const router = useRouter()
 
   const [src, setSrc] = useState("")
+  const [render, setRender] = useState<boolean>(false)
 
   useEffect(() => {
+    setRender(true)
     fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
@@ -16,6 +18,14 @@ export default function Cards({ index, ct, image, id, title, sections, price }: 
         setSrc(imageUrl); 
       });
   }, [image])
+
+  if (!render) {
+    return (
+      <div onClick={() => router.push(`/locacoes/${id}`)} className={style.locationsCard}>
+        <img src=""/>
+      </div>
+    )
+  }
 
   if (index < ct) {
     return (

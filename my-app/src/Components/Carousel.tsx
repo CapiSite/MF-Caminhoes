@@ -6,8 +6,10 @@ import { useEffect, useState } from "react"
 export default function CarroselItem({ info, adm }: any) {
   const router = useRouter()
   const [src, setSrc] = useState("")
+  const [render, setRender] = useState<boolean>(false)
 
   useEffect(() => {
+    setRender(true)
     fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
       .then((response) => response.blob()) 
       .then((blob) => {
@@ -15,6 +17,14 @@ export default function CarroselItem({ info, adm }: any) {
         setSrc(imageUrl); 
       });
   }, [])
+
+  if (!render) {
+    return (
+      <div onClick={() => router.push(`/locacoes/${info.id}`)} className={style.locationsCard}>
+        <img src=""/>
+      </div>
+    )
+  }
 
   return (
     <div onClick={() => router.push(`/locacoes/${info.id}`)} className={style.locationsCard}>

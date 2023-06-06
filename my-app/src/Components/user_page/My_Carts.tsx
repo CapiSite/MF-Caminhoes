@@ -1,13 +1,12 @@
 import UserContext from "@/APIContext/UserContext"
 import { getMyCarts } from "@/services/cart.services"
-import { FormEvent, useCallback, useContext, useEffect, useState } from "react"
-import CardUser from "./Card_user";
+import { useCallback, useContext, useEffect, useState } from "react"
 import MyCartsSection from "./Card_user";
 import style from "@/styles/MyCarts.module.css";
 
 export default function MyCarts() {
-  const [cartsInfo, setCarts] = useState<[]>([])
-  const [refusedCarts, setRefused] = useState([]) //Criar um novo tipo de card pra aqueles que foram rejeitados
+  const [cartsInfo, setCarts] = useState<string[]>(["nothing"])
+  const [refusedCarts, setRefused] = useState<string[]>(["nothing"])
   const [render, setRender] = useState<boolean>(false)
 
   const { userData } = useContext(UserContext) as any

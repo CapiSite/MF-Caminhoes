@@ -13,6 +13,7 @@ import { AiOutlineClose } from "react-icons/ai";
 export default function Adm() {
   const router = useRouter()
   const [users, setUsers] = useState<{ id: number, name: string, email: string, phone: string }[]>([])
+  const [render, setRender] = useState<boolean>(false)
 
   const { adminData } = useContext(AdminContext) as any
 
@@ -28,6 +29,7 @@ export default function Adm() {
   useEffect(() => {
     if (adminData) {
       handleCall()
+      setRender(true)
     }
     else {
       router.push("/")
@@ -41,6 +43,23 @@ export default function Adm() {
     } catch (err: any) {
       toast.warn("Ocorreu um erro, tente mais tarde!")
     }
+  }
+
+  if (!render) {
+    return (
+      <>
+        <div className={style.header}>
+          <Header />
+        </div>
+        <div className={style.sidebar}>
+          <Sidebar />
+        </div>
+
+        <div className={style.background}>
+        </div>
+        <Footer />
+      </>
+    )
   }
 
   return (
