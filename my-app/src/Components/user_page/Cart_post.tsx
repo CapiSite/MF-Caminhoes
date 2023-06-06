@@ -251,8 +251,6 @@ export default function CartPost() {
       setSize("")
       setPrice(0)
       setSection(0)
-      setMain({})
-      setSecondary([])
       setYear(0)
       setStatus(null)
 
@@ -336,13 +334,13 @@ export default function CartPost() {
 
           <div className={style.second}>
             <label className={style.label} onClick={() => mainImage.current.click()}>Insira a imagem principal</label>
-            <input className={style.input} ref={mainImage} disabled={disable} type="file" name="main" onChange={(e) => handleImageShow(e)} />
+            <input className={style.input} ref={mainImage} disabled={disable} accept="image/png, image/gif, image/jpeg" type="file" name="main" onChange={(e) => handleImageShow(e)} />
             {fieldError.main && <p className={style.p}>{errorMessage.main}</p>}
             {main && <span className={style.span}>Imagem colocada!</span>}
             <img src={main ? URL.createObjectURL(main as Blob) : ""} />
 
             <label className={style.label} onClick={() => secondaryImage.current.click()}>Insira as imagens secundárias</label>
-            <input className={style.input} ref={secondaryImage} disabled={disable} type="file" multiple={true} name="secondary" onChange={(e: any) => {
+            <input className={style.input} ref={secondaryImage} disabled={disable} accept="image/png, image/gif, image/jpeg" type="file" multiple={true} name="secondary" onChange={(e: any) => {
               if (e.target.files) {
                 const additional = [... secondary]
                 for(let i = 0; i < e.target.files.length; i++){

@@ -1,6 +1,7 @@
 .desktop {
   display: flex;
   width: 100vw;
+  max-width: 1500px ;
   max-height: 600px;
 }
 
