@@ -131,7 +131,7 @@ export default function ProductLocation() {
                 <div><p>Eixos: {info.sections}</p></div>
                 <div><p>Status: Novo</p></div>
                 <div><p>Observações:</p></div>
-                <p>{info.description}</p>
+                <p>{info.description}</p> 
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <div className={style.button}>

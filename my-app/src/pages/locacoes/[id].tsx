@@ -14,7 +14,10 @@ import { roboto } from "@/styles/fonts"
 import AdminContext from "@/APIContext/AdminContext"
 import styleModal from "@/styles/user_page/user_update.module.css";
 import { toast } from "react-toastify"
-
+import { FaShareAlt } from "react-icons/fa";
+import { BsTwitter } from "react-icons/bs";
+import { GrGooglePlus, GrFacebookOption } from "react-icons/gr";
+import { AnimatePresence, motion } from "framer-motion"
 
 export default function ProductLocation() {
   const [deleter, setDeleter] = useState<any>(false)
@@ -25,7 +28,7 @@ export default function ProductLocation() {
   const [mainImage, setMainImage] = useState<string | null>(null)
   const router = useRouter()
   const [src, setSrc] = useState<string | null>(null)
-
+  const [share, setShare] = useState<boolean>(false)
 
   const handleCall = useCallback(async () => {
 
@@ -64,18 +67,6 @@ export default function ProductLocation() {
       router.push("/locacoes")
     } catch (err) {
       toast.warn("Aconteceu algum erro, tente mais tarde!")
-    }
-  }
-  function share(){
-    console.log(navigator.share)
-    if (navigator.share !== undefined) {
-      navigator.share({
-        title: 'O título da sua página',
-        text: 'Um texto de resumo',
-        url: 'https://seusite.com/sua_url',
-      })
-      .then(() => console.log('Successful share'))
-      .catch((error) => console.log('Error sharing', error));
     }
   }
 
@@ -128,13 +119,29 @@ export default function ProductLocation() {
 
         </div>
         <div className={style.info}>
-          
+        
           {info ?
             <>
-              <h1>{info.title}</h1>
+            
+              <h1>{info.title}<FaShareAlt onClick={()=>setShare(!share)}/></h1>
+              
               <div className={style.specifications}>
+              
                 
-                <div><p>Detalhes do veículo:</p></div>
+                <div>
+                  <AnimatePresence>
+                    {share &&
+                    <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 0.1}} className={style.share}>
+                      <button><BsTwitter/></button>
+                      <button><GrGooglePlus/></button>
+                      <button><GrFacebookOption/></button>
+                      <button><BsWhatsapp/></button>
+                    </motion.div>
+                    }
+                  </AnimatePresence>
+
+                <p>Detalhes do veículo:</p>
+                </div>
                 <div><p>Tipo: {info.cart_type.name}</p></div>
                 <div><p>Marca: {info.brands.name}</p></div>
                 <div><p>Modelo: {info.cart_model.name}</p></div>

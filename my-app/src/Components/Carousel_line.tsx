@@ -10,6 +10,7 @@ export default function CarroselLine({ items, index }: { items: any[], index:num
 
   useEffect(() =>{
     setWidth(component.current?.scrollWidth - component.current?.scrollWidth)
+    
   })
 
   return (

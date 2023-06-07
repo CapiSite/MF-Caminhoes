@@ -59,6 +59,19 @@ margin-top: 60px;
 margin-left: 30px;
 width: 400px;
 }
+.info>h1{
+  position: relative;
+}
+.info>h1 svg{
+font-size: 20px;
+position: absolute;
+right: 0px;
+top: 6px;
+}
+.info>h1 svg:hover{
+  cursor: pointer;
+  }
+
 .modalUserInfo{
   width: 100%;
   display: flex;
@@ -128,7 +141,7 @@ width: 400px;
 .specifications div:first-child{
   height: 45px;
   background-color: var(--darkYellow);
-  margin-top: 40px;
+  margin-top: 50px;
   display: flex;
   padding: 0px 20px;
   font-weight: 700;
@@ -156,6 +169,7 @@ width: 400px;
   text-align: justify;
   width: 400px;
   max-width: 100%;
+  position: relative;
 }
 .specifications p{
   word-wrap: break-word;
@@ -171,6 +185,7 @@ width: 400px;
   align-items: center;
   justify-content: center;
 }
+
 .info a{
   margin-top: 30px;
   width: 100%;
@@ -204,7 +219,53 @@ width: 400px;
 .delete button:hover{
   background-color: var(--light-red);
 }
-
+.share{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 0px !important;
+  padding: 0px !important;
+  background-color: var(--white) !important;
+  width: 180px;
+  height:40px !important;
+}
+.share button{
+  width: 40px;
+  height: 40px;
+  background-color: var(--light-green);
+  margin: 0px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.share button:first-child{
+  background-color: #1D9BF0;
+}
+.share button:first-child:hover{
+  background-color: #1489d6;
+}
+.share button:nth-child(2){
+  background-color: #D64E42;
+}
+.share button:nth-child(2):hover{
+  background-color: #c73426;
+}
+.share button:nth-child(3){
+  background-color: #1877F2;
+}
+.share button:nth-child(3):hover{
+  background-color: #1166d6;
+}
+.share button:nth-child(4){
+  background-color: #25D366;
+}
+.share button:nth-child(4):hover{
+  background-color: #1bb453;
+}
+.share button svg{
+  font-size: 17px;
+  margin: 0px;
+  color: var(--white);
+}
 @media (min-width: 930px) {
   .images::-webkit-scrollbar {
     width: 10px;               /* width of the entire scrollbar */
