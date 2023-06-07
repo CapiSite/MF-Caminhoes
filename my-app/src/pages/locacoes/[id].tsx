@@ -138,34 +138,34 @@ export default function ProductLocation() {
           </div>
 
           {mainImage ?
-            <Image src={mainImage}  onError={() => setMainImage("/men. erro.png")} alt="imagem não encontrada" width={500} height={500} />
+            <Image src={mainImage} onError={() => setMainImage("/men. erro.png")} alt="imagem não encontrada" width={500} height={500} />
             : null}
 
 
         </div>
         <div className={style.info}>
-        
+
           {info ?
             <>
-            
-              <h1>{info.title}<FaShareAlt onClick={()=>setShare(!share)}/></h1>
-              
+
+              <h1>{info.title}<FaShareAlt onClick={() => setShare(!share)} /></h1>
+
               <div className={style.specifications}>
-              
-                
+
+
                 <div>
                   <AnimatePresence>
                     {share &&
-                    <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 0.1}} className={style.share}>
-                      <button><BsTwitter/></button>
-                      <button><GrGooglePlus/></button>
-                      <button><GrFacebookOption/></button>
-                      <button><BsWhatsapp/></button>
-                    </motion.div>
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.1 }} className={style.share}>
+                        <button><BsTwitter /></button>
+                        <button><GrGooglePlus /></button>
+                        <button><GrFacebookOption /></button>
+                        <button><BsWhatsapp /></button>
+                      </motion.div>
                     }
                   </AnimatePresence>
 
-                <p>Detalhes do veículo:</p>
+                  <p>Detalhes do veículo:</p>
                 </div>
                 <div><p>Tipo: {info.cart_type.name}</p></div>
                 <div><p>Marca: {info.brands.name}</p></div>
@@ -176,7 +176,7 @@ export default function ProductLocation() {
                 <div><p>Eixos: {info.sections}</p></div>
                 <div><p>Status: Novo</p></div>
                 <div><p>Observações:</p></div>
-                {info.description.map((e: string, index: number) =>{
+                {info.description.map((e: string, index: number) => {
                   return <p key={index}> {e}</p>
                 })}
               </div>
