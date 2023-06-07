@@ -29,6 +29,8 @@ export default function ProductLocation() {
   const router = useRouter()
   const [src, setSrc] = useState<string | null>(null)
   const [share, setShare] = useState<boolean>(false)
+  const [render, setRender] = useState<boolean>(false)
+
 
   const handleCall = useCallback(async () => {
 
@@ -43,14 +45,19 @@ export default function ProductLocation() {
               const imageUrl = URL.createObjectURL(blob);
               setMainImage(imageUrl)
               setSrc(imageUrl);
+              setRender(true)
             })
-            .catch((err) => {
+            .catch(() => {
               setError(true)
+              setRender(true)
             })
         }
+        infoReceived.description = infoReceived.description.split("\n").filter((e: string) => e !== "")
+
         setInfo(infoReceived)
       } catch (err: any) {
         setError(true)
+        setRender(true)
       }
     }
   }, [router])
@@ -69,6 +76,24 @@ export default function ProductLocation() {
       toast.warn("Aconteceu algum erro, tente mais tarde!")
     }
   }
+
+  if (!render) {
+    return (
+      <>
+        <div className={style.header}>
+          <Header />
+        </div>
+        <div className={style.sidebar}>
+          <Sidebar />
+        </div>
+
+        <div className={`${styleError.father} ${roboto.className}`}>
+        </div>
+        <Footer />
+      </>
+    )
+  }
+
 
   if (error) {
     return (
@@ -104,7 +129,7 @@ export default function ProductLocation() {
         <div className={style.allImages}>
           <div className={style.images}>
             {src ?
-              <Image src={src} onClick={() => setMainImage(src)} alt="Caminhão" width={500} height={500} />
+              <Image src={src} onClick={() => setMainImage(src)} onError={() => setSrc("/men. erro.png")} alt="imagem não encontrada" width={500} height={500} />
               : null}
 
             {info ?
@@ -113,7 +138,7 @@ export default function ProductLocation() {
           </div>
 
           {mainImage ?
-            <Image src={mainImage} alt="Caminhão" width={500} height={500} />
+            <Image src={mainImage}  onError={() => setMainImage("/men. erro.png")} alt="imagem não encontrada" width={500} height={500} />
             : null}
 
 
@@ -151,7 +176,9 @@ export default function ProductLocation() {
                 <div><p>Eixos: {info.sections}</p></div>
                 <div><p>Status: Novo</p></div>
                 <div><p>Observações:</p></div>
-                <p>{info.description}</p>
+                {info.description.map((e: string, index: number) =>{
+                  return <p key={index}> {e}</p>
+                })}
               </div>
               <p>R$: {parseFloat((info.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
               <Link href={`https://api.whatsapp.com/send?phone=5534992771000&text=Ol%C3%A1!%20Estou%20entrando%20em%20contato%20atr%C3%A1ves%20do%20site%20LocaAqui!%20Quero%20saber%20a%20respeito%20da%20carreta:%20http://locaaqui.com/locacoes/${router.query.id}`} target="_blank"><button >Entre em contato!<BsWhatsapp /></button></Link>

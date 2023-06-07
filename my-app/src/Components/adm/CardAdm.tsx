@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 export default function CardAdm({ info }: { info: any }) {
   const router = useRouter()
   const [src, setSrc] = useState("")
+  const [render, setRender] = useState<boolean>()
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
@@ -13,12 +14,24 @@ export default function CardAdm({ info }: { info: any }) {
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);
         setSrc(imageUrl); 
-      });
+        setRender(true)
+      })
+      .catch(() =>{
+        setRender(true)
+      })
   }, [])
+
+  if (!render) {
+    return (
+      <div className={style.locationsCard}>
+        <img src=""/>
+      </div>
+    )
+  }
 
   return (
     <div onClick={() => router.push(`/admin/${info.id}`)} className={style.card}>
-      <Image src={src} alt="Caminhão" width={198} height={198} />
+      <Image src={src} onError={() => setSrc("/men. erro.png")} alt="Imagem não encontrada" width={198} height={198} />
       <div>
         <h1>{info.title}</h1>
         <p>{info.sections} eixos</p>

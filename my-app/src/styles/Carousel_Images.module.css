@@ -15,41 +15,13 @@
   
 }
 
-@media (max-width: 800px) {
+
+@media (max-width: 480px) {
   .mobile {
     display: flex;
   }
   
   .desktop {
     display: none;
-  }
-}
-@media (max-width: 600px) {
-  .mobile img{
-    height: 200px;
-  }
-}
-
-
-
-@media (max-width: 450px) {
-  .mobile img{
-    height: 190px;
-  }
-}
-@media (max-width: 400px) {
-  .mobile img{
-    height: 180px;
-  }
-}
-@media (max-width: 380px) {
-  .mobile img{
-    height: 150px;
-  }
-}
-
-@media (max-width: 340px) {
-  .mobile img{
-    height: 130px;
   }
 }

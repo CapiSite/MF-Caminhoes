@@ -14,6 +14,7 @@ import OptionContext from "@/APIContext/UserOption";
 export default function UserArea() {
   const [selection, setSelection] = useState<number>(0)
   const [error, setError] = useState<number>(0)
+  const [render, setRender] = useState<boolean>(false)
 
   const { userData } = useContext(UserContext) as { userData: any }
   const { optionData } = useContext(OptionContext) as any
@@ -23,8 +24,17 @@ export default function UserArea() {
       setError(1)
     }
     setSelection(optionData)
+    setRender(true)
   }, [userData, optionData])
 
+
+  if (!render) {
+    return (
+      <div className={style.locationsCard}>
+      </div>
+    )
+  }
+  
   return (
     <>
       <div className={style.header}>
