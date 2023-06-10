@@ -76,7 +76,7 @@ export default function Adm() {
           ))}
         </div>
         <div className={style.mobileCard}>
-          <CarroselLine index={1} items={carts}/>
+          <CarroselLine type={1} index={1} items={carts}/>
         </div>
         </>
         }
