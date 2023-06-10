@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { confirmSawAllDeletedCarts, createCart, deleteCart, deleteMyCart, editCart, getAllCarts, getMyCarts, getSpecificCart, getUnvalidCarts, validateCart } from "../controllers";
+import { addViewInCart, confirmSawAllDeletedCarts, createCart, deleteCart, deleteMyCart, editCart, getAllCarts, getMostViewedCarts, getMyCarts, getSpecificCart, getUnvalidCarts, validateCart } from "../controllers";
 import { authenticateAdmin, authenticateToken, uploadMain, uploadSecondary, validateBody } from "../middlewares";
 import { cartPost, cartUpdate } from "../models/cart.models";
 import { Router } from "express";
@@ -13,10 +13,12 @@ cartsRouter
 
   .get("/", getAllCarts)
   .get("/all-carts/:cart_id", getSpecificCart)
-  .get("/my-carts", authenticateToken, getMyCarts)
+  .get("/most-views", getMostViewedCarts)
+  .post("/add-view/:cart_id", addViewInCart)
 
   //authenticated ones
 
+  .get("/my-carts", authenticateToken, getMyCarts)
   .post("/photos/main", authenticateToken, uploadMain.single("main"), (req: Request, res: Response) => {
     return res.status(httpStatus.OK).send({ main: req.body.main_photo })
   })

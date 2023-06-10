@@ -3,7 +3,7 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import Sidebar from "@/Components/Sidebar";
 import { FormEvent, useCallback, useContext, useEffect, useState } from "react";
-import { getAllCarts } from "@/services/cart.services";
+import { getAllCarts, getMostViewedCarsCart } from "@/services/cart.services";
 import { AxiosError } from "axios";
 import { AiOutlineClose } from "react-icons/ai";
 import UserContext from "@/APIContext/UserContext";
@@ -18,6 +18,7 @@ import MaskedInput from "react-text-mask";
 
 export default function Home() {
   const [carrosel, setCarrosel] = useState([])
+  const [mostViewedCarrosel, setMostViewed] = useState([])
   const [model, setModel] = useState<boolean>(true)
   const [userName, setUserName] = useState<any>();
 
@@ -39,6 +40,9 @@ export default function Home() {
       setCarrosel(cartsReceived.sort((a: any, b: any) => {
         return Number(b.id) - Number(a.id)
       }))
+      const mostViewed = await getMostViewedCarsCart()
+      setMostViewed(mostViewed)
+
       if (userData) {
         await verifyToken(userData.token);
         setUserName(userData.user.name);
@@ -117,8 +121,14 @@ export default function Home() {
         <div className={style.center}>
           <CarouselMain />
 
+          <h5>Nossos Destaques</h5>
           <div className={style.carousel}>
-            <CarroselLine index={0} items={carrosel} />
+            <CarroselLine index={0} type={1} items={carrosel} />
+          </div>
+
+          <h5>Mais Populares</h5>
+          <div className={style.carousel}>
+            <CarroselLine index={0} type={2} items={mostViewedCarrosel} />
           </div>
         </div>
       </main>

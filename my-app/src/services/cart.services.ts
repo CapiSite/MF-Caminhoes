@@ -5,6 +5,11 @@ export async function getAllCarts() {
   return response.data
 }
 
+export async function getMostViewedCarsCart() {
+  const response = await instance.get(`/carts/most-views`)
+  return response.data
+}
+
 export async function getUnvalidCarts(adminToken: string) {
   const response = await instance.get("/carts/unvalid", { headers: { Authorization: `Bearer ${adminToken}` } } )
   return response.data
@@ -57,6 +62,11 @@ export async function deleteAnyCart(id: number, AdminToken: string) {
 
 export async function validateCart(id: number, AdminToken: string) {
   const response = await instance.post(`/carts/${id}/validate`, {}, { headers: { Authorization: `Bearer ${AdminToken}` } })
+  return response.data
+}
+
+export async function addViewInCart(id: number) {
+  const response = await instance.post(`/carts/add-view/${id}`, {})
   return response.data
 }
 

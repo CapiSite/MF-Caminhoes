@@ -9,7 +9,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { BsWhatsapp } from "react-icons/bs"
-import { deleteAnyCart, getSpecificCart } from "@/services/cart.services"
+import { addViewInCart, deleteAnyCart, getSpecificCart } from "@/services/cart.services"
 import { roboto } from "@/styles/fonts"
 import AdminContext from "@/APIContext/AdminContext"
 import styleModal from "@/styles/user_page/user_update.module.css";
@@ -53,6 +53,8 @@ export default function ProductLocation() {
             })
         }
         infoReceived.description = infoReceived.description.split("\n").filter((e: string) => e !== "")
+
+        await addViewInCart(parseInt(router.query.id as string))
 
         setInfo(infoReceived)
       } catch (err: any) {

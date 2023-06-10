@@ -1,0 +1,42 @@
+import { useRouter } from "next/router"
+import style from "../styles/HomeStyle.module.css"
+import Image from "next/image"
+import { useEffect, useState } from "react"
+
+export default function CarroselItemLarge({ info, adm }: any) {
+  const router = useRouter()
+  const [src, setSrc] = useState("")
+  const [render, setRender] = useState<boolean>(false)
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_REACT_BACK}images/main/${info.main_image}`) 
+      .then((response) => response.blob()) 
+      .then((blob) => {
+        const imageUrl = URL.createObjectURL(blob);
+        setSrc(imageUrl); 
+        setRender(true)
+      })
+      .catch(() =>{
+        setRender(true)
+      })
+  }, [])
+
+  if (!render) {
+    return (
+      <div onClick={() => router.push(`/locacoes/${info.id}`)} className={style.locationsCard}>
+        <img src=""/>
+      </div>
+    )
+  }
+
+  return (
+    <div onClick={() => router.push(`/locacoes/${info.id}`)} className={style.locationsCardLarge}>
+      <Image src={src} alt="Caminhão" onError={() => setSrc("/men. erro.png")} width={198} height={198} />
+      <div>
+        <h2>{info?.title}</h2>
+        <p>R${parseFloat((info?.price / 100).toFixed(2)).toLocaleString('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })}</p>
+        <button>{adm ? "Ver mais" : "Locar"}</button>
+      </div>
+    </div>
+  )
+}

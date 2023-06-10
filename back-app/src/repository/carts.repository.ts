@@ -20,6 +20,42 @@ async function getAllCarts() {
   }
 }
 
+async function getMostViwedCarts() {
+  try {
+    return prismaDb.carts.findMany({
+      include: {
+        wheel: true,
+        cart_model: true,
+        cart_type: true,
+        brands: true,
+        cart_images: true
+      },
+      where: {
+        valid: true
+      },
+      orderBy: {
+        views: 'desc'
+      },
+      take: 10
+    })
+  } catch (err) {
+  }
+}
+
+async function addViewInCart(cart_id: number) {
+  try {
+    return prismaDb.carts.update({
+      data:{
+        views: {increment: 1}
+      },
+      where: {
+        id: cart_id
+      }
+    })
+  } catch (err) {
+  }
+}
+
 async function getUnvalidCarts() {
   try {
     return prismaDb.carts.findMany({
@@ -251,4 +287,6 @@ export const cartsRepository = {
   validateCart,
   deleteCart,
   getUnvalidCarts,
+  getMostViwedCarts,
+  addViewInCart
 }

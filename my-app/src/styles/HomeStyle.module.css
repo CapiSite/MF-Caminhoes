@@ -12,6 +12,13 @@
   width: 1235px;
 }
 
+.center h5{
+  align-self: flex-start;
+  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 20px;
+}
 
 .banner {
   width: 1235px;
@@ -206,6 +213,7 @@
 .locationsCard p{
   font-size: 20px;
   margin-bottom: 30px;
+  margin-top: 20px;
 }
 .locationsCard p:nth-child(4){
   font-weight: bold;
@@ -237,6 +245,66 @@
 
 }
 .locationsCard:hover{
+  cursor: pointer;
+  border: 1px solid var(--black); 
+  transition: all 5ms;
+}
+
+
+.locationsCardLarge{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 400px;
+  min-width: 400px;
+  margin-bottom: 20px;
+  border: 1px solid var(--white); 
+}
+
+.locationsCardLarge div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.locationsCardLarge p{
+  font-size: 20px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+.locationsCardLarge p:nth-child(4){
+  font-weight: bold;
+}
+
+.locationsCardLarge h2{
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  max-width: 95%;
+  word-wrap: break-word;
+  height: 30px;
+}
+
+.locationsCardLarge button{
+  background-color: var(--light-green);
+  border:0px;
+  border-radius: 3px;
+  height: 40px;
+  width: 100px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.locationsCardLarge button:hover{
+  cursor: pointer;
+  background-color: var(--strong-green);
+
+}
+.locationsCardLarge:hover{
   cursor: pointer;
   border: 1px solid var(--black); 
   transition: all 5ms;

@@ -1,30 +1,47 @@
 import CarrouselItem from "@/Components/Carousel";
-import { motion, useMotionValue } from "framer-motion"
+import CarrouselItemLarge from "@/Components/Carousel_large"
+import { motion } from "framer-motion"
 import style from "@/styles/Carousel_line.module.css"
-import { useEffect, useRef, useState } from "react";
+import {  useRef } from "react";
 
-export default function CarroselLine({ items, index }: { items: any[], index:number }) {
+export default function CarroselLine({ items, index, type }: { items: any[], index: number, type: number }) {
   const component = useRef() as any;
-  const x = useMotionValue(0)
-  const [width, setWidth] = useState(0)
-
-  useEffect(() =>{
-    setWidth(component.current?.scrollWidth - component.current?.scrollWidth)
-    
-  })
 
   return (
-    <div className={index===1?style.other:style.father}>
-      <motion.div ref={component} className={index===1?style.other:style.father}  transition={{ duration: 1}}>
-        {items.map((product, index) => (
-          <CarrouselItem info={product} key={index} />
-        ))}
+    <div className={index === 1 ? style.other : style.father}>
+      <motion.div ref={component} className={index === 1 ? style.other : style.father} transition={{ duration: 1 }}>
+        {items.map((product, index) => {
+          if (type === 1){
+            return <CarrouselItem info={product} key={index} />
+          }
+          if( type === 2) {
+            return <CarrouselItemLarge info={product} key={index} />
+          }
+            
+        })}
       </motion.div>
 
-      <div className={style.next} onClick={() => component.current.scrollLeft += 220}>
+      <div className={style.next} onClick={() => {
+        if( type === 1) {
+          component.current.scrollLeft += 220
+        }
+        
+        if( type === 2) {
+          component.current.scrollLeft += 420
+        }
+        
+        }}>
         {"‣"}
       </div>
-      <div className={style.prev} onClick={ () => component.current.scrollLeft -= 220}>
+      <div className={style.prev} onClick={() => {
+        if( type === 1) {
+          component.current.scrollLeft -= 220
+        }
+        
+        if( type === 2) {
+          component.current.scrollLeft -= 420
+        }
+        }}>
         {"‣"}
       </div>
     </div>

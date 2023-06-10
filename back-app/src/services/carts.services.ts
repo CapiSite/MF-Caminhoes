@@ -125,6 +125,17 @@ async function deleteAnyCart(cart_id: number) {
   return cartsRepository.deleteCart(cart_id)
 }
 
+async function getMostViewedCars() {
+  return await cartsRepository.getMostViwedCarts()
+}
+
+async function addViewInCart(cart_id: number) {
+  const cart = await cartsRepository.getSpecificCart(cart_id)
+  if(!cart) throw NotFoundError("Carreta não encontrada, tente mais tarde!")
+
+  return cartsRepository.addViewInCart(cart_id)
+}
+
 export const cartsServices = {
   getAllCarts,
   getSpecificCart,
@@ -135,5 +146,7 @@ export const cartsServices = {
   createCart,
   getUnvalidCarts,
   updateCart,
-  confirmSawDeletedCarts
+  confirmSawDeletedCarts,
+  getMostViewedCars,
+  addViewInCart
 }

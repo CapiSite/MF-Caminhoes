@@ -49,6 +49,30 @@ export async function getMyCarts(req: AuthenticatedRequest, res: Response) {
   }
 }
 
+export async function getMostViewedCarts(req: Request, res: Response) {
+  try {
+    const carts = await cartsServices.getMostViewedCars()
+    return res.status(httpStatus.OK).send(carts)
+    
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+  }
+}
+export async function addViewInCart(req: Request, res: Response) {
+  const { cart_id } =req.params
+
+  try {
+    const carts = await cartsServices.addViewInCart(Number(cart_id))
+    return res.status(httpStatus.OK).send(carts)
+    
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error)
+    }
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+  }
+}
+
 export async function createCart(req: AuthenticatedRequest, res: Response) {
   const body = req.body
   try {

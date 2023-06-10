@@ -67,6 +67,7 @@ model carts {
   sections    Int
   status      String
   year        Int
+  views       Int           @default(0)
   cart_images cart_images[]
   brands      brands        @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   cart_model  cart_model    @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
